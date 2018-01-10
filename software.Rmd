@@ -1,0 +1,27 @@
+---
+title: "Software"
+---
+
+When developing R code which may be shared or executed by another person it is important to 
+ensure everyone is using the same versions of software and packages.
+
+# Core R Applications
+
+It is recommended we use [Microsoft R Open](https://mran.microsoft.com/open), which is 100% 
+compatible with the standard version of R and provides better performance in some cases.
+
+To edit R script and build projects it is recommended that 
+[RStudio Desktop](https://www.rstudio.com/products/rstudio/download/) is used.
+
+# Supporting Software
+
+In addition to the above, when writing important R code it is recommended that 
+version control is used, and in particular [Git](http://gitforwindows.org/) as it 
+is the market leader and integrates well with RStudio.
+
+# Package Versions
+
+Package versions can be managed in a number of ways. The simplest is to use the checkpoint 
+feature from Microsoft. When installing Microsoft R Open a date is set and when packages are 
+installed they are taken from a snapshot of the CRAN repository on that date. That way everyone 
+using the same version of Microsoft R Open is guaranteed to be using the same version of packages.

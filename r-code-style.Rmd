@@ -1,0 +1,75 @@
+---
+title: "Style Guide"
+---
+
+When writing code it is important to follow a common style so it is readable and 
+other people (and your future self) can easily understand and extend it. The tidyverse 
+has an extensive [style guide](http://style.tidyverse.org/), which we summarise here:
+
+## Files
+
+File names should be meaningful and end in `.R`, or `.Rmd` for R markdown files. Only
+use letters, numbers and `-` or `_`.
+
+If your script required packages load them all at once at the very beginning of the 
+file.
+
+Break up files into named sections using comments and `----`, for example:
+
+Use comments to explain the "why" not the "what" or "how".
+
+```
+# Load data --------------------------------------------------------------------
+```
+
+## Syntax
+
+Variable and function names should use only lowercase letters, numbers, and `_`.
+
+Always indent the code inside curly braces `{}` by two spaces.
+
+## Functions
+
+Use verbs for function names where possible.
+
+If a function has numerous arguments put each one on a new line.
+
+A function should do one thing well. If it is doing too much the break it up.
+
+A function should be easily understandable in isolation. It should not refer
+to any variables outside the function scope.
+
+## Pipes
+
+Use `%>%` when you find yourself composing three or more functions together, 
+instead of a nested call.
+
+`%>%` should always have a space before it and a new line after it. After the 
+first step, each line should be indented by two spaces.
+
+## Documentation
+
+Created functions should be documentated so others (including the future you) 
+can understand what the function does and how to use it.
+
+Documentation should be written before the function definition in an 
+[roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
+style. roxygen uses special comments, starting with `#'`. The first line is the 
+title, and anything else, not prefixed with a keyword forms the description.
+Keywords start with `@` and the most important ones are `@param` to describe 
+a function parameter and `@return` to describe what the function returns.
+
+Here is a very simple example:
+
+```r
+#' The length of a string (in characters).
+#'
+#' This function returns the length of the supplied string.
+#' 
+#' @param string input character vector
+#' @return numeric vector giving number of characters in each element of the
+#'   character vector.
+str_length <- function(string) {
+  nchar(string)
+}
+```

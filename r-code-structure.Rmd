@@ -1,0 +1,13 @@
+---
+title: "Structure"
+---
+
+Organising files for a particular piece of work becomes more important as the scale and complexity 
+increases. Standard approaches exists to simplify the workflow.
+
+# Projects
+
+Use RStudio projects to organise files. This has a number of advantages:
+
+1. Sets the working directory to the project location
+1. Reopens the same files when returning to the projects

@@ -1,0 +1,17 @@
+---
+title: "R Best Practice"
+---
+
+This document sets out the best practice guidelines for using R.
+
+# Tidyverse
+
+It is recommended, when using R, that we use the "[Tidyverse](https://www.tidyverse.org/)"
+approach and packages wherever possible. The Tidyverse is a collection of R packages designed 
+for data science, as well as a philosophy and style for formating data and writing functions.
+The [tidyverse.org](https://www.tidyverse.org/) website details the packages involved and
+contains articles on how to use them. Some of it will be summarised below, but the website
+contains the definitive information.
+
+The most in-depth treatment on the Tidyverse can be found in the book "R for Data Science", 
+which is available online for free at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
