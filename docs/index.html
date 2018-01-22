@@ -350,7 +350,7 @@ div.tocify {
 </div>
 
 
-<p>This document sets out the proposals for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing. The focus is on the following areas:</p>
+<p>This document sets out the proposals for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing, where the focus is on the following areas:</p>
 <ul>
 <li>Risk analysis</li>
 <li>Documentation</li>
@@ -359,6 +359,7 @@ div.tocify {
 <li>Change control</li>
 <li>Access control</li>
 </ul>
+<p>This document will expand upon those areas by recommending the software to install; the style and structure to use when writing R code; the recommended packages for achieving common tasks; and a guide for developing R packages to share code in a robust manner.</p>
 <div id="risk-analysis" class="section level2">
 <h2>Risk Analysis</h2>
 <p>The level of documentation, testing and change control depends on two factors:</p>
@@ -366,9 +367,9 @@ div.tocify {
 <li>Complexity</li>
 <li>Criticality</li>
 </ol>
-<p><strong>Complexity:</strong> If a piece of work is very simple it may only require a short description, a manual test and saving to a secure location. However, if it is highly complex it is important for others, and your future self, to document thoroughly, provide repeatable tests and save the scripts in version control.</p>
-<p><strong>Criticality:</strong> If a piece of work was a simple analysis for curiosity it may not need any controls applied to it. However, if it provides functionality which other systems rely on or informs major business decisions then it is important to ensure it is thoroughly tested and reviewed and changes are not made without careful consideration of how it affects dependents.</p>
-<p>If any of the above factors are medium or high then the work is considered material and should be subject to the following controls.</p>
+<p><strong>Complexity:</strong> If a piece of work is very simple it may only require a short description, a manual test and saving to a secure location. However, if it is highly complex it is important for others, and your future self, to document it thoroughly, provide repeatable tests and save the scripts in version control.</p>
+<p><strong>Criticality:</strong> If a piece of work is a simple analysis for curiosity it may not need any controls applied to it. However, if it provides functionality which other systems rely on or informs major business decisions then it is important to ensure it is thoroughly tested and reviewed and changes are not made without careful consideration of how it affects dependents.</p>
+<p>In order to assess the level of controls perform a simple risk analysis by estimating the level of complexity and criticality of the work, using a scale of <strong>high</strong>, <strong>medium</strong> or <strong>low</strong>. If both are low then no further consideration is required. However, If any of the above factors are medium or high then the work is considered material and should be subject to the following controls.</p>
 </div>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
@@ -393,9 +394,9 @@ div.tocify {
 </div>
 <div id="testing" class="section level2">
 <h2>Testing</h2>
-<p>As a minimum manual tests should be performed and the results recorded alongside the code. This may take the form of tests written in the code to assert the results are reason</p>
+<p>As a minimum, manual tests should be performed and the results recorded alongside the code. This may take the following forms:</p>
 <ul>
-<li>Assertions on results to ensure reasonableness, e.g. result is within a range.</li>
+<li>Assertions in the code to ensure reasonableness, e.g. result is within a range.</li>
 <li>Comparisons with known results.</li>
 </ul>
 <p>For high <strong>complexity</strong> work consider the following:</p>
@@ -412,14 +413,14 @@ div.tocify {
 </div>
 <div id="reproducibility" class="section level2">
 <h2>Reproducibility</h2>
-<p>Important work should reproducible by other, and your future self. This means keeping track of inputs, parameters and code used to produce results. The simplest approach is to keep a copy of input data and parameters alongside the the code used to produce the saved results. Then everything is in a self contained project.</p>
-<p>Also consider using <a href="r-code-style.html#r-markdown">R markdown</a> which captures description code and results in a single document.</p>
+<p>Important work should reproducible by others, and your future self. This means keeping track of inputs, parameters and code used to produce results. The simplest approach is to keep a copy of input data and parameters alongside the the code used to produce the saved results. Then it is self-contained.</p>
+<p>Also consider using <a href="r-code-style.html#r-markdown">R markdown</a> which captures description, code and results in a single document.</p>
 <p>For high <strong>complexity</strong> work consider creating an <a href="r-code-structure.html#projects">RStudio project</a> it has the following benefits:</p>
 <ul>
 <li>Sets the current working directory so relative file paths can be used.</li>
 <li>Saves open files so you can start where you left off.</li>
 </ul>
-<p>Some other approaches worth considering are:</p>
+<p>Some other recommendations worth considering are:</p>
 <ul>
 <li>Avoid referencing external files if possible.</li>
 <li>Make dependencies clear.</li>
@@ -433,8 +434,8 @@ div.tocify {
 </div>
 <div id="change-control" class="section level2">
 <h2>Change control</h2>
-<p>Change control is about managing updates and bug fixes to the code in a way that is tracked, reviewed, and approved. It ensures change and its implications is understood and can also be reversed, if necessary. The simplest approach is to produce new files for each version, keeping older versions elsewhere. Each new version should document the reason for the change.</p>
-<p>A much better solution is to use version control software to track changes. This makes the process much more robust. It is recommended that <a href="development.html#git">Git</a> is used for version control and shared using a hosting application such as GitHub (or TFS if GitHub is not available).</p>
+<p>Change control is about managing updates and bug fixes to the code in a way that is tracked, reviewed, and approved. It ensures change, and its implications, is understood and can also be reversed, if necessary. The simplest approach is to produce new files for each version, keeping older versions elsewhere. Each new version should document the reason for the change.</p>
+<p>A much better solution is to use version control software to track changes. This makes the process much more robust. It is recommended that <a href="development.html#git">Git</a> is used for version control and shared using a hosting application such as GitHub (or TFS if not available).</p>
 <p>For high <strong>complexity</strong> and/or <strong>criticality</strong> consider the following:</p>
 <ul>
 <li>Track changes in the hosting application (GitHub or TFS).</li>
@@ -449,8 +450,11 @@ div.tocify {
 <p>There should be appropriate controls on who has access to the source code and/or results. The developers should be aware of who has access the work they are producing. The simplest approach is to save files into a location with adequate access controlled by the IT dept. It may also be appropriate to limit who has the ability to change the source code separately.</p>
 <p>For high <strong>complexity</strong> work it is important only those with the appropriate level of knowledge can change the code.</p>
 <p>For high <strong>criticality</strong> work production code should not be changable directly. A release process should be set up so appropriate approval must be given before code is promoted.</p>
-<p>In both cases, the list of people with access to the source code and results should be reviewed on a regular basis.</p>
-<p>In addition, appropriate back up and recovery strategies should be implemented to ensure rollback and reinstallation is possible.</p>
+<p>In both cases:</p>
+<ul>
+<li>The list of people with access to the source code and results should be reviewed on a regular basis.</li>
+<li>Appropriate back up and recovery strategies should be implemented to ensure rollback and re-installation is possible.</li>
+</ul>
 </div>
 
 

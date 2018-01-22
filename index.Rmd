@@ -4,7 +4,8 @@ title: "R Best Practice"
 
 This document sets out the proposals for best practice when using R. The aim is to provide 
 a consistent and comprehensive approach to using R for analysis and applications. It forms 
-part of the wider guidance on end-user computing. The focus is on the following areas:
+part of the wider guidance on end-user computing, where the focus is on the following 
+areas:
 
  - Risk analysis
  - Documentation
@@ -12,6 +13,10 @@ part of the wider guidance on end-user computing. The focus is on the following 
  - Reproducibility
  - Change control
  - Access control
+
+This document will expand upon those areas by recommending the software to install; the 
+style and structure to use when writing R code; the recommended packages for achieving 
+common tasks; and a guide for developing R packages to share code in a robust manner.
 
 
 ## Risk Analysis
@@ -23,15 +28,18 @@ The level of documentation, testing and change control depends on two factors:
 
 **Complexity:** If a piece of work is very simple it may only require a short 
 description, a manual test and saving to a secure location. However, if it is highly 
-complex it is important for others, and your future self, to document thoroughly, 
+complex it is important for others, and your future self, to document it thoroughly, 
 provide repeatable tests and save the scripts in version control.
 
-**Criticality:** If a piece of work was a simple analysis for curiosity it may not 
+**Criticality:** If a piece of work is a simple analysis for curiosity it may not 
 need any controls applied to it. However, if it provides functionality which other 
 systems rely on or informs major business decisions then it is important to ensure 
 it is thoroughly tested and reviewed and changes are not made without careful 
 consideration of how it affects dependents.
 
+In order to assess the level of controls perform a simple risk analysis by estimating 
+the level of complexity and criticality of the work, using a scale of **high**, 
+**medium** or **low**. If both are low then no further consideration is required. However, 
 If any of the above factors are medium or high then the work is considered material 
 and should be subject to the following controls.
 
@@ -64,11 +72,10 @@ For high **criticality** work consider creating an
 
 ## Testing
 
-As a minimum manual tests should be performed and the results recorded alongside the 
-code. This may take the form of tests written in the code to assert the results are 
-reason
+As a minimum, manual tests should be performed and the results recorded alongside the 
+code. This may take the following forms:
 
- - Assertions on results to ensure reasonableness, e.g. result is within a range.
+ - Assertions in the code to ensure reasonableness, e.g. result is within a range.
  - Comparisons with known results.
 
 For high **complexity** work consider the following:
@@ -84,15 +91,16 @@ For high **criticality** work consider creating an
  - Execute regression tests whenever changes are made.
  - Perform integration tests with dependent systems.
 
+
 ## Reproducibility
 
-Important work should reproducible by other, and your future self. This means keeping 
+Important work should reproducible by others, and your future self. This means keeping 
 track of inputs, parameters and code used to produce results. The simplest approach 
 is to keep a copy of input data and parameters alongside the the code used to produce
-the saved results. Then everything is in a self contained project.
+the saved results. Then it is self-contained.
 
 Also consider using [R markdown](r-code-style.html#r-markdown) which captures 
-description code and results in a single document.
+description, code and results in a single document.
 
 For high **complexity** work consider creating an 
 [RStudio project](r-code-structure.html#projects) it has the following benefits:
@@ -100,7 +108,7 @@ For high **complexity** work consider creating an
  - Sets the current working directory so relative file paths can be used.
  - Saves open files so you can start where you left off.
 
-Some other approaches worth considering are:
+Some other recommendations worth considering are:
 
  - Avoid referencing external files if possible.
  - Make dependencies clear.
@@ -115,15 +123,15 @@ For high **Criticality** work also consider
 ## Change control
 
 Change control is about managing updates and bug fixes to the code in a way that is 
-tracked, reviewed, and approved. It ensures change and its implications is understood 
+tracked, reviewed, and approved. It ensures change, and its implications, is understood 
 and can also be reversed, if necessary. The simplest approach is to produce new files 
 for each version, keeping older versions elsewhere. Each new version should document 
 the reason for the change.
 
 A much better solution is to use version control software to track changes. This makes 
 the process much more robust. It is recommended that [Git](development.html#git) is used 
-for version control and shared using a hosting application such as GitHub (or TFS if 
-GitHub is not available).
+for version control and shared using a hosting application such as GitHub (or TFS if not
+available).
 
 For high **complexity** and/or **criticality** consider the following:
 
@@ -148,9 +156,9 @@ knowledge can change the code.
 For high **criticality** work production code should not be changable directly. A release 
 process should be set up so appropriate approval must be given before code is promoted.
 
-In both cases, the list of people with access to the source code and results should be 
-reviewed on a regular basis.
+In both cases:
 
-In addition, appropriate back up and recovery strategies should be implemented to ensure 
-rollback and reinstallation is possible.
-
+ - The list of people with access to the source code and results should be reviewed on a
+   regular basis.
+ - Appropriate back up and recovery strategies should be implemented to ensure rollback 
+   and re-installation is possible.
