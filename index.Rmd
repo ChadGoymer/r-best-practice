@@ -48,7 +48,7 @@ and should be subject to the following controls.
 
 As a minimum the following should be documented with the code. For simple scripts, a 
 commented header in the file is sufficient. For multi-file applications it is recommended 
-that a [README](r-code-structure.html#README) file is added.
+that a [README](writing-structure.html#README) file is added.
 
  - Name
  - Description
@@ -99,11 +99,11 @@ track of inputs, parameters and code used to produce results. The simplest appro
 is to keep a copy of input data and parameters alongside the the code used to produce
 the saved results. Then it is self-contained.
 
-Also consider using [R markdown](r-code-style.html#r-markdown) which captures 
+Also consider using [R markdown](writing-style.html#r-markdown) which captures 
 description, code and results in a single document.
 
 For high **complexity** work consider creating an 
-[RStudio project](r-code-structure.html#projects) it has the following benefits:
+[RStudio project](writing-structure.html#projects) it has the following benefits:
 
  - Sets the current working directory so relative file paths can be used.
  - Saves open files so you can start where you left off.

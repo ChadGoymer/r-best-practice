@@ -6,12 +6,12 @@ navbar:
   left:
     - text: "Software"
       href: software.html
-    - text: "R Code"
+    - text: "Writing"
       menu:
        - text: "Style"
-         href: r-code-style.html
+         href: writing-style.html
        - text: "Structure"
-         href: r-code-structure.html
+         href: writing-structure.html
     - text: "Packages"
       menu:
        - text: "Data Wrangling"
