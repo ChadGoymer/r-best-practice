@@ -23,8 +23,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -33,10 +33,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -295,6 +297,9 @@ div.tocify {
     <li>
       <a href="writing-structure.html">Structure</a>
     </li>
+    <li>
+      <a href="writing-rmarkdown.html">R Markdown</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -333,9 +338,23 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Advanced
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="advanced-non-standard-evaluation.html">Non-Standard Evaluation</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="cheatsheets.html">Cheatsheets</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -350,53 +369,67 @@ div.tocify {
 </div>
 
 
-<p>When writing code it is important to follow a common style so it is readable and other people (and your future self) can easily understand and extend it.</p>
-<div id="tidyverse" class="section level1">
-<h1>Tidyverse</h1>
-<p>It is recommended, when using R, that we use the “<a href="https://www.tidyverse.org/">Tidyverse</a>” approach and packages wherever possible. The Tidyverse is a collection of R packages designed for data science, as well as a philosophy and style for formating data and writing functions. The <a href="https://www.tidyverse.org/">tidyverse.org</a> website details the packages involved and contains articles on how to use them. Some of it will be summarised below, but the website contains the definitive information.</p>
+<p>When writing code it is important to follow a common style so it is readable and other people, and your future self, can easily understand and extend it.</p>
+<div id="tidyverse" class="section level2">
+<h2>Tidyverse</h2>
+<p>It is recommended, when using R, that we use the “<a href="https://www.tidyverse.org/">Tidyverse</a>” approach and packages wherever possible. The Tidyverse is a collection of packages designed for data science, as well as a philosophy and style for formatting data and writing functions. The <a href="https://www.tidyverse.org/">tidyverse.org</a> website details the packages involved and contains articles on how to use them. Some of it will be summarised below, but the website contains the definitive information.</p>
 <p>The most in-depth treatment on the Tidyverse can be found in the book “R for Data Science”, which is available online for free at <a href="http://r4ds.had.co.nz/">r4ds.had.co.nz</a>.</p>
 <p>The tidyverse has an extensive <a href="http://style.tidyverse.org/">style guide</a>, which we summarise here:</p>
+</div>
 <div id="files" class="section level2">
 <h2>Files</h2>
-<p>File names should be meaningful and end in <code>.R</code>, or <code>.Rmd</code> for R markdown files. Only use letters, numbers and <code>-</code> or <code>_</code>.</p>
-<p>If your script required packages load them all at once at the very beginning of the file.</p>
-<p>Break up files into named sections using comments and <code>----</code>, for example:</p>
-<p>Use comments to explain the “why” not the “what” or “how”.</p>
+<ul>
+<li>File names should be meaningful and end in <code>.R</code>, or <code>.Rmd</code> for R markdown files. Only use letters, numbers and <code>-</code> or <code>_</code>.</li>
+<li>If your script required packages load them all at once at the very beginning of the file.</li>
+<li>Use comments to explain the “why” not the “what” or “how”.</li>
+<li>Break up files into named sections using commented lines (<code># ----</code>, example below). In RStudio you can collapse and expand sections commented this way.</li>
+</ul>
 <pre><code># Load data --------------------------------------------------------------------</code></pre>
 </div>
 <div id="syntax" class="section level2">
 <h2>Syntax</h2>
-<p>Variable and function names should use only lowercase letters, numbers, and <code>_</code>.</p>
-<p>Always indent the code inside curly braces <code>{}</code> by two spaces.</p>
+<ul>
+<li>Variable and function names should use only lowercase letters, numbers, and <code>_</code>.</li>
+<li>Always indent the code inside curly braces <code>{}</code> by two spaces.</li>
+</ul>
 </div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>
-<p>Use verbs for function names where possible.</p>
-<p>If a function has numerous arguments put each one on a new line.</p>
-<p>A function should do one thing well. If it is doing too much the break it up.</p>
-<p>A function should be easily understandable in isolation. It should not refer to any variables outside the function scope.</p>
+<ul>
+<li>Use verbs for function names where possible.</li>
+<li>If a function has numerous arguments put each one on a new line.</li>
+<li>A function should do one thing well. If it is doing too much the break it up.</li>
+<li>A function should be easily understandable in isolation. It should not refer to any variables outside the function scope.</li>
+</ul>
 </div>
 <div id="pipes" class="section level2">
 <h2>Pipes</h2>
-<p>Use <code>%&gt;%</code> when you find yourself composing three or more functions together, instead of a nested call.</p>
-<p><code>%&gt;%</code> should always have a space before it and a new line after it. After the first step, each line should be indented by two spaces.</p>
+<ul>
+<li>Use <code>%&gt;%</code> when you find yourself composing three or more functions together, instead of a nested call.</li>
+<li><code>%&gt;%</code> should always have a space before it and a new line after it. After the first step, each line should be indented by two spaces.</li>
+</ul>
 </div>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
-<p>Created functions should be documentated so others (including the future you) can understand what the function does and how to use it.</p>
-<p>Documentation should be written before the function definition in an <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">roxygen2</a> style. roxygen uses special comments, starting with <code>#'</code>. The first line is the title, and anything else, not prefixed with a keyword forms the description. Keywords start with <code>@</code> and the most important ones are <code>@param</code> to describe a function parameter and <code>@return</code> to describe what the function returns.</p>
+<ul>
+<li>Created functions should be documentated so others, including the future you, can understand what the function does and how to use it.</li>
+<li>Documentation should be written before the function definition in an <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">roxygen2</a> style. roxygen uses special comments, starting with <code>#'</code>. The first line is the title, and anything else, not prefixed with a keyword forms the description. Keywords start with <code>@</code> and the most important ones are <code>@param</code> to describe a function parameter and <code>@return</code> to describe what the function returns.</li>
+</ul>
 <p>Here is a very simple example:</p>
-<pre class="r"><code>#&#39; The length of a string (in characters).
+<pre class="r"><code>#&#39; The length of a string.
 #&#39;
-#&#39; This function returns the length of the supplied string.
+#&#39; This function returns the number of characters in the supplied string.
 #&#39; 
 #&#39; @param string input character vector
-#&#39; @return numeric vector giving number of characters in each element of the
+#&#39;
+#&#39; @return integer vector giving number of characters in each element of the
 #&#39;   character vector.
+#&#39;
+#&#39; @export
+#&#39;
 str_length &lt;- function(string) {
   nchar(string)
 }</code></pre>
-</div>
 </div>
 
 

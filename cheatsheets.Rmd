@@ -1,0 +1,95 @@
+---
+title: "Cheatsheets"
+---
+
+```{r thumbnails, include=FALSE}
+library(htmltools)
+thumbnail <- function(title, img, href, caption = TRUE) {
+  div(
+    class = "col-sm-3",
+    a(
+      class = "thumbnail", title = title, href = href,
+      img(src = img),
+      div(class = ifelse(caption, "caption", ""), ifelse(caption, title, ""))
+    )
+  )
+}
+```
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "RStudio IDE", 
+  "images/rstudio-ide.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf")
+
+thumbnail(
+  "R Markdown", 
+  "images/rmarkdown-cheatsheet-2.0.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf")
+
+thumbnail(
+  "R Markdown Reference", 
+  "images/rmarkdown-reference-guide.png",
+  "https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf")
+```
+</div>
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "Data Import", 
+  "images/data-import-cheatsheet-1.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf")
+
+thumbnail(
+  "Data Transformation", 
+  "images/data-transformation-cheatsheet.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf")
+
+thumbnail(
+  "Strings", 
+  "images/strings.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/strings.pdf")
+
+thumbnail(
+  "Dates and Times", 
+  "images/lubridate.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf")
+```
+</div>
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "Apply functions", 
+  "images/purrr-cheatsheet.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf")
+
+thumbnail(
+  "Package Development", 
+  "images/package-development.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/package-development.pdf")
+```
+</div>
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "Deep Learning", 
+  "images/keras.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/keras.pdf")
+
+thumbnail(
+  "Data Visualisation with ggplot2", 
+  "images/ggplot2-cheatsheet-2.1.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf")
+
+thumbnail(
+  "Data Visualisation with plotly", 
+  "images/plotly-cheatsheet.png",
+  "https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf")
+```
+</div>
+
+

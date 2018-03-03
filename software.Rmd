@@ -5,6 +5,7 @@ title: "Software"
 When developing R code which may be shared or executed by another person it is important to 
 ensure everyone is using the same versions of software and packages.
 
+
 ## Core R Applications
 
 The minimum software required to write R code is the R application itself. However, it is 
@@ -18,6 +19,17 @@ is:
    and build projects. RStudio can also be used for free.
  - [RTools](https://cran.r-project.org/bin/windows/Rtools/), which is required to build R
    packages. RTools is free to download.
+
+RStudio provides a cheatsheet detailing commonly used functionality of its editor:
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "RStudio IDE", 
+  "images/rstudio-ide.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf")
+```
+</div>
 
 
 ## Supporting Software

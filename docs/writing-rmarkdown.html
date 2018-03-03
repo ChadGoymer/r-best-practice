@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>R Markdown</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -364,13 +364,232 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">R Markdown</h1>
 
 </div>
 
 
-<div id="r-best-practice" class="section level1">
-<h1>r-best-practice</h1>
-<p>A set of guidelines and references for R analysis and development</p>
+<p><a href="http://rmarkdown.rstudio.com/">R markdown</a> is a way of capturing documentation, code and results and in a single file. The document is written in plain text using a style called <a href="https://rmarkdown.rstudio.com/authoring_basics.html">markdown</a>. This has a simple syntax for specifying text formatting. R code is added in “chunks” and when the document is rendered the R code is executed and replaced with the results.</p>
+<p>R markdown can be used to produce web pages, Word and PDF documents. The provide a robust way of capturing an analysis and the results and can be re-run when the data changes.</p>
+<p>RStudio provides a cheatsheet detailing R markdown functionality:</p>
+<div class="row">
+<div class="col-sm-3">
+<a class="thumbnail" title="R Markdown" href="https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf">
+<img src="images/rmarkdown-cheatsheet-2.0.png"/>
+<div class="caption">R Markdown</div>
+</a>
+</div>
+</div>
+<div id="markdown" class="section level2">
+<h2>Markdown</h2>
+<p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats.</p>
+<div id="paragraphs" class="section level4">
+<h4>Paragraphs</h4>
+<p>Leave at least one empty line between text to start a new paragraph.</p>
+<pre><code>This is the first paragraph.
+
+This is the second paragraph.</code></pre>
+<p>This is the first paragraph.</p>
+<p>This is the second paragraph.</p>
+</div>
+<div id="headers" class="section level4">
+<h4>Headers</h4>
+<pre><code># Header 1
+
+## Header 2
+
+### Header 3</code></pre>
+</div>
+<div id="emphasis" class="section level4">
+<h4>Emphasis</h4>
+<pre><code>*italic*   **bold**
+
+_italic_   __bold__</code></pre>
+<p><em>italic</em> <strong>bold</strong></p>
+<p><em>italic</em> <strong>bold</strong></p>
+</div>
+<div id="lists" class="section level4">
+<h4>Lists</h4>
+<p>Unordered List:</p>
+<pre><code>* Item 1
+* Item 2
+    + Item 2a
+    + Item 2b</code></pre>
+<ul>
+<li>Item 1</li>
+<li>Item 2
+<ul>
+<li>Item 2a</li>
+<li>Item 2b</li>
+</ul></li>
+</ul>
+<p>Ordered List:</p>
+<pre><code>1. Item 1
+2. Item 2
+3. Item 3
+    a. Item 3a
+    b. Item 3b</code></pre>
+<ol style="list-style-type: decimal">
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3
+<ol style="list-style-type: lower-alpha">
+<li>Item 3a</li>
+<li>Item 3b</li>
+</ol></li>
+</ol>
+</div>
+<div id="links" class="section level4">
+<h4>Links</h4>
+<p>Use a plain http address or add a link to a phrase:</p>
+<pre><code>http://example.com
+
+[linked phrase](http://example.com)</code></pre>
+<p><a href="http://example.com" class="uri">http://example.com</a></p>
+<p><a href="http://example.com">linked phrase</a></p>
+</div>
+<div id="images" class="section level4">
+<h4>Images</h4>
+<p>Images on the web or local files in the same directory:</p>
+<pre><code>![](http://example.com/logo.png)
+
+![optional caption text](figures/img.png)</code></pre>
+<div class="figure">
+<img src="http://example.com/logo.png" />
+
+</div>
+<div class="figure">
+<img src="figures/img.png" alt="optional caption text" />
+<p class="caption">optional caption text</p>
+</div>
+</div>
+<div id="reference-style-links-and-images" class="section level4">
+<h4>Reference Style Links and Images</h4>
+<p>Links</p>
+<pre><code>A [linked phrase][id].
+
+At the bottom of the document:
+
+[id]: http://example.com/ &quot;Title&quot;</code></pre>
+<p>A <a href="figures/img.png" title="Title">linked phrase</a>.</p>
+<p>At the bottom of the document:</p>
+<p>Images</p>
+<pre><code>![alt text][id]
+
+At the bottom of the document:
+
+[id]: figures/img.png &quot;Title&quot;</code></pre>
+<div class="figure">
+<img src="figures/img.png" title="Title" alt="alt text" />
+<p class="caption">alt text</p>
+</div>
+<p>At the bottom of the document:</p>
+</div>
+<div id="blockquotes" class="section level4">
+<h4>Blockquotes</h4>
+<pre><code>A friend once said:
+
+&gt; It&#39;s always better to give
+&gt; than to receive.</code></pre>
+<p>A friend once said:</p>
+<blockquote>
+<p>It’s always better to give than to receive.</p>
+</blockquote>
+</div>
+<div id="plain-code-blocks" class="section level4">
+<h4>Plain Code Blocks</h4>
+<p>Plain code blocks are displayed in a fixed-width font but not evaulated</p>
+<pre><code>```
+This text is displayed verbatim / preformatted
+```</code></pre>
+<pre><code>This text is displayed verbatim / preformatted</code></pre>
+</div>
+<div id="inline-code" class="section level4">
+<h4>Inline Code</h4>
+<pre><code>We defined the `add` function to compute the sum of two numbers.</code></pre>
+<p>We defined the <code>add</code> function to compute the sum of two numbers.</p>
+</div>
+<div id="latex-equations" class="section level4">
+<h4>LaTeX Equations</h4>
+<p>Inline equation:</p>
+<pre><code>Einstein&#39;s famous equation $E = mc^2$</code></pre>
+<p>Einstein’s famous equation <span class="math inline">\(E = mc^2\)</span></p>
+<p>Display equation:</p>
+<pre><code>$$
+E = mc^2
+$$</code></pre>
+<p><span class="math display">\[
+E = mc^2
+\]</span></p>
+</div>
+<div id="horizontal-rule-page-break" class="section level4">
+<h4>Horizontal Rule / Page Break</h4>
+<p>Three or more asterisks or dashes:</p>
+<pre><code>******
+
+------</code></pre>
+<hr />
+<hr />
+</div>
+<div id="tables" class="section level4">
+<h4>Tables</h4>
+<pre><code>First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr class="even">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="manual-line-breaks" class="section level4">
+<h4>Manual Line Breaks</h4>
+<p>End a line with a backslash:</p>
+<pre><code>Roses are red,\
+Violets are blue.</code></pre>
+<p>Roses are red,<br />
+Violets are blue.</p>
+</div>
+<div id="miscellaneous" class="section level4">
+<h4>Miscellaneous</h4>
+<pre><code>superscript^2^
+
+~~strikethrough~~</code></pre>
+<p>superscript<sup>2</sup></p>
+<p><del>strikethrough</del></p>
+</div>
+</div>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<div id="r-code-chunks" class="section level4">
+<h4>R Code Chunks</h4>
+<p>R code will be evaluated and printed</p>
+<pre class="r"><code>summary(cars$dist)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
+<pre class="r"><code>summary(cars$speed)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
+<p>Inline R Code</p>
+<p>There were 50 cars studied</p>
+</div>
+</div>
+<div id="r-notebooks" class="section level2">
+<h2>R Notebooks</h2>
 </div>
 
 

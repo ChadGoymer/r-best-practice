@@ -2,16 +2,15 @@
 title: "Style Guide"
 ---
 
-
 When writing code it is important to follow a common style so it is readable and 
-other people (and your future self) can easily understand and extend it. 
+other people, and your future self, can easily understand and extend it. 
 
 
-# Tidyverse
+## Tidyverse
 
 It is recommended, when using R, that we use the "[Tidyverse](https://www.tidyverse.org/)"
-approach and packages wherever possible. The Tidyverse is a collection of R packages designed 
-for data science, as well as a philosophy and style for formating data and writing functions.
+approach and packages wherever possible. The Tidyverse is a collection of packages designed 
+for data science, as well as a philosophy and style for formatting data and writing functions.
 The [tidyverse.org](https://www.tidyverse.org/) website details the packages involved and
 contains articles on how to use them. Some of it will be summarised below, but the website
 contains the definitive information.
@@ -22,17 +21,16 @@ which is available online for free at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
 The tidyverse has an extensive [style guide](http://style.tidyverse.org/), which we 
 summarise here:
 
+
 ## Files
 
-File names should be meaningful and end in `.R`, or `.Rmd` for R markdown files. Only
-use letters, numbers and `-` or `_`.
-
-If your script required packages load them all at once at the very beginning of the 
-file.
-
-Break up files into named sections using comments and `----`, for example:
-
-Use comments to explain the "why" not the "what" or "how".
+ - File names should be meaningful and end in `.R`, or `.Rmd` for R markdown files. Only
+   use letters, numbers and `-` or `_`.
+ - If your script required packages load them all at once at the very beginning of the 
+   file.
+ - Use comments to explain the "why" not the "what" or "how".
+ - Break up files into named sections using commented lines (`# ----`, example below). In 
+   RStudio you can collapse and expand sections commented this way.
 
 ```
 # Load data --------------------------------------------------------------------
@@ -40,51 +38,52 @@ Use comments to explain the "why" not the "what" or "how".
 
 ## Syntax
 
-Variable and function names should use only lowercase letters, numbers, and `_`.
+ - Variable and function names should use only lowercase letters, numbers, and `_`.
+ - Always indent the code inside curly braces `{}` by two spaces.
 
-Always indent the code inside curly braces `{}` by two spaces.
 
 ## Functions
 
-Use verbs for function names where possible.
+ - Use verbs for function names where possible.
+ - If a function has numerous arguments put each one on a new line.
+ - A function should do one thing well. If it is doing too much the break it up.
+ - A function should be easily understandable in isolation. It should not refer
+   to any variables outside the function scope.
 
-If a function has numerous arguments put each one on a new line.
-
-A function should do one thing well. If it is doing too much the break it up.
-
-A function should be easily understandable in isolation. It should not refer
-to any variables outside the function scope.
 
 ## Pipes
 
-Use `%>%` when you find yourself composing three or more functions together, 
-instead of a nested call.
+ - Use `%>%` when you find yourself composing three or more functions together, 
+   instead of a nested call.
+ - `%>%` should always have a space before it and a new line after it. After the 
+   first step, each line should be indented by two spaces.
 
-`%>%` should always have a space before it and a new line after it. After the 
-first step, each line should be indented by two spaces.
 
 ## Documentation
 
-Created functions should be documentated so others (including the future you) 
-can understand what the function does and how to use it.
-
-Documentation should be written before the function definition in an 
-[roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
-style. roxygen uses special comments, starting with `#'`. The first line is the 
-title, and anything else, not prefixed with a keyword forms the description.
-Keywords start with `@` and the most important ones are `@param` to describe 
-a function parameter and `@return` to describe what the function returns.
+ - Created functions should be documentated so others, including the future you, 
+   can understand what the function does and how to use it.
+ - Documentation should be written before the function definition in an 
+   [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
+   style. roxygen uses special comments, starting with `#'`. The first line is the 
+   title, and anything else, not prefixed with a keyword forms the description.
+   Keywords start with `@` and the most important ones are `@param` to describe 
+   a function parameter and `@return` to describe what the function returns.
 
 Here is a very simple example:
 
 ```r
-#' The length of a string (in characters).
+#' The length of a string.
 #'
-#' This function returns the length of the supplied string.
+#' This function returns the number of characters in the supplied string.
 #' 
 #' @param string input character vector
-#' @return numeric vector giving number of characters in each element of the
+#'
+#' @return integer vector giving number of characters in each element of the
 #'   character vector.
+#'
+#' @export
+#'
 str_length <- function(string) {
   nchar(string)
 }

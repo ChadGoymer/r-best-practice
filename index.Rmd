@@ -2,10 +2,33 @@
 title: "R Best Practice"
 ---
 
+
 This document sets out the proposals for best practice when using R. The aim is to provide 
 a consistent and comprehensive approach to using R for analysis and applications. It forms 
-part of the wider guidance on end-user computing, where the focus is on the following 
+part of the wider guidance on end-user computing. The document is split into the following 
 areas:
+
+ 1. **Software**: Details the recommended software to install, both the core R 
+    applications and supporting software.
+ 2. **Writing**: Gives guidance on on how to write R scripts and applications.
+ 3. **Packages**: Lists the recommended packages to use for achieving common tasks.
+ 4. **Development**: Describes the recommended approaches to developing in R.
+
+This document is not supposed to be a comprehensive guide to using R. It gives guidance
+and sign-posts users to resources with more details.
+
+
+## End-User Computing
+
+The Bank of England's 2016 report 
+[_Solvency II: internal model approval process data review findings_](pra_solvency2)
+identifies end-user computing as a Solvency II risk. In particular, it states:
+
+> Spreadsheets and other user-developed applications are a form of information technology, 
+> and all information technology needs to be appropriately controlled.
+
+End-user computing requires a user to think about the following areas when developing
+in R:
 
  - Risk analysis
  - Documentation
@@ -14,9 +37,8 @@ areas:
  - Change control
  - Access control
 
-This document will expand upon those areas by recommending the software to install; the 
-style and structure to use when writing R code; the recommended packages for achieving 
-common tasks; and a guide for developing R packages to share code in a robust manner.
+The result of the risk analysis determines the level at which the subsequent points
+need to be addressed.
 
 
 ## Risk Analysis
@@ -48,24 +70,24 @@ and should be subject to the following controls.
 
 As a minimum the following should be documented with the code. For simple scripts, a 
 commented header in the file is sufficient. For multi-file applications it is recommended 
-that a [README](writing-structure.html#README) file is added.
+that a [README](writing-structure.html#readme) file is added.
 
  - Name
  - Description
  - Purpose
  - Instructions
 
-For high **complexity** work the following should be considered
+For **high complexity** work the following should be considered
 
  - Write documentation for each section/function of code separately 
  - Provide examples
  
-For high **criticality** work consider creating an 
+For **high criticality** work consider creating an 
 [R package](packages-development.html) then:
 
  - Create a [DESCRIPTION](packages-development.html#description) file to document 
    the package.
- - Use the R package [`Roxygen2`](packages-development.html#documenation) to document 
+ - Use the package [`Roxygen2`](packages-development.html#documentation) to document 
    functions.
  - Write a [vignette](packages-development.html#vignette) explaining its use.
 
@@ -78,15 +100,15 @@ code. This may take the following forms:
  - Assertions in the code to ensure reasonableness, e.g. result is within a range.
  - Comparisons with known results.
 
-For high **complexity** work consider the following:
+For **high complexity** work consider the following:
 
  - Separate tests for each section/function of code.
  - Comparisons with simple inputs and expected results
 
-For high **criticality** work consider creating an 
+For **high criticality** work consider creating an 
 [R package](packages-development.html) then:
 
- - Use the R package [`testthat`](packages-development.html#testing) to write 
+ - Use the package [`testthat`](packages-development.html#testing) to write 
    executable tests.
  - Execute regression tests whenever changes are made.
  - Perform integration tests with dependent systems.
@@ -99,10 +121,10 @@ track of inputs, parameters and code used to produce results. The simplest appro
 is to keep a copy of input data and parameters alongside the the code used to produce
 the saved results. Then it is self-contained.
 
-Also consider using [R markdown](writing-style.html#r-markdown) which captures 
+Also consider using [R markdown](writing-rmarkdown.html) which captures 
 description, code and results in a single document.
 
-For high **complexity** work consider creating an 
+For **high complexity** work consider creating an 
 [RStudio project](writing-structure.html#projects) it has the following benefits:
 
  - Sets the current working directory so relative file paths can be used.
@@ -114,7 +136,7 @@ Some other recommendations worth considering are:
  - Make dependencies clear.
  - Cache versions of input data into a subfolder, if not large.
 
-For high **Criticality** work also consider
+For **high criticality** work also consider
 
  - Outputting audit logs with time stamp, username and computing environment
  - Holding inputs in version control
@@ -133,7 +155,7 @@ the process much more robust. It is recommended that [Git](development.html#git)
 for version control and shared using a hosting application such as GitHub (or TFS if not
 available).
 
-For high **complexity** and/or **criticality** consider the following:
+For **high complexity** and/or **criticality** consider the following:
 
  - Track changes in the hosting application (GitHub or TFS).
  - Record description and reason for change and prioritise.
@@ -150,10 +172,10 @@ approach is to save files into a location with adequate access controlled by the
 It may also be appropriate to limit who has the ability to change the source code 
 separately.
 
-For high **complexity** work it is important only those with the appropriate level of 
+For **high complexity** work it is important only those with the appropriate level of 
 knowledge can change the code.
 
-For high **criticality** work production code should not be changable directly. A release 
+For **high criticality** work production code should not be changable directly. A release 
 process should be set up so appropriate approval must be given before code is promoted.
 
 In both cases:
@@ -162,3 +184,46 @@ In both cases:
    regular basis.
  - Appropriate back up and recovery strategies should be implemented to ensure rollback 
    and re-installation is possible.
+
+
+## Appendix: Solvency II: internal model approval process data review findings
+
+#### Sub-risk 5: IT environment, technology and tools
+
+> Spreadsheets and other user-developed applications are a form of information technology, 
+> and all information technology needs to be appropriately controlled.
+
+###### Finding 9: end-user computing (EUC)
+
+4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital 
+and balance sheet modelling. The PRA does not have a view on whether end-user computing 
+(EUC) is appropriate, as it is a form of IT, and all IT needs to be appropriately 
+controlled. Where EUC is material to the internal model data flow, the PRA will be looking 
+for appropriate controls for data quality such as reasonableness checks, input validations,
+peer reviews, systems environment configuration, logical access management, ongoing change
+controls (development, build , systems and user acceptance testing) and release management
+(including implementation and operational testing), disaster recovery, and documentation.
+
+4.37 Automation of spreadsheets reduces the risk of manual error (2012.4.42), but can
+introduce different problems such as reduced oversight, inadequate transparency about the
+extent of linking and the proliferation of nested spreadsheets and the attendant issue of
+‘broken links’.
+
+4.38 The 2012 report did not engage comprehensively with cyber risk. This is likely to be 
+an area of increasing focus, following alerts and increasing concerns about security as 
+firms move away from localised application and onto networked platforms. As noted in the 
+Bank of England Financial Stability Report,1 cyber attacks can threaten financial stability 
+by disrupting the provision of critical functions from the financial system to the real
+economy. The Financial Policy Committee has recommended that resilience testing be a 
+regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber 
+or business interruption are also indirectly exposed to cyber risk.
+
+###### Finding 10: IT infrastructure
+
+4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear
+definition of user requirements, design, testing and appropriate controls for effective
+operation in business as usual. This continued to be an area of risk. One firm took seven
+years to implement a tactical system, and still has no strategic system for its upstream
+administration processes.
+
+[pra_solvency2]: https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/publication/solvency-ii-internal-model-approved-process-data-review-findings-09-02-2016.pdf?la=en&hash=873ED57439F79A32D0F00D7255BC0E436E9F85E5

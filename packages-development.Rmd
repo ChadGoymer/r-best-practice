@@ -1,0 +1,145 @@
+---
+title: "Package Development"
+---
+
+Package development has been made very easy with a number of packages to facilitate each 
+step of the process. The following packages are recommended:
+
+ - [`usethis`][usethis]: Automates package setup tasks
+ - [`devtools`][devtools]: Simplifies package development tasks 
+ - [`roxygen2`][roxygen2]: Builds package documentation
+ - [`testthat`][testthat]: Specify and execute tests
+
+RStudio provides a cheatsheet detailing the package development process:
+
+<div class="row">
+```{r, echo=FALSE}
+thumbnail(
+  "Package Development", 
+  "images/package-development.png",
+  "https://github.com/rstudio/cheatsheets/raw/master/package-development.pdf")
+```
+</div>
+
+Note: the cheatsheet is a little out of date. Some of the functions used have now been 
+split out into the [`usethis`][usethis] package.
+
+
+## Creating a package
+
+The first step is to create the basic package structure. This is simple with RStudio, or the 
+[`usethis`][usethis] package:
+
+ - In RStudio, create a new project and select the "R package" option.
+ - Otherwise, use [`usethis::create_package()`](https://www.rdocumentation.org/packages/usethis/topics/create_package).
+
+Both create a skeletal structure for a package:
+
+ - **DESCRIPTION** (file): documention for the package
+ - **NAMESPACE** (file): lists the functions to expose to a user (should not be edited
+   directly)
+ - **R** (directory): location for R code
+ - **man** (directory): location for function documentation (should not be edited directly)
+
+
+## DESCRIPTION
+
+Open up the DESCRIPTION file in a text editor. You should edit:
+
+ - "Title": Single sentence description of the package.
+ - "Version": Version to be incremented when new functionality is added.
+ - "Author" (& "Maintainer", if different): Use the format:
+
+```
+Authors@R: person("Hadley", "Wickham", email = "hadley@me.com", role = c("aut", "cre"))
+```
+
+ - "Description": A paragraph describing the package in more detail.
+ - "License": Should be set if you intend to make the package available to the public.
+ - "Imports": If your package depends on others they need to included here. Use
+   [`usethis::use_package()`](https://www.rdocumentation.org/packages/usethis/topics/use_package) to specify them.
+
+
+## R code
+
+ - The R code in a package should only contain functions, classes or data.
+ - All scripts are run when the package is built.
+ - Do not use `source`, `library` and/or `require` in the code. All dependencies should be 
+   defined in the DESCRIPTION file.
+ - Design R functions to do one thing well and be as simple as possible.
+ - You can decide which functions are available to the user of a package and which 
+   ones are only available internal to the package using the `export` keyword explained in 
+   [documenation](packages-development.html#documentation).
+ - Use [`devtools::load_all()`](https://www.rdocumentation.org/packages/devtools/topics/load_all) to load all the functions to test out.
+
+
+## Documentation
+
+#### Function help
+
+Each function exported from a package should be documented using 
+[`roxygen2`][roxygen2]-syle comments. To start, execute
+[`usethis::use_roxygen_md()`](https://www.rdocumentation.org/packages/usethis/topics/use_roxygen_md) so [markdown](writing-rmarkdown.html#markdown) can be used.
+
+Before the function definition write a special comment block, where each line starts with
+`#'`. Then the format is as follows:
+
+ - The first line(s) form the title.
+ - Any subsequent paragraphs, without keywords, become the description.
+ - Detail function arguments using the `@param` keyword.
+ - Detail what the function returns with `@return`.
+ - Make the function available for use when the package is loaded with `@export`
+ - Use [`devtools::document()`](https://www.rdocumentation.org/packages/devtools/topics/document) to generatate all the help files.
+
+There are other keywords available, but the above should be the minimum documented. Here
+is a simple example:
+
+```r
+#' The length of a string.
+#'
+#' This function returns the number of characters in the supplied string.
+#' 
+#' @param string input character vector
+#'
+#' @return integer vector giving number of characters in each element of the
+#'   character vector.
+#'
+#' @export
+#'
+str_length <- function(string) {
+  nchar(string)
+}
+```
+
+#### Vignettes
+
+Function documentation is great for reference, however, to describe how a package should 
+be used you need a vignette. A vignette is like an article or paper on a topic your 
+package addresses. To write a vignette you need the [`rmarkdown`][rmarkdown] package 
+and [Pandoc][pandoc] installed. RStudio installs these automatically.
+
+ - Use [`usethis::use_vignettes()`](https://www.rdocumentation.org/packages/usethis/topics/use_vignette) to create a vignette
+ - Edit the file created in the `vignettes` folder using
+   [markdown](writing-rmarkdown.html#markdown)
+ - Press Ctrl/Cmd + Shift + K (or click "Knit") to knit the vignette and preview the output.
+
+
+## Testing
+
+Testing is a vital part of model development. It checks your functions are doing what 
+they are supposed to and checks any updates have not had unintended side effects. 
+They are also vital for testing that updates made to R or dependent packages have not
+broken your functions. To write tests you need the [`testthat`][testthat] package.
+
+ - Use [`usethis::use_testthat()`](https://www.rdocumentation.org/packages/usethis/topics/use_testthat) to set up testing.
+ - Use [`usethis::use_test()`](https://www.rdocumentation.org/packages/usethis/topics/use_test) to create an test file then edit it to add individual tests.
+ - Run all you tests using
+   [`devtools::test()`](https://www.rdocumentation.org/packages/devtools/topics/test)
+
+
+[usethis]: https://www.rdocumentation.org/packages/usethis
+[devtools]: https://www.rdocumentation.org/packages/devtools
+[roxygen2]: https://www.rdocumentation.org/packages/roxygen2
+[testthat]: https://www.rdocumentation.org/packages/testthat
+[rmarkdown]: https://rmarkdown.rstudio.com
+[pandoc]: https://pandoc.org

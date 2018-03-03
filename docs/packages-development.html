@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>Package Development</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -364,13 +364,117 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">Package Development</h1>
 
 </div>
 
 
-<div id="r-best-practice" class="section level1">
-<h1>r-best-practice</h1>
-<p>A set of guidelines and references for R analysis and development</p>
+<p>Package development has been made very easy with a number of packages to facilitate each step of the process. The following packages are recommended:</p>
+<ul>
+<li><a href="https://www.rdocumentation.org/packages/usethis"><code>usethis</code></a>: Automates package setup tasks</li>
+<li><a href="https://www.rdocumentation.org/packages/devtools"><code>devtools</code></a>: Simplifies package development tasks</li>
+<li><a href="https://www.rdocumentation.org/packages/roxygen2"><code>roxygen2</code></a>: Builds package documentation</li>
+<li><a href="https://www.rdocumentation.org/packages/testthat"><code>testthat</code></a>: Specify and execute tests</li>
+</ul>
+<p>RStudio provides a cheatsheet detailing the package development process:</p>
+<div class="row">
+<div class="col-sm-3">
+<a class="thumbnail" title="Package Development" href="https://github.com/rstudio/cheatsheets/raw/master/package-development.pdf">
+<img src="images/package-development.png"/>
+<div class="caption">Package Development</div>
+</a>
+</div>
+</div>
+<p>Note: the cheatsheet is a little out of date. Some of the functions used have now been split out into the <a href="https://www.rdocumentation.org/packages/usethis"><code>usethis</code></a> package.</p>
+<div id="creating-a-package" class="section level2">
+<h2>Creating a package</h2>
+<p>The first step is to create the basic package structure. This is simple with RStudio, or the <a href="https://www.rdocumentation.org/packages/usethis"><code>usethis</code></a> package:</p>
+<ul>
+<li>In RStudio, create a new project and select the “R package” option.</li>
+<li>Otherwise, use <a href="https://www.rdocumentation.org/packages/usethis/topics/create_package"><code>usethis::create_package()</code></a>.</li>
+</ul>
+<p>Both create a skeletal structure for a package:</p>
+<ul>
+<li><strong>DESCRIPTION</strong> (file): documention for the package</li>
+<li><strong>NAMESPACE</strong> (file): lists the functions to expose to a user (should not be edited directly)</li>
+<li><strong>R</strong> (directory): location for R code</li>
+<li><strong>man</strong> (directory): location for function documentation (should not be edited directly)</li>
+</ul>
+</div>
+<div id="description" class="section level2">
+<h2>DESCRIPTION</h2>
+<p>Open up the DESCRIPTION file in a text editor. You should edit:</p>
+<ul>
+<li>“Title”: Single sentence description of the package.</li>
+<li>“Version”: Version to be incremented when new functionality is added.</li>
+<li>“Author” (&amp; “Maintainer”, if different): Use the format:</li>
+</ul>
+<pre><code>Authors@R: person(&quot;Hadley&quot;, &quot;Wickham&quot;, email = &quot;hadley@me.com&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))</code></pre>
+<ul>
+<li>“Description”: A paragraph describing the package in more detail.</li>
+<li>“License”: Should be set if you intend to make the package available to the public.</li>
+<li>“Imports”: If your package depends on others they need to included here. Use <a href="https://www.rdocumentation.org/packages/usethis/topics/use_package"><code>usethis::use_package()</code></a> to specify them.</li>
+</ul>
+</div>
+<div id="r-code" class="section level2">
+<h2>R code</h2>
+<ul>
+<li>The R code in a package should only contain functions, classes or data.</li>
+<li>All scripts are run when the package is built.</li>
+<li>Do not use <code>source</code>, <code>library</code> and/or <code>require</code> in the code. All dependencies should be defined in the DESCRIPTION file.</li>
+<li>Design R functions to do one thing well and be as simple as possible.</li>
+<li>You can decide which functions are available to the user of a package and which ones are only available internal to the package using the <code>export</code> keyword explained in <a href="packages-development.html#documentation">documenation</a>.</li>
+<li>Use <a href="https://www.rdocumentation.org/packages/devtools/topics/load_all"><code>devtools::load_all()</code></a> to load all the functions to test out.</li>
+</ul>
+</div>
+<div id="documentation" class="section level2">
+<h2>Documentation</h2>
+<div id="function-help" class="section level4">
+<h4>Function help</h4>
+<p>Each function exported from a package should be documented using <a href="https://www.rdocumentation.org/packages/roxygen2"><code>roxygen2</code></a>-syle comments. To start, execute <a href="https://www.rdocumentation.org/packages/usethis/topics/use_roxygen_md"><code>usethis::use_roxygen_md()</code></a> so <a href="writing-rmarkdown.html#markdown">markdown</a> can be used.</p>
+<p>Before the function definition write a special comment block, where each line starts with <code>#'</code>. Then the format is as follows:</p>
+<ul>
+<li>The first line(s) form the title.</li>
+<li>Any subsequent paragraphs, without keywords, become the description.</li>
+<li>Detail function arguments using the <code>@param</code> keyword.</li>
+<li>Detail what the function returns with <code>@return</code>.</li>
+<li>Make the function available for use when the package is loaded with <code>@export</code></li>
+<li>Use <a href="https://www.rdocumentation.org/packages/devtools/topics/document"><code>devtools::document()</code></a> to generatate all the help files.</li>
+</ul>
+<p>There are other keywords available, but the above should be the minimum documented. Here is a simple example:</p>
+<pre class="r"><code>#&#39; The length of a string.
+#&#39;
+#&#39; This function returns the number of characters in the supplied string.
+#&#39; 
+#&#39; @param string input character vector
+#&#39;
+#&#39; @return integer vector giving number of characters in each element of the
+#&#39;   character vector.
+#&#39;
+#&#39; @export
+#&#39;
+str_length &lt;- function(string) {
+  nchar(string)
+}</code></pre>
+</div>
+<div id="vignettes" class="section level4">
+<h4>Vignettes</h4>
+<p>Function documentation is great for reference, however, to describe how a package should be used you need a vignette. A vignette is like an article or paper on a topic your package addresses. To write a vignette you need the <a href="https://rmarkdown.rstudio.com"><code>rmarkdown</code></a> package and <a href="https://pandoc.org">Pandoc</a> installed. RStudio installs these automatically.</p>
+<ul>
+<li>Use <a href="https://www.rdocumentation.org/packages/usethis/topics/use_vignette"><code>usethis::use_vignettes()</code></a> to create a vignette</li>
+<li>Edit the file created in the <code>vignettes</code> folder using <a href="writing-rmarkdown.html#markdown">markdown</a></li>
+<li>Press Ctrl/Cmd + Shift + K (or click “Knit”) to knit the vignette and preview the output.</li>
+</ul>
+</div>
+</div>
+<div id="testing" class="section level2">
+<h2>Testing</h2>
+<p>Testing is a vital part of model development. It checks your functions are doing what they are supposed to and checks any updates have not had unintended side effects. They are also vital for testing that updates made to R or dependent packages have not broken your functions. To write tests you need the <a href="https://www.rdocumentation.org/packages/testthat"><code>testthat</code></a> package.</p>
+<ul>
+<li>Use <a href="https://www.rdocumentation.org/packages/usethis/topics/use_testthat"><code>usethis::use_testthat()</code></a> to set up testing.</li>
+<li>Use <a href="https://www.rdocumentation.org/packages/usethis/topics/use_test"><code>usethis::use_test()</code></a> to create an test file then edit it to add individual tests.</li>
+<li>Run all you tests using <a href="https://www.rdocumentation.org/packages/devtools/topics/test"><code>devtools::test()</code></a></li>
+</ul>
 </div>
 
 

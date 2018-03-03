@@ -23,8 +23,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -33,10 +33,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -295,6 +297,9 @@ div.tocify {
     <li>
       <a href="writing-structure.html">Structure</a>
     </li>
+    <li>
+      <a href="writing-rmarkdown.html">R Markdown</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -333,9 +338,23 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Advanced
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="advanced-non-standard-evaluation.html">Non-Standard Evaluation</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="cheatsheets.html">Cheatsheets</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -351,13 +370,61 @@ div.tocify {
 
 
 <p>Organising files for a particular piece of work becomes more important as the scale and complexity increases. Standard approaches exists to simplify the workflow.</p>
-<div id="projects" class="section level1">
-<h1>Projects</h1>
+<div id="projects" class="section level2">
+<h2>Projects</h2>
 <p>Use RStudio projects to organise files. This has a number of advantages:</p>
 <ol style="list-style-type: decimal">
 <li>Sets the working directory to the project location</li>
 <li>Reopens the same files when returning to the projects</li>
 </ol>
+</div>
+<div id="folders" class="section level2">
+<h2>Folders</h2>
+<p>When an analysis becomes complex it should be split up into logical parts and stored in subfolders. Store the original data in a folder, unchanged. It is better to “cleanse” input data with an R script as it can repeated when data changes, and/or the approach changed itself.</p>
+<p>R code may also be stored in a separate folder. You may have an R script for cleansing the data and another for performing an analysis. Include an R script at the top level which executes the code in the subfolder in the appropriate order. Use relative paths to the files. If an RStudio project has been created the working directory will be set to the project directory automatically.</p>
+<p>Output the results, plots, data, etc, in another folder so it is clear whether data files are results rather than inputs.</p>
+<p>An example of a project structure:</p>
+<ul>
+<li>data
+<ul>
+<li>interesting_data.xlsx</li>
+<li>reference_data.csv</li>
+</ul></li>
+<li>R
+<ul>
+<li>clean_data.R</li>
+<li>analyse.R</li>
+</ul></li>
+<li>tests
+<ul>
+<li>test_cleansed_data.R</li>
+<li>test_analysis.R</li>
+</ul></li>
+<li>results
+<ul>
+<li>cool_plot.png</li>
+<li>table_of_results.csv</li>
+</ul></li>
+<li>run_code.R</li>
+<li>README.md</li>
+</ul>
+</div>
+<div id="readme" class="section level2">
+<h2>README</h2>
+<p>Adding a README file is a good way to explain to other, and you future self, what the analysis does and how to use it. The <a href="index.html#documentation">documentation</a> section of the best practice has more detail on what should be included.</p>
+<p>It is recommended that <a href="http://rmarkdown.rstudio.com/lesson-8.html">markdown</a> is used to write the README. It is a very simple way to specify text formatting in a plain text file and can be converted to many other formats (HTML, docx, PDF) if required. In addition, if the package is stored in GitHub a markdown README is automatically rendered on the repository’s page.</p>
+</div>
+<div id="r-packages" class="section level2">
+<h2>R Packages</h2>
+<p>When R code has high criticality consider turning it into a package. A package is a way of collecting together related code in a robust way. It has the following advantages:</p>
+<ul>
+<li>Easier to share with others (as a zip file)</li>
+<li>Documentation is compiled into help pages</li>
+<li>All tests can be executed with a single command</li>
+<li>Can implement a development and release process</li>
+<li>Code is broken up into useful functions</li>
+</ul>
+<p>Writing a package is very straight forward with the helper packages available today. More information can be found in <a href="packages-development.html">Package Development</a>.</p>
 </div>
 
 

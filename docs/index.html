@@ -23,8 +23,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -33,10 +33,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -295,6 +297,9 @@ div.tocify {
     <li>
       <a href="writing-structure.html">Structure</a>
     </li>
+    <li>
+      <a href="writing-rmarkdown.html">R Markdown</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -333,9 +338,23 @@ div.tocify {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Advanced
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="advanced-non-standard-evaluation.html">Non-Standard Evaluation</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="cheatsheets.html">Cheatsheets</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -350,7 +369,21 @@ div.tocify {
 </div>
 
 
-<p>This document sets out the proposals for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing, where the focus is on the following areas:</p>
+<p>This document sets out the proposals for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing. The document is split into the following areas:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Software</strong>: Details the recommended software to install, both the core R applications and supporting software.</li>
+<li><strong>Writing</strong>: Gives guidance on on how to write R scripts and applications.</li>
+<li><strong>Packages</strong>: Lists the recommended packages to use for achieving common tasks.</li>
+<li><strong>Development</strong>: Describes the recommended approaches to developing in R.</li>
+</ol>
+<p>This document is not supposed to be a comprehensive guide to using R. It gives guidance and sign-posts users to resources with more details.</p>
+<div id="end-user-computing" class="section level2">
+<h2>End-User Computing</h2>
+<p>The Bank of England’s 2016 report <a href="pra_solvency2"><em>Solvency II: internal model approval process data review findings</em></a> identifies end-user computing as a Solvency II risk. In particular, it states:</p>
+<blockquote>
+<p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
+</blockquote>
+<p>End-user computing requires a user to think about the following areas when developing in R:</p>
 <ul>
 <li>Risk analysis</li>
 <li>Documentation</li>
@@ -359,7 +392,8 @@ div.tocify {
 <li>Change control</li>
 <li>Access control</li>
 </ul>
-<p>This document will expand upon those areas by recommending the software to install; the style and structure to use when writing R code; the recommended packages for achieving common tasks; and a guide for developing R packages to share code in a robust manner.</p>
+<p>The result of the risk analysis determines the level at which the subsequent points need to be addressed.</p>
+</div>
 <div id="risk-analysis" class="section level2">
 <h2>Risk Analysis</h2>
 <p>The level of documentation, testing and change control depends on two factors:</p>
@@ -373,22 +407,22 @@ div.tocify {
 </div>
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
-<p>As a minimum the following should be documented with the code. For simple scripts, a commented header in the file is sufficient. For multi-file applications it is recommended that a <a href="writing-structure.html#README">README</a> file is added.</p>
+<p>As a minimum the following should be documented with the code. For simple scripts, a commented header in the file is sufficient. For multi-file applications it is recommended that a <a href="writing-structure.html#readme">README</a> file is added.</p>
 <ul>
 <li>Name</li>
 <li>Description</li>
 <li>Purpose</li>
 <li>Instructions</li>
 </ul>
-<p>For high <strong>complexity</strong> work the following should be considered</p>
+<p>For <strong>high complexity</strong> work the following should be considered</p>
 <ul>
 <li>Write documentation for each section/function of code separately</li>
 <li>Provide examples</li>
 </ul>
-<p>For high <strong>criticality</strong> work consider creating an <a href="packages-development.html">R package</a> then:</p>
+<p>For <strong>high criticality</strong> work consider creating an <a href="packages-development.html">R package</a> then:</p>
 <ul>
 <li>Create a <a href="packages-development.html#description">DESCRIPTION</a> file to document the package.</li>
-<li>Use the R package <a href="packages-development.html#documenation"><code>Roxygen2</code></a> to document functions.</li>
+<li>Use the package <a href="packages-development.html#documentation"><code>Roxygen2</code></a> to document functions.</li>
 <li>Write a <a href="packages-development.html#vignette">vignette</a> explaining its use.</li>
 </ul>
 </div>
@@ -399,14 +433,14 @@ div.tocify {
 <li>Assertions in the code to ensure reasonableness, e.g. result is within a range.</li>
 <li>Comparisons with known results.</li>
 </ul>
-<p>For high <strong>complexity</strong> work consider the following:</p>
+<p>For <strong>high complexity</strong> work consider the following:</p>
 <ul>
 <li>Separate tests for each section/function of code.</li>
 <li>Comparisons with simple inputs and expected results</li>
 </ul>
-<p>For high <strong>criticality</strong> work consider creating an <a href="packages-development.html">R package</a> then:</p>
+<p>For <strong>high criticality</strong> work consider creating an <a href="packages-development.html">R package</a> then:</p>
 <ul>
-<li>Use the R package <a href="packages-development.html#testing"><code>testthat</code></a> to write executable tests.</li>
+<li>Use the package <a href="packages-development.html#testing"><code>testthat</code></a> to write executable tests.</li>
 <li>Execute regression tests whenever changes are made.</li>
 <li>Perform integration tests with dependent systems.</li>
 </ul>
@@ -414,8 +448,8 @@ div.tocify {
 <div id="reproducibility" class="section level2">
 <h2>Reproducibility</h2>
 <p>Important work should reproducible by others, and your future self. This means keeping track of inputs, parameters and code used to produce results. The simplest approach is to keep a copy of input data and parameters alongside the the code used to produce the saved results. Then it is self-contained.</p>
-<p>Also consider using <a href="writing-style.html#r-markdown">R markdown</a> which captures description, code and results in a single document.</p>
-<p>For high <strong>complexity</strong> work consider creating an <a href="writing-structure.html#projects">RStudio project</a> it has the following benefits:</p>
+<p>Also consider using <a href="writing-rmarkdown.html">R markdown</a> which captures description, code and results in a single document.</p>
+<p>For <strong>high complexity</strong> work consider creating an <a href="writing-structure.html#projects">RStudio project</a> it has the following benefits:</p>
 <ul>
 <li>Sets the current working directory so relative file paths can be used.</li>
 <li>Saves open files so you can start where you left off.</li>
@@ -426,7 +460,7 @@ div.tocify {
 <li>Make dependencies clear.</li>
 <li>Cache versions of input data into a subfolder, if not large.</li>
 </ul>
-<p>For high <strong>Criticality</strong> work also consider</p>
+<p>For <strong>high criticality</strong> work also consider</p>
 <ul>
 <li>Outputting audit logs with time stamp, username and computing environment</li>
 <li>Holding inputs in version control</li>
@@ -436,7 +470,7 @@ div.tocify {
 <h2>Change control</h2>
 <p>Change control is about managing updates and bug fixes to the code in a way that is tracked, reviewed, and approved. It ensures change, and its implications, is understood and can also be reversed, if necessary. The simplest approach is to produce new files for each version, keeping older versions elsewhere. Each new version should document the reason for the change.</p>
 <p>A much better solution is to use version control software to track changes. This makes the process much more robust. It is recommended that <a href="development.html#git">Git</a> is used for version control and shared using a hosting application such as GitHub (or TFS if not available).</p>
-<p>For high <strong>complexity</strong> and/or <strong>criticality</strong> consider the following:</p>
+<p>For <strong>high complexity</strong> and/or <strong>criticality</strong> consider the following:</p>
 <ul>
 <li>Track changes in the hosting application (GitHub or TFS).</li>
 <li>Record description and reason for change and prioritise.</li>
@@ -448,13 +482,32 @@ div.tocify {
 <div id="access-control" class="section level2">
 <h2>Access control</h2>
 <p>There should be appropriate controls on who has access to the source code and/or results. The developers should be aware of who has access the work they are producing. The simplest approach is to save files into a location with adequate access controlled by the IT dept. It may also be appropriate to limit who has the ability to change the source code separately.</p>
-<p>For high <strong>complexity</strong> work it is important only those with the appropriate level of knowledge can change the code.</p>
-<p>For high <strong>criticality</strong> work production code should not be changable directly. A release process should be set up so appropriate approval must be given before code is promoted.</p>
+<p>For <strong>high complexity</strong> work it is important only those with the appropriate level of knowledge can change the code.</p>
+<p>For <strong>high criticality</strong> work production code should not be changable directly. A release process should be set up so appropriate approval must be given before code is promoted.</p>
 <p>In both cases:</p>
 <ul>
 <li>The list of people with access to the source code and results should be reviewed on a regular basis.</li>
 <li>Appropriate back up and recovery strategies should be implemented to ensure rollback and re-installation is possible.</li>
 </ul>
+</div>
+<div id="appendix-solvency-ii-internal-model-approval-process-data-review-findings" class="section level2">
+<h2>Appendix: Solvency II: internal model approval process data review findings</h2>
+<div id="sub-risk-5-it-environment-technology-and-tools" class="section level4">
+<h4>Sub-risk 5: IT environment, technology and tools</h4>
+<blockquote>
+<p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
+</blockquote>
+<div id="finding-9-end-user-computing-euc" class="section level6">
+<h6>Finding 9: end-user computing (EUC)</h6>
+<p>4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital and balance sheet modelling. The PRA does not have a view on whether end-user computing (EUC) is appropriate, as it is a form of IT, and all IT needs to be appropriately controlled. Where EUC is material to the internal model data flow, the PRA will be looking for appropriate controls for data quality such as reasonableness checks, input validations, peer reviews, systems environment configuration, logical access management, ongoing change controls (development, build , systems and user acceptance testing) and release management (including implementation and operational testing), disaster recovery, and documentation.</p>
+<p>4.37 Automation of spreadsheets reduces the risk of manual error (2012.4.42), but can introduce different problems such as reduced oversight, inadequate transparency about the extent of linking and the proliferation of nested spreadsheets and the attendant issue of ‘broken links’.</p>
+<p>4.38 The 2012 report did not engage comprehensively with cyber risk. This is likely to be an area of increasing focus, following alerts and increasing concerns about security as firms move away from localised application and onto networked platforms. As noted in the Bank of England Financial Stability Report,1 cyber attacks can threaten financial stability by disrupting the provision of critical functions from the financial system to the real economy. The Financial Policy Committee has recommended that resilience testing be a regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber or business interruption are also indirectly exposed to cyber risk.</p>
+</div>
+<div id="finding-10-it-infrastructure" class="section level6">
+<h6>Finding 10: IT infrastructure</h6>
+<p>4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear definition of user requirements, design, testing and appropriate controls for effective operation in business as usual. This continued to be an area of risk. One firm took seven years to implement a tactical system, and still has no strategic system for its upstream administration processes.</p>
+</div>
+</div>
 </div>
 
 

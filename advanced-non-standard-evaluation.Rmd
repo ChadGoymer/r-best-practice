@@ -1,0 +1,291 @@
+---
+title: "Non-Standard Evaluation"
+---
+
+```{r include=FALSE}
+library(glue)
+library(tidyverse)
+library(rlang)
+```
+
+Non-standard evaluation is a catch-all term that means they don’t follow the usual R rules
+of evaluation. Instead, they capture the expression that you typed and evaluate it in a
+custom way.
+
+
+## Strings and quoting
+
+Here's a simple example in the case of strings. If you want to return a personalised 
+message, it is obvious the below function will not give you what you want:
+
+```{r}
+greet <- function(name) {
+  "Hello, name"
+}
+
+greet("Bob")
+```
+
+The function returns the string exactly as it is written because it is in quotes. With the 
+[`glue`](https://www.rdocumentation.org/packages/glue) package you can use non-standard 
+evaluation to return what you want:
+
+```{r}
+greet <- function(name) {
+  glue("Hello, {name}")
+}
+
+greet("Bob")
+```
+
+The [`glue()`](https://www.rdocumentation.org/packages/glue/topics/glue) function 
+"unquotes" the "name" and evaluates it as a variable.
+
+
+## Base R evaluation
+
+
+#### Expressions and quoting
+
+A similar approach can be taken to more general expressions in R. An **expression** is some 
+R code has not been evaluated yet. It is captured and saved for later. In base R this can
+be achieved using the 
+[`quote()`](https://www.rdocumentation.org/packages/base/topics/substitute) function.
+Expressions can be one of four classes:
+
+ - "constants" (e.g. 4, TRUE).
+ - "names" (e.g. variable names), that have type "symbols".
+ - "calls" (e.g. unevaluated function calls), that have type "language".
+ - "pairlists" (not really used anymore).
+
+Constants are not very interesting, so we will concentrate on names and calls. As with 
+strings, we can capture the expression, rather than the evaluated result, using the 
+[`quote()`](https://www.rdocumentation.org/packages/base/topics/substitute) function:
+
+```{r}
+quote(x) %>% class()
+
+quote(mean(1:10)) %>% class()
+```
+
+To evaluate a quoted expression use the
+[`eval()`](https://www.rdocumentation.org/packages/base/topics/eval) function:
+
+```{r}
+x <- 10
+
+quote(x) %>% eval()
+
+quote(mean(1:10)) %>% eval()
+```
+
+
+#### Names and Environments
+
+An **environment** is a container for variables, binding a set of names to a set of values.
+Every environment also has a parent environment, except the **empty** environment, which is 
+the ultimate ancester of all environments. If a name is not found in the current environment
+R looks in its parent and so on through the generations. This is known as **lexical
+scoping**.
+
+When using `eval()` as above the expression is evaluated in the current environment.
+However, the environment to evaluate the expression in can be set as a parameter to
+`eval()`.
+
+Note: `data.frames` can be treated as environments containing the column names binded to the
+column vectors.
+
+
+#### Calls
+
+A **call** is a delayed evaluation of a function call. The function and the argument names
+are stored, but not evaluated. So you can change the values associated with the arguments
+before evaluation. In fact they need not be defined at creation time at all:
+
+```{r}
+wait_for_it <- quote(x + y)
+
+x <- 3
+y <- 8
+
+eval(wait_for_it)
+```
+
+
+#### Parsing and Deparsing
+
+**Parsing** turns text into expressions and **deparsing** turns expressions into text.
+The [`parse()`](https://www.rdocumentation.org/packages/base/topics/parse) function 
+converts text, but its default argument is a file connection, so we must use the text
+argument:
+
+```{r}
+parse(text = "8 + 10") %>% eval()
+```
+
+Deparse might be useful for returning information to the user:
+
+```{r}
+friendly_eval <- function(expr) {
+  str_c("The value of ", deparse(expr), " is ", eval(expr))
+}
+
+quote(8 + 10) %>% friendly_eval()
+```
+
+
+#### Functions and closures
+
+When you execute a function it creates a new, temporary, environment. The named arguments 
+to the function, plus any variables created within its body are stored in this environment.
+Thus it cannot effect the variables outside its scope.
+
+The parent for the function's environment is the environment in which the function was 
+created in, not the one in which it was executed in. Thus it has access to all the 
+variables in the parent environment. This is known as **closure**, as it _encloses_ the
+parent environment, and can be a powerful tool.
+
+
+#### Substitute and promise
+
+The `friendly_eval()` function above requires its argument to be quoted. It would be nice
+if we could write the expression directly as an argument. However, `quote()` makes a 
+literal quote of its input, in this case `expr`. What we need is 
+[`substitute()`](https://www.rdocumentation.org/packages/base/topics/substitute). This will
+lookup all the object names provided to it, and if it finds a value for that name, it will
+substitute the name for its value:
+
+```{r}
+friendly_eval <- function(expr) {
+  expr_sub <- substitute(expr)
+  str_c("The value of ", deparse(expr_sub), " is ", eval(expr_sub))
+}
+
+friendly_eval(8 + 10)
+```
+
+The above function only works because in R function arguments are evaluated lazily --
+variables are not evaluated until they are used. R stores arguments as a **promise**, 
+which contains the expression of an argument along with the value. `substitute()` 
+capture the expression before it is evaluated.
+
+
+#### Formula and overscoping
+
+A **formula** is a _domain specific language_ (DSL) to simplify expressing the relationship 
+between variables. Just like functions, formulas enclose the environment they are created 
+in. When a formula is evaluated later in a different environment, it can still access all 
+the objects that lived in its original environment.
+
+If an object exists in more than one accessible environment the enviroment the formula
+(or function) is evaluated in takes precidence. If the object is not found, R looks 
+in the enclosed environment. This is known as **overscoping**, as the formula or 
+function has scope beyond its execution environment.
+
+
+## Tidy Evaluation
+
+To summarise the above, the following points are important to tidy evaluation:
+
+ 1. `quote()` delays evaluation of an expression.
+ 2. `eval()` evaluates an expression in the current (or a specified) environment.
+
+Functions and formulas:
+
+ 3. enclose the environment they were created in.
+ 4. evaluate objects in their own, and enclosed, environments
+
+Tidy evaluation has two new additions: **quasiquotation** and **quosures**.
+
+
+#### Quasiquotation
+
+**Quasiquotation** enables the user to evaluate parts of the expression right away, while 
+quoting the rest. Say we have the expression `z - x + 4` and we know the value of `x` at
+the time of quoting, we can **unquote** `x` with the function 
+[`UQ()`](http://rlang.tidyverse.org/reference/quasiquotation.html) or the operator
+[`!!`](http://rlang.tidyverse.org/reference/quasiquotation.html). However, `quote()` 
+will not work in this quasiquotation, we need to use the tidy evaluation equivalent, 
+[`expr()`](http://rlang.tidyverse.org/reference/expr.html):
+
+```{r}
+x <- 10
+
+expr(z - UQ(x) + 4)
+expr(z - !!x + 4) %>% class()
+```
+
+The `expr()` function returns expressions, as does `quote()`, without any information on 
+the environment it was created in. Some other useful functions for quasiquotation are:
+
+ - [`UQS()`](http://rlang.tidyverse.org/reference/quasiquotation.html) and the 
+   [`!!!`](http://rlang.tidyverse.org/reference/quasiquotation.html) operator unquote and 
+   splice their arguments.
+ - [`enexpr()`](http://rlang.tidyverse.org/reference/expr.html) takes an expression, looks
+   up any symbols (names) within it and returns it unevaluated. It is equivalent to
+   `substitute()`.
+ - [`exprs()`](http://rlang.tidyverse.org/reference/expr.html) captures multiple
+   expressions and returns a list.
+
+
+#### Quosures
+
+As the name suggests, **quosures** are hybrids of quotes and closures. They are 
+unevaluated expressions that enclose their creation environment. This is very similar to
+formulas and they are in fact implemented as one-sided formulas. Quosures are created with
+the [`quo()`](http://rlang.tidyverse.org/reference/quosure.html) function:
+
+```{r}
+quo(z - UQ(x) + 4)
+quo(z - !!x + 4) %>% class()
+```
+
+The quosure equivalent of `substitute()` is
+[`enquo()`](http://rlang.tidyverse.org/reference/quosure.html). It takes a symbol referring
+to a function argument, quotes the R code that was supplied to this argument, captures the
+environment where the function was called (and thus where the R code was typed), and
+bundles them in a quosure.
+
+Another useful function is [`quos()`](http://rlang.tidyverse.org/reference/quosure.html), it
+returns a list of quosures. You can supply several expressions directly, e.g. 
+`quos(foo, bar)`, but more importantly you can also supply dots: `quos(...)`.
+
+Note that quosures don’t make a lower level distinction between calls and names. Every
+expression becomes a quosure.
+
+To evaluate quosures we need a special function to implement the environment scoping
+properly. `rlang` provides such a function:
+[`eval_tidy()`](rlang.tidyverse.org/reference/eval_tidy.html)
+
+```{r}
+x <- 10
+
+quo(x) %>% eval_tidy()
+
+quo(mean(1:10)) %>% eval_tidy()
+```
+
+
+#### Parsing and Deparsing
+
+`rlang` also provides functions for parsing and deparsing expressions. To turn a string
+into an expression use:
+ - [`parse_expr()`](http://rlang.tidyverse.org/reference/parse_expr.html), which works in
+   the same way as `parse(text = ...)`.
+ - [`parse_quosure()`](http://rlang.tidyverse.org/reference/parse_expr.html) to create a
+   quosure.
+
+To turn an expression into a string, `rlang` provides two functions:
+ - [`expr_text()`](http://rlang.tidyverse.org/reference/expr_label.html) to turn an
+   expression into a string.
+ - [`expr_label()`](http://rlang.tidyverse.org/reference/expr_label.html) to produce a
+   string that is more suited to use as a label.
+
+
+```{r}
+friendly_eval <- function(expr) {
+  str_c("The value of ", deparse(expr), " is ", eval(expr))
+}
+
+quote(8 + 10) %>% friendly_eval()
+```
