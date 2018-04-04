@@ -21,7 +21,7 @@ and sign-posts users to resources with more details.
 ## End-User Computing
 
 The Bank of England's 2016 report 
-[_Solvency II: internal model approval process data review findings_](pra_solvency2)
+[_Solvency II: internal model approval process data review findings_][pra_solvency2]
 identifies end-user computing as a Solvency II risk. In particular, it states:
 
 > Spreadsheets and other user-developed applications are a form of information technology, 
