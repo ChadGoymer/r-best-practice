@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Best Practice</title>
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Best Practice" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="github-repo" content="chadgoymer/r-best-practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Best Practice" />
+  
+  <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  
+
+<meta name="author" content="Chad Goymer">
+
+
+<meta name="date" content="2018-08-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="writing.html">
+<link rel="next" href="references.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software</a><ul>
+<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications</a></li>
+<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software</a></li>
+<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code</a><ul>
+<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse</a></li>
+<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files</a></li>
+<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes</a></li>
+<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects</a></li>
+<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders</a></li>
+<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README</a></li>
+<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-markdown-1"><i class="fa fa-check"></i><b>3.3.2</b> R Markdown</a></li>
+<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#cheatsheets"><i class="fa fa-check"></i><b>4.1.2</b> Cheatsheets</a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="packages.html"><a href="packages.html#tidying-data"><i class="fa fa-check"></i><b>4.1.4</b> Tidying Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Best Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="packages" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Recommended Packages</h1>
+<div id="data-wrangling" class="section level2">
+<h2><span class="header-section-number">4.1</span> Data Wrangling</h2>
+<blockquote>
+<p>Data wrangling is the process of transforming and mapping data from one “raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics.</p>
+<p>– <a href="https://en.wikipedia.org/wiki/Data_wrangling"><em>Wikipedia</em></a></p>
+</blockquote>
+<div id="tidy-data" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Tidy Data</h3>
+<p>The Tidyverse of packages are built around the concept of tidy data, first introduced by Jeff Leek in his book <em>The Elements of Data Analytic Style</em>. Hadley Wickham summarises the characteristics of <a href="http://tidyr.tidyverse.org/articles/tidy-data.html">tidy data</a> with the following points:</p>
+<ol style="list-style-type: decimal">
+<li>Each variable forms a column.</li>
+<li>Each observation forms a row.</li>
+<li>Each type of observational unit forms a table.</li>
+</ol>
+</div>
+<div id="cheatsheets" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Cheatsheets</h3>
+<p>RStudio provide a selection of cheatsheets containing quick reference of R functions useful for common task:</p>
+<div class="figure" style="text-align: center"><span id="fig:data-import-cheatsheet"></span>
+<img src="images/data-import-cheatsheet-1.png" alt="Data Import" width="80%" />
+<p class="caption">
+Figure 4.1: Data Import
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:data-transformation-cheatsheet"></span>
+<img src="images/data-transformation-cheatsheet.png" alt="Data Transformation" width="80%" />
+<p class="caption">
+Figure 4.2: Data Transformation
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:strings-cheatsheet"></span>
+<img src="images/strings.png" alt="Strings" width="80%" />
+<p class="caption">
+Figure 4.3: Strings
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:lubridate-cheatsheet"></span>
+<img src="images/lubridate.png" alt="Dates and Times" width="80%" />
+<p class="caption">
+Figure 4.4: Dates and Times
+</p>
+</div>
+</div>
+<div id="importing-data" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Importing Data</h3>
+<p>The first step in wrangling is importing the data into R. The methods to do so depend on the source of data:</p>
+<ul>
+<li>Reading files</li>
+<li>Connecting to databases</li>
+<li>Web APIs or pages</li>
+</ul>
+<div id="reading-files" class="section level4">
+<h4><span class="header-section-number">4.1.3.1</span> Reading Files</h4>
+<p>Files may come in many formats and R has packages to read many of them. The most common for data science are tabular text files, such as CSVs, and Excel spreadsheets. The recommended packages for reading these files are:.</p>
+<ul>
+<li><a href="http://readr.tidyverse.org/"><code>readr</code></a> for reading text files</li>
+<li><a href="http://readxl.tidyverse.org/"><code>readxl</code></a> for reading Excel files</li>
+<li><a href="https://www.rdocumentation.org/packages/openxlsx/"><code>openxlsx</code></a> for writing to Excel files</li>
+</ul>
+</div>
+<div id="connecting-to-databases" class="section level4">
+<h4><span class="header-section-number">4.1.3.2</span> Connecting to Databases</h4>
+<p>The new <a href="https://db.rstudio.com/">RStudio Connections Pane</a> makes it possible to easily connect to a variety of data sources, and explore the objects and data inside the connection.</p>
+<p>The recommended packages for connecting to databases (also used by RStudio) are:</p>
+<ul>
+<li><a href="https://db.rstudio.com/DBI"><code>DBI</code></a> provides a standard interface to any database</li>
+<li><a href="https://db.rstudio.com/odbc/"><code>odbc</code></a> for connecting to databases using ODBC</li>
+<li><a href="https://db.rstudio.com/dplyr/"><code>dplyr</code></a> for transforming tables in a database</li>
+</ul>
+</div>
+<div id="web-apis-and-pages" class="section level4">
+<h4><span class="header-section-number">4.1.3.3</span> Web APIs and Pages</h4>
+<p>Obtaining data from the internet has two main approaches. If the website provides an application programming interface (API) then you can send and receive data through it. The data from web APIs is usually returned in JSON or XML format. Alternatively, you can scrape the website itself, extracting data from the pages. The recommended packages for these approaches are:</p>
+<ul>
+<li><a href="http://httr.r-lib.org/"><code>httr</code></a> for communicating with web APIs</li>
+<li><a href="https://www.rdocumentation.org/packages/jsonlite"><code>jsonlite</code></a> for reading JSON formatted text</li>
+<li><a href="https://www.rdocumentation.org/packages/xml2"><code>xml2</code></a> for reading XML formatted text</li>
+<li><a href="https://www.rdocumentation.org/packages/rvest"><code>rvest</code></a> for scraping web pages</li>
+</ul>
+</div>
+</div>
+<div id="tidying-data" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Tidying Data</h3>
+<p>Now you have the data you want, it probably requires some processing in order to get it into a structure that is useful for analysis. There are two main packages for this <a href="http://tidyr.tidyverse.org"><code>tidyr</code></a> and <a href="http://dplyr.tidyverse.org"><code>dplyr</code></a>:</p>
+<div id="tidyr" class="section level4">
+<h4><span class="header-section-number">4.1.4.1</span> <a href="http://tidyr.tidyverse.org"><code>tidyr</code></a></h4>
+<p>The focus of <a href="http://tidyr.tidyverse.org"><code>tidyr</code></a> is to get the data into a tidy format. The main functions it provides to do this are:</p>
+<ul>
+<li><a href="http://tidyr.tidyverse.org/reference/gather.html"><code>gather()</code></a> takes multiple columns, and gathers them into key-value pairs: it makes “wide” data longer.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/spread.html"><code>spread()</code></a> takes two columns (key &amp; value) and spreads in to multiple columns, it makes “long” data wider.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/separate.html"><code>separate()</code></a> and <a href="http://tidyr.tidyverse.org/reference/extract.html"><code>extract()</code></a> pulls apart a column that represents multiple variables.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/unite.html"><code>unite()</code></a> combines columns, useful if one is redundant.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/gather.html"><code>separate_rows()</code></a> for separating a row that contains multiple observations.</li>
+</ul>
+<p>In addition, <a href="http://tidyr.tidyverse.org"><code>tidyr</code></a> provides a set of functions for dealing with implicit and explicit missing values:</p>
+<ul>
+<li><a href="http://tidyr.tidyverse.org/reference/drop_na.html"><code>drop_na()</code></a>: Drop rows containing missing values</li>
+<li><a href="http://tidyr.tidyverse.org/reference/replace_na.html"><code>replace_na()</code></a>: Replace missing values</li>
+<li><a href="http://tidyr.tidyverse.org/reference/fill.html"><code>fill()</code></a>: Fill in missing values.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/complete.html"><code>complete()</code></a>: Complete a data frame with missing combinations of data.</li>
+<li><a href="http://tidyr.tidyverse.org/reference/expand.html"><code>expand()</code></a>, <a href="http://tidyr.tidyverse.org/reference/expand.html"><code>crossing()</code></a>: Expand data frame to include all combinations of values</li>
+</ul>
+</div>
+<div id="dplyr" class="section level4">
+<h4><span class="header-section-number">4.1.4.2</span> <a href="http://dplyr.tidyverse.org"><code>dplyr</code></a></h4>
+<p><a href="http://dplyr.tidyverse.org"><code>dplyr</code></a> is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:</p>
+<ul>
+<li><a href="http://dplyr.tidyverse.org/reference/mutate.html"><code>mutate()</code></a> adds new variables that are functions of existing variables.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/select.html"><code>select()</code></a> picks variables based on their names.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/filter.html"><code>filter()</code></a> picks cases based on their values.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/summarise.html"><code>summarise()</code></a> reduces multiple values down to a single summary.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/arrange.html"><code>arrange()</code></a> changes the ordering of the rows.</li>
+</ul>
+<p>These all combine naturally with <a href="http://dplyr.tidyverse.org/reference/group_by.html"><code>group_by()</code></a> which allows you to perform any operation “by group”.</p>
+<p><a href="http://dplyr.tidyverse.org"><code>dplyr</code></a> also provides a set of functions for combining tables. Mutating joins combine tables based on matching a subset of common variables; Set operations expect the tables to have the same variables and combine observations like sets.</p>
+<p><strong>Mutating joins</strong></p>
+<ul>
+<li><a href="http://dplyr.tidyverse.org/reference/join.html"><code>inner_join(x, y)</code></a> only includes observations that match in both <code>x</code> and <code>y</code>.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/join.html"><code>left_join(x, y)</code></a> includes all observations in <code>x</code>, regardless of whether they match or not.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/join.html"><code>right_join(x, y)</code></a> includes all observations in <code>y</code>. It’s equivalent to <a href="http://dplyr.tidyverse.org/reference/join.html"><code>left_join(y, x)</code></a>, but the columns will be ordered differently.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/join.html"><code>full_join()</code></a> includes all observations from <code>x</code> and <code>y</code>.</li>
+</ul>
+<p><strong>Set operations</strong></p>
+<ul>
+<li><a href="http://dplyr.tidyverse.org/reference/setops.html"><code>intersect(x, y)</code></a>: returns only observations in both <code>x</code> and <code>y</code>.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/setops.html"><code>union(x, y)</code></a>: returns unique observations in <code>x</code> and <code>y</code>.</li>
+<li><a href="http://dplyr.tidyverse.org/reference/setops.html"><code>setdiff(x, y)</code></a>: return observations in <code>x</code>, but not in <code>y</code>.</li>
+</ul>
+</div>
+<div id="variable-types" class="section level4">
+<h4><span class="header-section-number">4.1.4.3</span> Variable Types</h4>
+<p>There are also packages which simplify working with specific types of data:</p>
+<ul>
+<li><a href="http://stringr.tidyverse.org/"><code>stringr</code></a> for strings and regular expressions</li>
+<li><a href="http://forcats.tidyverse.org/"><code>forcats</code></a> for factors, used to handle categorical data</li>
+<li><a href="http://lubridate.tidyverse.org/"><code>lubridate</code></a> for dates and date-times.</li>
+<li><a href="https://www.rdocumentation.org/packages/hms"><code>hms</code></a> for time-of-day values.</li>
+</ul>
+</div>
+<div id="tibble" class="section level4">
+<h4><span class="header-section-number">4.1.4.4</span> <a href="http://tibble.tidyverse.org/"><code>tibble</code></a></h4>
+<p>When using these packages you may notice they return a <code>tibble</code> rather than a <code>data.frame</code>. They are basically the same thing with three key differences:</p>
+<ol style="list-style-type: decimal">
+<li>Printing: Tibbles only show the first ten rows and all the columns that fit on one screen.</li>
+<li>Subsetting: <code>[</code> always returns another tibble. <code>$</code> never uses partial matching.</li>
+<li>Recycling: Only values of length 1 are recycled. Trying to combine columns of different length throws an error.</li>
+</ol>
+<p>The package <a href="http://tibble.tidyverse.org/"><code>tibble</code></a> has some useful functions for constructing tibbles. In particaular, you can construct a tibble row-wise using the <a href="http://tibble.tidyverse.org/reference/tribble.html"><code>tribble</code></a> function (transposed tibble).</p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="writing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/chadgoymer/r-best-practice/edit/master/03-packages.Rmd",
+"text": "Edit"
+},
+"download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

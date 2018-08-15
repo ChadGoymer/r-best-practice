@@ -1,7 +1,18 @@
----
+--- 
 title: "R Best Practice"
+author: "Chad Goymer"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: chadgoymer/r-best-practice
+description: "Best practice guidelines for using R to produce reproducible and robust analyses and applications."
 ---
 
+# Introduction
 
 This document sets out the proposals for best practice when using R. The aim is to provide 
 a consistent and comprehensive approach to using R for analysis and applications. It forms 
@@ -59,7 +70,7 @@ systems rely on or informs major business decisions then it is important to ensu
 it is thoroughly tested and reviewed and changes are not made without careful 
 consideration of how it affects dependents.
 
-In order to assess the level of controls perform a simple risk analysis by estimating 
+In order to assess the level of controls we perform a simple risk analysis by estimating 
 the level of complexity and criticality of the work, using a scale of **high**, 
 **medium** or **low**. If both are low then no further consideration is required. However, 
 If any of the above factors are medium or high then the work is considered material 
@@ -72,18 +83,17 @@ As a minimum the following should be documented with the code. For simple script
 commented header in the file is sufficient. For multi-file applications it is recommended 
 that a [README](writing-structure.html#readme) file is added.
 
- - Name
- - Description
- - Purpose
- - Instructions
+ - **Name:** The name of the project, analysis or application.
+ - **Description:** A brief description of of what the code does (not how).
+ - **Purpose:** The reason for writing the code.
+ - **Instructions:** How to use the code - for the benefit of other users.
 
 For **high complexity** work the following should be considered
 
- - Write documentation for each section/function of code separately 
- - Provide examples
- 
-For **high criticality** work consider creating an 
-[R package](packages-development.html) then:
+ - Write documentation for each section/function of code separately .
+ - Provide examples of usage.
+
+For **high criticality** work consider creating an [R package](packages-development.html) then:
 
  - Create a [DESCRIPTION](packages-development.html#description) file to document 
    the package.
@@ -188,12 +198,12 @@ In both cases:
 
 ## Appendix: Solvency II: internal model approval process data review findings
 
-#### Sub-risk 5: IT environment, technology and tools
+### Sub-risk 5: IT environment, technology and tools
 
 > Spreadsheets and other user-developed applications are a form of information technology, 
 > and all information technology needs to be appropriately controlled.
 
-###### Finding 9: end-user computing (EUC)
+**Finding 9: end-user computing (EUC)**
 
 4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital 
 and balance sheet modelling. The PRA does not have a view on whether end-user computing 
@@ -218,7 +228,7 @@ economy. The Financial Policy Committee has recommended that resilience testing 
 regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber 
 or business interruption are also indirectly exposed to cyber risk.
 
-###### Finding 10: IT infrastructure
+**Finding 10: IT infrastructure**
 
 4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear
 definition of user requirements, design, testing and appropriate controls for effective

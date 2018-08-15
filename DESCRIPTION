@@ -1,0 +1,6 @@
+Package: R Best Practice
+Type: Book
+Title: R Best Practice.
+Version: 0.0.1
+Imports: bookdown
+Remotes: chadgoymer/r-best-practice

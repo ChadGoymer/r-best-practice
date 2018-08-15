@@ -1,374 +1,182 @@
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html >
 
 <head>
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Best Practice</title>
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Best Practice" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="github-repo" content="chadgoymer/r-best-practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Best Practice" />
+  
+  <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  
+
+<meta name="author" content="Chad Goymer">
+
+
+<meta name="date" content="2018-08-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="software.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 
 
 
 
-<title>R Best Practice</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
-
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
 
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
 
 
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 60px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
-.section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-.section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
-}
-</style>
+    <div class="book-summary">
+      <nav role="navigation">
 
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
 
-  // mark it active
-  menuAnchor.parent().addClass('active');
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software</a><ul>
+<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications</a></li>
+<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software</a></li>
+<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code</a><ul>
+<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse</a></li>
+<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files</a></li>
+<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes</a></li>
+<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects</a></li>
+<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders</a></li>
+<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README</a></li>
+<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-markdown-1"><i class="fa fa-check"></i><b>3.3.2</b> R Markdown</a></li>
+<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#cheatsheets"><i class="fa fa-check"></i><b>4.1.2</b> Cheatsheets</a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.4" data-path="packages.html"><a href="packages.html#tidying-data"><i class="fa fa-check"></i><b>4.1.4</b> Tidying Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
+</ul>
 
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-
-
-
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">R Best Practice</a>
+      </nav>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li>
-  <a href="software.html">Software</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Writing
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="writing-style.html">Style</a>
-    </li>
-    <li>
-      <a href="writing-structure.html">Structure</a>
-    </li>
-    <li>
-      <a href="writing-rmarkdown.html">R Markdown</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Packages
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="packages-wrangling.html">Data Wrangling</a>
-    </li>
-    <li>
-      <a href="packages-modelling.html">Modelling</a>
-    </li>
-    <li>
-      <a href="packages-visualisation.html">Visualisation</a>
-    </li>
-    <li>
-      <a href="packages-optimisation.html">Optimisation</a>
-    </li>
-    <li>
-      <a href="packages-development.html">Package development</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Development
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="development-version-control.html">Version Control</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Advanced
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="advanced-non-standard-evaluation.html">Non-Standard Evaluation</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="cheatsheets.html">Cheatsheets</a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Best Practice</a>
+          </h1>
+        </div>
 
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
 
-
-<h1 class="title toc-ignore">R Best Practice</h1>
-
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">R Best Practice</h1>
+<h4 class="author"><em>Chad Goymer</em></h4>
+<h4 class="date"><em>2018-08-15</em></h4>
 </div>
-
-
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <p>This document sets out the proposals for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing. The document is split into the following areas:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Software</strong>: Details the recommended software to install, both the core R applications and supporting software.</li>
@@ -378,8 +186,8 @@ div.tocify {
 </ol>
 <p>This document is not supposed to be a comprehensive guide to using R. It gives guidance and sign-posts users to resources with more details.</p>
 <div id="end-user-computing" class="section level2">
-<h2>End-User Computing</h2>
-<p>The Bank of England’s 2016 report <a href="pra_solvency2"><em>Solvency II: internal model approval process data review findings</em></a> identifies end-user computing as a Solvency II risk. In particular, it states:</p>
+<h2><span class="header-section-number">1.1</span> End-User Computing</h2>
+<p>The Bank of England’s 2016 report <a href="https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/publication/solvency-ii-internal-model-approved-process-data-review-findings-09-02-2016.pdf?la=en&amp;hash=873ED57439F79A32D0F00D7255BC0E436E9F85E5"><em>Solvency II: internal model approval process data review findings</em></a> identifies end-user computing as a Solvency II risk. In particular, it states:</p>
 <blockquote>
 <p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
 </blockquote>
@@ -395,7 +203,7 @@ div.tocify {
 <p>The result of the risk analysis determines the level at which the subsequent points need to be addressed.</p>
 </div>
 <div id="risk-analysis" class="section level2">
-<h2>Risk Analysis</h2>
+<h2><span class="header-section-number">1.2</span> Risk Analysis</h2>
 <p>The level of documentation, testing and change control depends on two factors:</p>
 <ol style="list-style-type: decimal">
 <li>Complexity</li>
@@ -403,21 +211,21 @@ div.tocify {
 </ol>
 <p><strong>Complexity:</strong> If a piece of work is very simple it may only require a short description, a manual test and saving to a secure location. However, if it is highly complex it is important for others, and your future self, to document it thoroughly, provide repeatable tests and save the scripts in version control.</p>
 <p><strong>Criticality:</strong> If a piece of work is a simple analysis for curiosity it may not need any controls applied to it. However, if it provides functionality which other systems rely on or informs major business decisions then it is important to ensure it is thoroughly tested and reviewed and changes are not made without careful consideration of how it affects dependents.</p>
-<p>In order to assess the level of controls perform a simple risk analysis by estimating the level of complexity and criticality of the work, using a scale of <strong>high</strong>, <strong>medium</strong> or <strong>low</strong>. If both are low then no further consideration is required. However, If any of the above factors are medium or high then the work is considered material and should be subject to the following controls.</p>
+<p>In order to assess the level of controls we perform a simple risk analysis by estimating the level of complexity and criticality of the work, using a scale of <strong>high</strong>, <strong>medium</strong> or <strong>low</strong>. If both are low then no further consideration is required. However, If any of the above factors are medium or high then the work is considered material and should be subject to the following controls.</p>
 </div>
 <div id="documentation" class="section level2">
-<h2>Documentation</h2>
+<h2><span class="header-section-number">1.3</span> Documentation</h2>
 <p>As a minimum the following should be documented with the code. For simple scripts, a commented header in the file is sufficient. For multi-file applications it is recommended that a <a href="writing-structure.html#readme">README</a> file is added.</p>
 <ul>
-<li>Name</li>
-<li>Description</li>
-<li>Purpose</li>
-<li>Instructions</li>
+<li><strong>Name:</strong> The name of the project, analysis or application.</li>
+<li><strong>Description:</strong> A brief description of of what the code does (not how).</li>
+<li><strong>Purpose:</strong> The reason for writing the code.</li>
+<li><strong>Instructions:</strong> How to use the code - for the benefit of other users.</li>
 </ul>
 <p>For <strong>high complexity</strong> work the following should be considered</p>
 <ul>
-<li>Write documentation for each section/function of code separately</li>
-<li>Provide examples</li>
+<li>Write documentation for each section/function of code separately .</li>
+<li>Provide examples of usage.</li>
 </ul>
 <p>For <strong>high criticality</strong> work consider creating an <a href="packages-development.html">R package</a> then:</p>
 <ul>
@@ -427,7 +235,7 @@ div.tocify {
 </ul>
 </div>
 <div id="testing" class="section level2">
-<h2>Testing</h2>
+<h2><span class="header-section-number">1.4</span> Testing</h2>
 <p>As a minimum, manual tests should be performed and the results recorded alongside the code. This may take the following forms:</p>
 <ul>
 <li>Assertions in the code to ensure reasonableness, e.g. result is within a range.</li>
@@ -446,7 +254,7 @@ div.tocify {
 </ul>
 </div>
 <div id="reproducibility" class="section level2">
-<h2>Reproducibility</h2>
+<h2><span class="header-section-number">1.5</span> Reproducibility</h2>
 <p>Important work should reproducible by others, and your future self. This means keeping track of inputs, parameters and code used to produce results. The simplest approach is to keep a copy of input data and parameters alongside the the code used to produce the saved results. Then it is self-contained.</p>
 <p>Also consider using <a href="writing-rmarkdown.html">R markdown</a> which captures description, code and results in a single document.</p>
 <p>For <strong>high complexity</strong> work consider creating an <a href="writing-structure.html#projects">RStudio project</a> it has the following benefits:</p>
@@ -467,7 +275,7 @@ div.tocify {
 </ul>
 </div>
 <div id="change-control" class="section level2">
-<h2>Change control</h2>
+<h2><span class="header-section-number">1.6</span> Change control</h2>
 <p>Change control is about managing updates and bug fixes to the code in a way that is tracked, reviewed, and approved. It ensures change, and its implications, is understood and can also be reversed, if necessary. The simplest approach is to produce new files for each version, keeping older versions elsewhere. Each new version should document the reason for the change.</p>
 <p>A much better solution is to use version control software to track changes. This makes the process much more robust. It is recommended that <a href="development.html#git">Git</a> is used for version control and shared using a hosting application such as GitHub (or TFS if not available).</p>
 <p>For <strong>high complexity</strong> and/or <strong>criticality</strong> consider the following:</p>
@@ -480,7 +288,7 @@ div.tocify {
 </ul>
 </div>
 <div id="access-control" class="section level2">
-<h2>Access control</h2>
+<h2><span class="header-section-number">1.7</span> Access control</h2>
 <p>There should be appropriate controls on who has access to the source code and/or results. The developers should be aware of who has access the work they are producing. The simplest approach is to save files into a location with adequate access controlled by the IT dept. It may also be appropriate to limit who has the ability to change the source code separately.</p>
 <p>For <strong>high complexity</strong> work it is important only those with the appropriate level of knowledge can change the code.</p>
 <p>For <strong>high criticality</strong> work production code should not be changable directly. A release process should be set up so appropriate approval must be given before code is promoted.</p>
@@ -491,43 +299,67 @@ div.tocify {
 </ul>
 </div>
 <div id="appendix-solvency-ii-internal-model-approval-process-data-review-findings" class="section level2">
-<h2>Appendix: Solvency II: internal model approval process data review findings</h2>
-<div id="sub-risk-5-it-environment-technology-and-tools" class="section level4">
-<h4>Sub-risk 5: IT environment, technology and tools</h4>
+<h2><span class="header-section-number">1.8</span> Appendix: Solvency II: internal model approval process data review findings</h2>
+<div id="sub-risk-5-it-environment-technology-and-tools" class="section level3">
+<h3><span class="header-section-number">1.8.1</span> Sub-risk 5: IT environment, technology and tools</h3>
 <blockquote>
 <p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
 </blockquote>
-<div id="finding-9-end-user-computing-euc" class="section level6">
-<h6>Finding 9: end-user computing (EUC)</h6>
+<p><strong>Finding 9: end-user computing (EUC)</strong></p>
 <p>4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital and balance sheet modelling. The PRA does not have a view on whether end-user computing (EUC) is appropriate, as it is a form of IT, and all IT needs to be appropriately controlled. Where EUC is material to the internal model data flow, the PRA will be looking for appropriate controls for data quality such as reasonableness checks, input validations, peer reviews, systems environment configuration, logical access management, ongoing change controls (development, build , systems and user acceptance testing) and release management (including implementation and operational testing), disaster recovery, and documentation.</p>
 <p>4.37 Automation of spreadsheets reduces the risk of manual error (2012.4.42), but can introduce different problems such as reduced oversight, inadequate transparency about the extent of linking and the proliferation of nested spreadsheets and the attendant issue of ‘broken links’.</p>
 <p>4.38 The 2012 report did not engage comprehensively with cyber risk. This is likely to be an area of increasing focus, following alerts and increasing concerns about security as firms move away from localised application and onto networked platforms. As noted in the Bank of England Financial Stability Report,1 cyber attacks can threaten financial stability by disrupting the provision of critical functions from the financial system to the real economy. The Financial Policy Committee has recommended that resilience testing be a regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber or business interruption are also indirectly exposed to cyber risk.</p>
-</div>
-<div id="finding-10-it-infrastructure" class="section level6">
-<h6>Finding 10: IT infrastructure</h6>
+<p><strong>Finding 10: IT infrastructure</strong></p>
 <p>4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear definition of user requirements, design, testing and appropriate controls for effective operation in business as usual. This continued to be an area of risk. One firm took seven years to implement a tactical system, and still has no strategic system for its upstream administration processes.</p>
-</div>
-</div>
-</div>
-
-
 
 </div>
 </div>
-
 </div>
+            </section>
 
+          </div>
+        </div>
+      </div>
+
+<a href="software.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/chadgoymer/r-best-practice/edit/master/index.Rmd",
+"text": "Edit"
+},
+"download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"toc": {
+"collapse": "subsection"
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
 });
-
-
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
@@ -535,10 +367,14 @@ $(document).ready(function () {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
-
 </body>
+
 </html>
