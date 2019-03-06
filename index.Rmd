@@ -14,16 +14,19 @@ description: "Best practice guidelines for using R to produce reproducible and r
 
 # Introduction
 
-This document sets out the proposals for best practice when using R. The aim is to provide 
+This document sets out the recommendations for best practice when using R. The aim is to provide 
 a consistent and comprehensive approach to using R for analysis and applications. It forms 
 part of the wider guidance on end-user computing. The document is split into the following 
 areas:
 
- 1. **Software**: Details the recommended software to install, both the core R 
-    applications and supporting software.
- 2. **Writing**: Gives guidance on on how to write R scripts and applications.
- 3. **Packages**: Lists the recommended packages to use for achieving common tasks.
- 4. **Development**: Describes the recommended approaches to developing in R.
+ 1. **[Recommended Software](software.html)**: Details the recommended software to install, both 
+    the core R applications and supporting software.
+ 2. **[Writing R Code](writing.html)**: Gives guidance on on how to write R scripts and 
+    applications.
+ 3. **[Recommended Packages](packages.html)**: Lists the recommended packages to use for achieving
+    common tasks.
+ 4. **[Development Practices](development.html)**: Describes the recommended approaches to 
+    developing in R.
 
 This document is not supposed to be a comprehensive guide to using R. It gives guidance
 and sign-posts users to resources with more details.
@@ -41,15 +44,19 @@ identifies end-user computing as a Solvency II risk. In particular, it states:
 End-user computing requires a user to think about the following areas when developing
 in R:
 
- - Risk analysis
  - Documentation
  - Testing
  - Reproducibility
  - Change control
  - Access control
 
-The result of the risk analysis determines the level at which the subsequent points
-need to be addressed.
+The degree to which the above points need to be addressed depend on the result of a simple risk 
+analysis. For example, if a piece of work is a one-off analysis and the results are not distributed
+further, then some simple documentation is all that is required. If the work is a complex set of 
+functions, which important systems depend on, then each function must be clearly documented and 
+user guides specified.
+
+More detail is given on each of the areas below.
 
 
 ## Risk Analysis
@@ -70,130 +77,247 @@ systems rely on or informs major business decisions then it is important to ensu
 it is thoroughly tested and reviewed and changes are not made without careful 
 consideration of how it affects dependents.
 
-In order to assess the level of controls we perform a simple risk analysis by estimating 
-the level of complexity and criticality of the work, using a scale of **high**, 
-**medium** or **low**. If both are low then no further consideration is required. However, 
-If any of the above factors are medium or high then the work is considered material 
-and should be subject to the following controls.
+In order to assess the level of controls our end-user computing standards require we perform a 
+simple risk analysis by estimating the level of _complexity_ and _criticality_ of the work, 
+using a scale of **high**, **medium** or **low**. If both are low then no further consideration 
+is required. However, if any of the above factors are _medium_ or _high_ then the work is 
+considered material and the following recommendations should be considered.
 
 
 ## Documentation
 
-As a minimum the following should be documented with the code. For simple scripts, a 
-commented header in the file is sufficient. For multi-file applications it is recommended 
-that a [README](writing-structure.html#readme) file is added.
+Documentation ensures everyone using the code understands what it does and how to use it 
+effectively. For simple scripts, a commented header in the file is sufficient. For multi-file
+applications it is recommended that a separate
+[README](http://r-pkgs.had.co.nz/release.html#readme) text file is added.
 
- - **Name:** The name of the project, analysis or application.
- - **Description:** A brief description of of what the code does (not how).
- - **Purpose:** The reason for writing the code.
- - **Instructions:** How to use the code - for the benefit of other users.
+#### Low Complexity and Criticality
 
-For **high complexity** work the following should be considered
+As a minimum, it is recommended that the following are documented with the code:
 
- - Write documentation for each section/function of code separately .
- - Provide examples of usage.
+ - Record the **name** of the project, analysis or application.
+ - Write a **description** of of what the code does (not how).
+ - Record the **purpose** of the code.
+ - Write **instructions** for how to use the code.
 
-For **high criticality** work consider creating an [R package](packages-development.html) then:
+#### Medium Complexity
 
- - Create a [DESCRIPTION](packages-development.html#description) file to document 
-   the package.
- - Use the package [`Roxygen2`](packages-development.html#documentation) to document 
-   functions.
- - Write a [vignette](packages-development.html#vignette) explaining its use.
+As the complexity increases it becomes important to ensure users know how to use the code 
+correctly. In addition to the list above, the following is also recommended:
+
+ - Provide **examples** of usage.
+
+#### High Complexity
+
+For high complexity work it is important that the code is broken up into sections or functions. 
+Therefore the following are recommended:
+
+ - Write **separate descriptions** for each section or function.
+ - Provide **separate examples** for each section or function.
+ - Write a **user guide**
+
+#### Medium Criticality
+
+As criticality increases it becomes important to ensure reproducibility is possible. Therefore,
+in addition to the minimum requirements above, following is recommended:
+
+ - Clearly define **dependencies** (packages used, input data used,...etc).
+
+#### High Criticality
+
+For high criticality work consider creating an [R package][pkg_book] then:
+
+ - **Document the package** by creating a [DESCRIPTION](http://r-pkgs.had.co.nz/description.html).
+ - **Document each function** using [`Roxygen2`](http://r-pkgs.had.co.nz/man.html).
+ - Write a **user guide** as a [vignette](http://r-pkgs.had.co.nz/vignettes.html) explaining 
+   its use.
 
 
 ## Testing
 
-As a minimum, manual tests should be performed and the results recorded alongside the 
-code. This may take the following forms:
+Testing is required to ensure the code actually does what is intended. It is also necesary to 
+record the tests, so they can be repeated, and the results, as evidence of correctness.
 
- - Assertions in the code to ensure reasonableness, e.g. result is within a range.
- - Comparisons with known results.
+#### Low Complexity and Criticality
 
-For **high complexity** work consider the following:
+As a minimum, manual tests should be performed to ensure the user is comfortable the code is 
+working as intended. In order to reproduce the tests it is recommended the following are 
+recorded:
 
- - Separate tests for each section/function of code.
- - Comparisons with simple inputs and expected results
+ - Describe the **test process**.
+ - Record the **test results**.
 
-For **high criticality** work consider creating an 
-[R package](packages-development.html) then:
+#### Medium Complexity
 
- - Use the package [`testthat`](packages-development.html#testing) to write 
+As the complexity increases it becomes more important to ensure the code is tested, consider:
+
+ - **Comparisons** with known results.
+ - **Regression tests** to compare new results to previous ones.
+
+#### High Complexity
+
+For high complexity work it is important that the code is broken up into sections or 
+functions. Therefore, following are recommended:
+
+ - **Separate tests** for each section or function.
+ - **Unit tests** to compare with expected results when given simple inputs.
+
+#### Medium Criticality
+
+As the criticality increases checks should be added within the code. This ensures the code and 
+the results are tested each time it is run. The following are also recommended:
+
+ - **Assertions on the inputs** to ensure they are valid for the code (e.g. a particular value is
+   positive).
+ - Check **appropriate errors or warnings** are returned when inputs are invalid.
+
+#### High Criticality
+
+For high criticality work consider creating an [R package](pkg_book) then:
+
+ - **Test the package** using [`testthat`](http://r-pkgs.had.co.nz/tests.html) to write 
    executable tests.
- - Execute regression tests whenever changes are made.
- - Perform integration tests with dependent systems.
+ - Execute **regression tests** whenever changes are made.
+ - Perform **integration tests** with dependent systems.
 
 
 ## Reproducibility
 
 Important work should reproducible by others, and your future self. This means keeping 
-track of inputs, parameters and code used to produce results. The simplest approach 
-is to keep a copy of input data and parameters alongside the the code used to produce
-the saved results. Then it is self-contained.
+track of inputs, parameters and code used to produce results.
 
-Also consider using [R markdown](writing-rmarkdown.html) which captures 
-description, code and results in a single document.
+#### Low Complexity and Criticality
 
-For **high complexity** work consider creating an 
-[RStudio project](writing-structure.html#projects) it has the following benefits:
+As a minimum, it should be clear where the inputs came from. The following are recommended:
 
- - Sets the current working directory so relative file paths can be used.
- - Saves open files so you can start where you left off.
+ - Clearly define how to **import input data** so it can be re-executed.
+ - Consider keeping a **copy of input data and parameters** alongside the code.
 
-Some other recommendations worth considering are:
+#### Medium Complexity
 
- - Avoid referencing external files if possible.
- - Make dependencies clear.
- - Cache versions of input data into a subfolder, if not large.
+As the complexity increases consider using a structured project, for example.
 
-For **high criticality** work also consider
+ - Use 
+   **[RStudio projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)**,
+   which allows you to reference files 
+   using relative paths and save open files and workspaces.
+ - Consider using **[R markdown](https://rmarkdown.rstudio.com/lesson-1.html)** which captures
+   description, code and results in a single document.
 
- - Outputting audit logs with time stamp, username and computing environment
- - Holding inputs in version control
+#### High Complexity
+
+For high complexity work it the following are recommended:
+
+ - It is **peer reviewed**. The best way to ensure others can reproduce your work is to get a peer 
+   review.
+ - **Avoid referencing external files**, unless you can be positive they will always be available 
+   in the specified location. Even then, it is worth **caching external files** in a subfolder, if 
+   they are not too large.
+
+#### Medium Criticality
+
+As the criticality increases following is recommended:
+
+ - Output an **audit log** with a time stamp, username of the person executing the code and a 
+   summary of computing environment (e.g. package versions used).
+
+#### High Criticality
+
+For high criticality work also consider:
+
+ - Holding **inputs in version control** or other system that allows you to retrieve old versions.
+ - Using [packrat](https://rstudio.github.io/packrat/) to **manage the versions of packages** used.
 
  
 ## Change control
 
 Change control is about managing updates and bug fixes to the code in a way that is 
 tracked, reviewed, and approved. It ensures change, and its implications, is understood 
-and can also be reversed, if necessary. The simplest approach is to produce new files 
-for each version, keeping older versions elsewhere. Each new version should document 
-the reason for the change.
+and can also be reversed, if necessary.
 
-A much better solution is to use version control software to track changes. This makes 
-the process much more robust. It is recommended that [Git](development.html#git) is used 
-for version control and shared using a hosting application such as GitHub (or TFS if not
-available).
+#### Low Complexity and Criticality
 
-For **high complexity** and/or **criticality** consider the following:
+The simplest approach is to:
 
- - Track changes in the hosting application (GitHub or TFS).
- - Record description and reason for change and prioritise.
- - Create a new branch for each change.
- - Merge back into the main branch only after a review.
- - Require approval from an appropriate person or group before releasing to production.
+ - Produce **new files for each version**.
+ - **Archive older versions** so you can rollback is necessary.
+ - **Document changes**, concentrating on why rather than what.
+
+#### Medium Complexity
+
+As complexity increases it becomes more important to track changes in a more robust manner. 
+Instead of the approach above:
+
+ - Use **version control software**, such as [Git](https://git-scm.com/about), to track changes.
+
+#### High Complexity
+
+ - **Break changes down into tasks** and implement each one separately.
+ - Create a **branch for each task** and merge back into the main branch once complete.
+
+#### Medium Criticality
+
+As criticality increases it becomes more important to confirm changes are correct and 
+appropriate.
+
+ - Use **version control software**, such as [Git](https://git-scm.com/about), to track changes.
+ - Ensure **changes are peer reviewed** and documented.
+
+#### High Criticality
+
+ - Use **version control hosting application**, such as [GitHub](https://help.github.com/) or
+   Microsoft's [Azure DevOps](https://azure.microsoft.com/en-us/product-categories/devops/), to
+   share changes.
+ - **Formalise reviews** using 
+   [pull requests](https://help.github.com/articles/about-pull-requests/).
+ - **Require approval** from an appropriate person or group before deploying to production.
 
 
 ## Access control
 
 There should be appropriate controls on who has access to the source code and/or results. 
-The developers should be aware of who has access the work they are producing. The simplest 
-approach is to save files into a location with adequate access controlled by the IT dept.
-It may also be appropriate to limit who has the ability to change the source code 
-separately.
+The developers should be aware of who has access the work they are producing.
 
-For **high complexity** work it is important only those with the appropriate level of 
+#### Low Complexity and Criticality
+
+The simplest approach is:
+
+ - Save files to a network drive, with **access controlled** by the IT dept.
+
+#### Medium Complexity
+
+As complexity increases it is important to ensure that no unintentional changes are propagated 
+into production.
+
+ - **Separate source code** from results.
+ - **Maintain a protected version**, which can only be updated by appropriate people
+   (Note: GitHub provides this functionality out-of-the-box).
+
+#### High Complexity
+
+For high complexity work it is important only those with the appropriate level of 
 knowledge can change the code.
 
-For **high criticality** work production code should not be changable directly. A release 
+ - Use **version control hosting application**, such as [GitHub](https://help.github.com/) or
+   Microsoft's [Azure DevOps](https://azure.microsoft.com/en-us/product-categories/devops/), to
+   share changes.
+ - Deploy to a **production location** for users.
+
+#### Medium Criticality
+
+As criticality increases is important to ensure work is protected and backed up.
+
+ - Ensure an appropriate **back-up and recovery strategy** is in place.
+ - Ensure that the code has gone through an **appropriate review** before deploying to production.
+
+#### High Criticality
+
+For high criticality work production code should not be changable directly. A release 
 process should be set up so appropriate approval must be given before code is promoted.
 
-In both cases:
-
- - The list of people with access to the source code and results should be reviewed on a
-   regular basis.
- - Appropriate back up and recovery strategies should be implemented to ensure rollback 
-   and re-installation is possible.
+ - Maintain and **regularly review the list of developers** and users.
+ - Ensure that the code has gone through an **appropriate release process** before deploying to 
+   production.
 
 
 ## Appendix: Solvency II: internal model approval process data review findings
@@ -236,4 +360,7 @@ operation in business as usual. This continued to be an area of risk. One firm t
 years to implement a tactical system, and still has no strategic system for its upstream
 administration processes.
 
+
 [pra_solvency2]: https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/publication/solvency-ii-internal-model-approved-process-data-review-findings-09-02-2016.pdf?la=en&hash=873ED57439F79A32D0F00D7255BC0E436E9F85E5
+[pkg_quick]: https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+[pkg_book]: http://r-pkgs.had.co.nz/
