@@ -1,22 +1,26 @@
 # Software {#software}
 
 When developing R code which may be shared or executed by another person it is important to 
-ensure everyone is using the same versions of software and packages.
+ensure everyone is using the same versions of software and packages. Differences in packages 
+can produced unexpected results and all versions of packages are not compatible with all versions
+of R.
 
 
 ## Core R Applications
 
 The minimum software required to write R code is the R application itself. However, it is 
-better to use a separate editor for creating R scripts. The recommended software installtion 
+better to use a separate editor for creating R scripts. The recommended software installation 
 is:
 
- - [Microsoft R Open](https://mran.microsoft.com/open/), which is 100% compatible with the
-   standard version of R and provides better performance in some cases. Like the standard 
-   version of R, Microsoft's version is free.
- - [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/), to edit R script 
-   and build projects. RStudio can also be used for free.
- - [RTools](https://cran.r-project.org/bin/windows/Rtools/), which is required to build R
-   packages. RTools is free to download.
+ - [R](https://cloud.r-project.org/): Use the latest version whenever possible. If older versions
+   are required they can be installed side-by-side. Within RStudio, the version of R to use can be 
+   selected in the Global Options. R can be used for Free.
+ - [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/): To edit R scripts 
+   and manage projects. As with R use the latest version possible. RStudio can also be used for 
+   free.
+ - [RTools](https://cran.r-project.org/bin/windows/Rtools/): A set of tools required to build R 
+   packages. You must make sure you have the version compatible with the most recent version of R
+   installed. RTools can also be used for free.
 
 RStudio provides a cheatsheet detailing commonly used functionality of its editor:
 
@@ -28,14 +32,17 @@ knitr::include_graphics("images/rstudio-ide.png")
 
 ## Supporting Software
 
-In addition to the above, when writing R code of high complexity or criticality it is
+In addition to the above, when writing R code of medium (or high) complexity or criticality it is
 recommended that version control is used:
 
- - [Git](http://gitforwindows.org/) is the market leader and integrates well with RStudio.
-   Git is free
+ - [Git](http://gitforwindows.org/) is the market leader version control software and integrates 
+   well with RStudio. Git is free.
  - [GitKraken](https://www.gitkraken.com/) provides a very good graphical interface to 
-   Git and access to more features than RStudio. GitKraken is not free, but it does not cost
-   very much.
+   Git and access to more features than RStudio. If you are working on complex projects with other 
+   team members then consider using GitKraken. GitKraken is not free, but it does not cost very 
+   much.
+ - [GitHub](https://help.github.com/) is a hosting platform for Git repositories. It also allows 
+   you to control access, formalise code reviews and plan projects.
 
 
 ## Package Versions
@@ -43,30 +50,25 @@ recommended that version control is used:
 A common problem with R is ensuring everyone is using the same version of packages. The 
 are a number of ways to deal with this problem:
 
-
- 1. Another approach is to create a site library, a location on a network drive where 
+ 1. The simplest approach is to create a site library, a location on a network drive where 
     everyone has access to. The default library location can then be set to this location so
     everyone uses the same packages.
     
     The disadvantage of this approach is that if someone updates a packages it is updated 
     for everyone.
     
- 1. The simplest is to use the 
-    [checkpoint](https://mran.microsoft.com/documents/rro/reproducibility) in Microsoft's R. 
-    When installing Microsoft R Open a date is set and when packages are installed they are
-    taken from a snapshot of the CRAN repository on that date. That way everyone using the 
-    same version of Microsoft R Open is guaranteed to be using the same version of packages.
+ 1. Another option, which can be used with the first option, is to point everyone's R installation 
+    to a snapshot of CRAN. This ensures that everyone installs packages released at a specified 
+    date. This can be achieved using either:
     
-    The disadvantage of this approach is you cannot use the latest features of a package 
-    unless the date is brought forward.
+    - Microsoft's [Time Machine](https://mran.microsoft.com/timemachine) allows you select the 
+      version of CRAN to used based on a date.
     
-    1 and 2 can be combined to avoid installing packages for every user.
- 
- 1. Packrat
- 
- 1. Use Microsoft's [`checkpoint`](https://mran.microsoft.com/documents/rro/reproducibility)
-    package to set the date for a piece of work. If a newer version of a package is required 
-    it can be set in the script and it will be downloaded for that bit of work only.
+    - RStudio's [Package Manager](https://www.rstudio.com/products/package-manager/) allows you to
+      select a version of CRAN based on an ID. RStudio Package Manager is installed on premise and
+      also allows the company to control the packages that can be installed.
     
-    The disadvantage of this approach is the required packages are downloaded separately 
-    for each project, so should only be used for exceptional cases.
+ 1. The most flexible approach is to use [packrat](development.html#packrat) when developing 
+    projects or packages. Packrat allows you to specify which versions of dependent packages you 
+    use for the project, and ensures that everyone using it also uses the same versions of 
+    the packages.
