@@ -1,6 +1,6 @@
----
-title: "Non-Standard Evaluation"
----
+# Advanced Topics {#advanced}
+
+## Non-Standard Evaluation
 
 ```{r include=FALSE}
 library(glue)
@@ -13,7 +13,7 @@ of evaluation. Instead, they capture the expression that you typed and evaluate 
 custom way.
 
 
-## Strings and quoting
+### Strings and quoting
 
 Here's a simple example in the case of strings. If you want to return a personalised 
 message, it is obvious the below function will not give you what you want:
@@ -42,7 +42,7 @@ The [`glue()`](https://www.rdocumentation.org/packages/glue/topics/glue) functio
 "unquotes" the "name" and evaluates it as a variable.
 
 
-## Base R evaluation
+### Base R evaluation
 
 
 #### Expressions and quoting
@@ -183,7 +183,7 @@ in the enclosed environment. This is known as **overscoping**, as the formula or
 function has scope beyond its execution environment.
 
 
-## Tidy Evaluation
+### Tidy Evaluation
 
 To summarise the above, the following points are important to tidy evaluation:
 
