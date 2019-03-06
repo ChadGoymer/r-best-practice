@@ -24,10 +24,7 @@ is:
 
 RStudio provides a cheatsheet detailing commonly used functionality of its editor:
 
-```{r rstudio-cheatsheet, echo=FALSE, fig.align='center', fig.cap='RStudio Cheat Sheet', out.width='80%'}
-knitr::include_graphics("images/rstudio-ide.png")
-# https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf
-```
+[![R Markdown](images/rstudio-ide.png)](https://github.com/rstudio/cheatsheets/raw/master/rstudio-ide.pdf)
 
 
 ## Supporting Software
