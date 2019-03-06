@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R Best Practice</title>
+  <title>Chapter 3 Writing R Code | R Best Practice</title>
   <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R Best Practice" />
+  <meta property="og:title" content="Chapter 3 Writing R Code | R Best Practice" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="chadgoymer/r-best-practice" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Best Practice" />
+  <meta name="twitter:title" content="Chapter 3 Writing R Code | R Best Practice" />
   
   <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-03-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="packages.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,18 +164,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
-<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-markdown-1"><i class="fa fa-check"></i><b>3.3.2</b> R Markdown</a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks</a></li>
 <li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks</a></li>
+<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
 <li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#cheatsheets"><i class="fa fa-check"></i><b>4.1.2</b> Cheatsheets</a></li>
-<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing Data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="packages.html"><a href="packages.html#tidying-data"><i class="fa fa-check"></i><b>4.1.4</b> Tidying Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices</a><ul>
+<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics</a><ul>
+<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting</a></li>
+<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation</a></li>
+<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -174,20 +225,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 3</span> Writing R Code</h1>
 <div id="writing-style" class="section level2">
 <h2><span class="header-section-number">3.1</span> Writing Style</h2>
-<p>When writing code it is important to follow a common style so it is readable and other people, and your future self, can easily understand and extend it.</p>
+<p>When writing code it is important to follow a common style so it is readable and
+other people, and your future self, can easily understand and extend it.</p>
 <div id="tidyverse" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Tidyverse</h3>
-<p>It is recommended, when using R, that we use the “<a href="https://www.tidyverse.org/">Tidyverse</a>” approach and packages wherever possible. The Tidyverse is a collection of packages designed for data science, as well as a philosophy and style for formatting data and writing functions. The <a href="https://www.tidyverse.org/">tidyverse.org</a> website details the packages involved and contains articles on how to use them. Some of it will be summarised below, but the website contains the definitive information.</p>
-<p>The most in-depth treatment on the Tidyverse can be found in the book “R for Data Science”, which is available online for free at <a href="http://r4ds.had.co.nz/">r4ds.had.co.nz</a>.</p>
-<p>The tidyverse has an extensive <a href="http://style.tidyverse.org/">style guide</a>, which we summarise here:</p>
+<p>It is recommended, when using R, that we use the “<a href="https://www.tidyverse.org/">Tidyverse</a>”
+approach and packages wherever possible. The Tidyverse is a collection of packages designed
+for data science, as well as a philosophy and style for formatting data and writing functions.
+The <a href="https://www.tidyverse.org/">tidyverse.org</a> website details the packages involved and
+contains articles on how to use them. Some of it will be summarised below, but the website
+contains the definitive information.</p>
+<p>The most in-depth treatment on the Tidyverse can be found in the book <em>R for Data Science</em>,
+which is available online for free at <a href="http://r4ds.had.co.nz/">r4ds.had.co.nz</a>.</p>
+<p>The tidyverse has an extensive <a href="http://style.tidyverse.org/">style guide</a>, which we
+summarise here:</p>
 </div>
 <div id="files" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Files</h3>
 <ul>
-<li>File names should be meaningful and end in <code>.R</code>, or <code>.Rmd</code> for R markdown files. Only use letters, numbers and <code>-</code> or <code>_</code>.</li>
-<li>If your script required packages load them all at once at the very beginning of the file.</li>
+<li>File names should be meaningful and end in <code>.R</code>, or <code>.Rmd</code> for R markdown files. Only
+use letters, numbers and <code>-</code> or <code>_</code>.</li>
+<li>If your script required packages load them all at once at the very beginning of the
+file.</li>
 <li>Use comments to explain the “why” not the “what” or “how”.</li>
-<li>Break up files into named sections using commented lines (<code># ----</code>, example below). In RStudio you can collapse and expand sections commented this way.</li>
+<li>Break up files into named sections using commented lines (<code># ----</code>, example below). In
+RStudio you can collapse and expand sections commented this way.</li>
 </ul>
 <pre><code># Load data --------------------------------------------------------------------</code></pre>
 </div>
@@ -204,24 +266,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use verbs for function names where possible.</li>
 <li>If a function has numerous arguments put each one on a new line.</li>
 <li>A function should do one thing well. If it is doing too much the break it up.</li>
-<li>A function should be easily understandable in isolation. It should not refer to any variables outside the function scope.</li>
+<li>A function should be easily understandable in isolation. It should not refer
+to any variables outside the function scope.</li>
 </ul>
 </div>
 <div id="pipes" class="section level3">
 <h3><span class="header-section-number">3.1.5</span> Pipes</h3>
 <ul>
-<li>Use <code>%&gt;%</code> when you find yourself composing three or more functions together, instead of a nested call.</li>
-<li><code>%&gt;%</code> should always have a space before it and a new line after it. After the first step, each line should be indented by two spaces.</li>
+<li>Use <code>%&gt;%</code> when you find yourself composing three or more functions together,
+instead of a nested call.</li>
+<li><code>%&gt;%</code> should always have a space before it and a new line after it. After the
+first step, each line should be indented by two spaces.</li>
 </ul>
 </div>
 <div id="documentation-1" class="section level3">
 <h3><span class="header-section-number">3.1.6</span> Documentation</h3>
 <ul>
-<li>Created functions should be documentated so others, including the future you, can understand what the function does and how to use it.</li>
-<li>Documentation should be written before the function definition in an <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">roxygen2</a> style. roxygen uses special comments, starting with <code>#'</code>. The first line is the title, and anything else, not prefixed with a keyword forms the description. Keywords start with <code>@</code> and the most important ones are <code>@param</code> to describe a function parameter and <code>@return</code> to describe what the function returns.</li>
+<li>Created functions should be documentated so others, including the future you,
+can understand what the function does and how to use it.</li>
+<li>Documentation should be written before the function definition in an
+<a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">roxygen2</a>
+style. roxygen uses special comments, starting with <code>#'</code>. The first line is the
+title, and anything else, not prefixed with a keyword forms the description.
+Keywords start with <code>@</code> and the most important ones are <code>@param</code> to describe
+a function parameter and <code>@return</code> to describe what the function returns.</li>
 </ul>
 <p>Here is a very simple example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; The length of a string.</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; The length of a string.</span>
 <span class="co">#&#39;</span>
 <span class="co">#&#39; This function returns the number of characters in the supplied string.</span>
 <span class="co">#&#39; </span>
@@ -234,59 +305,76 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&#39;</span>
 str_length &lt;-<span class="st"> </span><span class="cf">function</span>(string) {
   <span class="kw">nchar</span>(string)
-}</code></pre></div>
+}</code></pre>
 </div>
 </div>
 <div id="structure" class="section level2">
 <h2><span class="header-section-number">3.2</span> Structure</h2>
-<p>Organising files for a particular piece of work becomes more important as the scale and complexity increases. Standard approaches exists to simplify the workflow.</p>
+<p>Organising files for a particular piece of work becomes more important as the scale and
+complexity increases. Standard approaches exists to simplify the workflow.</p>
 <div id="projects" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Projects</h3>
 <p>Use RStudio projects to organise files. This has a number of advantages:</p>
 <ol style="list-style-type: decimal">
 <li>Sets the working directory to the project location</li>
 <li>Reopens the same files when returning to the projects</li>
+<li>Saves the workspace so data and code is loaded when you re-open the project</li>
 </ol>
 </div>
 <div id="folders" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Folders</h3>
-<p>When an analysis becomes complex it should be split up into logical parts and stored in subfolders. Store the original data in a folder, unchanged. It is better to “cleanse” input data with an R script as it can repeated when data changes, and/or the approach changed itself.</p>
-<p>R code may also be stored in a separate folder. You may have an R script for cleansing the data and another for performing an analysis. Include an R script at the top level which executes the code in the subfolder in the appropriate order. Use relative paths to the files. If an RStudio project has been created the working directory will be set to the project directory automatically.</p>
-<p>Output the results, plots, data, etc, in another folder so it is clear whether data files are results rather than inputs.</p>
+<p>When an analysis becomes complex it should be split up into logical parts and stored in
+subfolders. Store the original data in a folder, unchanged. It is better to “cleanse” input
+data with an R script as it can repeated when data changes, and/or the approach changed
+itself.</p>
+<p>R code may also be stored in a separate folder. You may have an R script for cleansing the
+data and another for performing an analysis. Include an R script at the top level which
+executes the code in the subfolder in the appropriate order. Use relative paths to the
+files. If an RStudio project has been created the working directory will be set to the
+project directory automatically.</p>
+<p>Output the results, plots, data, etc, in another folder so it is clear whether data files
+are results rather than inputs.</p>
 <p>An example of a project structure:</p>
 <ul>
 <li>data
 <ul>
-<li>interesting_data.xlsx</li>
-<li>reference_data.csv</li>
+<li>interesting-data.xlsx</li>
+<li>reference-data.csv</li>
 </ul></li>
 <li>R
 <ul>
-<li>clean_data.R</li>
+<li>clean-data.R</li>
 <li>analyse.R</li>
 </ul></li>
 <li>tests
 <ul>
-<li>test_cleansed_data.R</li>
-<li>test_analysis.R</li>
+<li>test-cleansed-data.R</li>
+<li>test-analysis.R</li>
 </ul></li>
 <li>results
 <ul>
-<li>cool_plot.png</li>
-<li>table_of_results.csv</li>
+<li>cool-plot.png</li>
+<li>table-of-results.csv</li>
 </ul></li>
-<li>run_code.R</li>
+<li>run-code.R</li>
 <li>README.md</li>
 </ul>
 </div>
 <div id="readme" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> README</h3>
-<p>Adding a README file is a good way to explain to other, and you future self, what the analysis does and how to use it. The <a href="index.html#documentation">documentation</a> section of the best practice has more detail on what should be included.</p>
-<p>It is recommended that <a href="http://rmarkdown.rstudio.com/lesson-8.html">markdown</a> is used to write the README. It is a very simple way to specify text formatting in a plain text file and can be converted to many other formats (HTML, docx, PDF) if required. In addition, if the package is stored in GitHub a markdown README is automatically rendered on the repository’s page.</p>
+<p>Adding a README file is a good way to explain to other, and you future self, what the analysis
+does and how to use it. The <a href="index.html#documentation">documentation</a> section of the best
+practice has more detail on what should be included.</p>
+<p>It is recommended that <a href="http://rmarkdown.rstudio.com/lesson-8.html">markdown</a> is used to
+write the README. It is a very simple way to specify text formatting in a plain text file
+and can be converted to many other formats (HTML, docx, PDF) if required. In addition, if
+the package is stored in GitHub a markdown README is automatically rendered on the
+repository’s page.</p>
 </div>
 <div id="r-packages" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> R Packages</h3>
-<p>When R code has high criticality consider turning it into a package. A package is a way of collecting together related code in a robust way. It has the following advantages:</p>
+<p>When R code has high criticality consider turning it into a package. A package is a way
+of collecting together related code in a robust way. It has the following advantages:</p>
 <ul>
 <li>Easier to share with others (as a zip file)</li>
 <li>Documentation is compiled into help pages</li>
@@ -294,23 +382,28 @@ str_length &lt;-<span class="st"> </span><span class="cf">function</span>(string
 <li>Can implement a development and release process</li>
 <li>Code is broken up into useful functions</li>
 </ul>
-<p>Writing a package is very straight forward with the helper packages available today. More information can be found in <a href="packages-development.html">Package Development</a>.</p>
+<p>Writing a package is very straight forward with the helper packages available today. More
+information can be found in <a href="development.html#packages">Package Development</a>.</p>
 </div>
 </div>
 <div id="r-markdown" class="section level2">
 <h2><span class="header-section-number">3.3</span> R Markdown</h2>
-<p><a href="http://rmarkdown.rstudio.com/">R markdown</a> is a way of capturing documentation, code and results and in a single file. The document is written in plain text using a style called <a href="https://rmarkdown.rstudio.com/authoring_basics.html">markdown</a>. This has a simple syntax for specifying text formatting. R code is added in “chunks” and when the document is rendered the R code is executed and replaced with the results.</p>
-<p>R markdown can be used to produce web pages, Word and PDF documents. The provide a robust way of capturing an analysis and the results and can be re-run when the data changes.</p>
+<p><a href="http://rmarkdown.rstudio.com/">R markdown</a> is a way of capturing documentation, code and
+results and in a single file. The document is written in plain text using a style called
+<a href="https://rmarkdown.rstudio.com/authoring_basics.html">markdown</a>. This has a simple syntax
+for specifying text formatting. R code is added in “chunks” and when the document is
+rendered the R code is executed and replaced with the results.</p>
+<p>R markdown can be used to produce web pages, Word and PDF documents. The provide a
+robust way of capturing an analysis and the results and can be re-run when the data
+changes.</p>
 <p>RStudio provides a cheatsheet detailing R markdown functionality:</p>
-<div class="figure" style="text-align: center"><span id="fig:rmarkdown-cheatsheet"></span>
-<img src="images/rmarkdown-cheatsheet-2.0.png" alt="R Markdown Cheat Sheet" width="80%" />
-<p class="caption">
-Figure 3.1: R Markdown Cheat Sheet
-</p>
-</div>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf"><img src="images/rmarkdown.png" alt="R Markdown" /></a></p>
+<p>For a detailed guide the book <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown</a> is available for
+free online.</p>
 <div id="markdown" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Markdown</h3>
-<p>Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats.</p>
+<p>Markdown is a lightweight markup language with plain text formatting syntax. It is
+designed so that it can be converted to HTML and many other formats.</p>
 <div id="paragraphs" class="section level4">
 <h4><span class="header-section-number">3.3.1.1</span> Paragraphs</h4>
 <p>Leave at least one empty line between text to start a new paragraph.</p>
@@ -382,10 +475,7 @@ _italic_   __bold__</code></pre>
 <pre><code>![](https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg)
 
 ![optional caption text](images/octocat.png)</code></pre>
-<div class="figure">
-<img src="images/R_logo.png" />
-
-</div>
+<p><img src="images/R_logo.png" /></p>
 <div class="figure">
 <img src="images/octocat.png" alt="optional caption text" />
 <p class="caption">optional caption text</p>
@@ -421,7 +511,8 @@ At the bottom of the document:
 &gt; than to receive.</code></pre>
 <p>A friend once said:</p>
 <blockquote>
-<p>It’s always better to give than to receive.</p>
+<p>It’s always better to give
+than to receive.</p>
 </blockquote>
 </div>
 <div id="plain-code-blocks" class="section level4">
@@ -501,24 +592,81 @@ Violets are blue.</p>
 <p><del>strikethrough</del></p>
 </div>
 </div>
-<div id="r-markdown-1" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> R Markdown</h3>
-<div id="r-code-chunks" class="section level4">
-<h4><span class="header-section-number">3.3.2.1</span> R Code Chunks</h4>
-<p>R code will be evaluated and printed</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>dist)</code></pre></div>
+<div id="r-code-chunks" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> R Code Chunks</h3>
+<p>R code surrounded with three ticks and designated <code>{R}</code> (see below) will be evaluated and printed.</p>
+<p>```</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>dist)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
-<p>Inline R Code</p>
+<p>```</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>dist)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
+<p>Inline R Code:</p>
+<pre><code>There were 50 cars studied</code></pre>
 <p>There were 50 cars studied</p>
-</div>
+<p>There are many options available when executing R code chunks. For more information read the
+<a href="https://bookdown.org/yihui/rmarkdown/r-code.html">R code chunks</a> chapter in the R Markdown book.</p>
 </div>
 <div id="r-notebooks" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> R Notebooks</h3>
+<p>An R Notebook is an R Markdown document with chunks that can be executed independently and
+interactively, with output visible immediately beneath the input. They direct interaction with
+R while producing a reproducible document with publication-quality output.</p>
+<p>Any R Markdown document can be used as a notebook, and all R Notebooks can be rendered to other R
+Markdown document types. A notebook can therefore be thought of as a special execution mode for R
+Markdown documents. The immediacy of notebook mode makes it a good choice while authoring the R
+Markdown document and iterating on code. When you are ready to publish the document, you can share
+the notebook directly, or render it to a publication format with the Knit button.</p>
+<div id="creating-a-notebook" class="section level4">
+<h4><span class="header-section-number">3.3.3.1</span> Creating a Notebook</h4>
+<p>You can create a new notebook in RStudio with the menu command <code>File -&gt; New File -&gt; R Notebook</code>,
+or by using the <code>html_notebook</code> output type in your document’s YAML metadata.</p>
+<pre><code>---
+title: &quot;My Notebook&quot;
+output: html_notebook
+---</code></pre>
+</div>
+<div id="inserting-chunks" class="section level4">
+<h4><span class="header-section-number">3.3.3.2</span> Inserting chunks</h4>
+<p>Notebook chunks can be inserted quickly using the keyboard shortcut <code>Ctrl + Alt + I</code>, or via the
+<code>Insert</code> menu in the editor toolbar.</p>
+<p>Because all of a chunk’s output appears beneath the chunk (not alongside the statement which
+emitted the output, as it does in the rendered R Markdown output), it is often helpful to split
+chunks that produce multiple outputs into two or more chunks which each produce only one output.</p>
+</div>
+</div>
+<div id="executing-chunks" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Executing chunks</h3>
+<p>To execute a chunk of code use the green triangle button on the toolbar of a code chunk that has
+the tooltip “Run Current Chunk”, or <code>Ctrl + Shift + Enter</code> to run the current chunk. The result is
+then displayed underneath the chunk.</p>
+</div>
+<div id="saving-and-sharing" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Saving and sharing</h3>
+<p>When a notebook <code>*.Rmd</code> file is saved, a <code>*.nb.html</code> file is created alongside it. This file is a
+self-contained HTML file which contains both a rendered copy of the notebook with all current chunk
+outputs (suitable for display on a website) and a copy of the <code>*.Rmd</code> file itself.</p>
+<p>You can view the <code>*.nb.html</code> file in any ordinary web browser. It can also be opened in RStudio;
+when you open there (e.g., using <code>File -&gt; Open File</code>), RStudio will do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Extract the bundled <code>*.Rmd</code> file, and place it alongside the <code>*.nb.html</code> file.</li>
+<li>Open the <code>*.Rmd</code> file in a new RStudio editor tab.</li>
+<li>Extract the chunk outputs from the <code>*.nb.html</code> file, and place them appropriately in the editor.</li>
+</ol>
+<div id="more-information" class="section level4">
+<h4><span class="header-section-number">3.3.5.1</span> More information</h4>
+<p>For more a more detailed guide on R Notebooks read the
+<a href="https://bookdown.org/yihui/rmarkdown/notebook.html">Notebook chapter</a> in the R Markdown book.</p>
 
+</div>
 </div>
 </div>
 </div>
@@ -548,7 +696,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -560,6 +708,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/chadgoymer/r-best-practice/edit/master/02-writing.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["r-best-practice.pdf", "r-best-practice.epub"],
 "toc": {
@@ -574,8 +726,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

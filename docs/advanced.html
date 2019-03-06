@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 6 Advanced Topics | R Best Practice</title>
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 6 Advanced Topics | R Best Practice" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="github-repo" content="chadgoymer/r-best-practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Advanced Topics | R Best Practice" />
+  
+  <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  
+
+<meta name="author" content="Chad Goymer">
+
+
+<meta name="date" content="2019-03-06">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="development.html">
+<link rel="next" href="cheatsheets.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software</a><ul>
+<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications</a></li>
+<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software</a></li>
+<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code</a><ul>
+<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse</a></li>
+<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files</a></li>
+<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions</a></li>
+<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes</a></li>
+<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects</a></li>
+<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders</a></li>
+<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README</a></li>
+<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks</a></li>
+<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks</a></li>
+<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
+<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices</a><ul>
+<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics</a><ul>
+<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting</a></li>
+<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation</a></li>
+<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Best Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="advanced" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Advanced Topics</h1>
+<div id="non-standard-evaluation" class="section level2">
+<h2><span class="header-section-number">6.1</span> Non-Standard Evaluation</h2>
+<p>Non-standard evaluation is a catch-all term that means they don’t follow the usual R rules
+of evaluation. Instead, they capture the expression that you typed and evaluate it in a
+custom way.</p>
+<div id="strings-and-quoting" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Strings and quoting</h3>
+<p>Here’s a simple example in the case of strings. If you want to return a personalised
+message, it is obvious the below function will not give you what you want:</p>
+<pre class="sourceCode r"><code class="sourceCode r">greet &lt;-<span class="st"> </span><span class="cf">function</span>(name) {
+  <span class="st">&quot;Hello, name&quot;</span>
+}
+
+<span class="kw">greet</span>(<span class="st">&quot;Bob&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;Hello, name&quot;</code></pre>
+<p>The function returns the string exactly as it is written because it is in quotes. With the
+<a href="https://www.rdocumentation.org/packages/glue"><code>glue</code></a> package you can use non-standard
+evaluation to return what you want:</p>
+<pre class="sourceCode r"><code class="sourceCode r">greet &lt;-<span class="st"> </span><span class="cf">function</span>(name) {
+  <span class="kw">glue</span>(<span class="st">&quot;Hello, {name}&quot;</span>)
+}
+
+<span class="kw">greet</span>(<span class="st">&quot;Bob&quot;</span>)</code></pre>
+<pre><code>## Hello, Bob</code></pre>
+<p>The <a href="https://www.rdocumentation.org/packages/glue/topics/glue"><code>glue()</code></a> function
+“unquotes” the “name” and evaluates it as a variable.</p>
+</div>
+<div id="base-r-evaluation" class="section level3">
+<h3><span class="header-section-number">6.1.2</span> Base R evaluation</h3>
+<div id="expressions-and-quoting" class="section level4">
+<h4><span class="header-section-number">6.1.2.1</span> Expressions and quoting</h4>
+<p>A similar approach can be taken to more general expressions in R. An <strong>expression</strong> is some
+R code has not been evaluated yet. It is captured and saved for later. In base R this can
+be achieved using the
+<a href="https://www.rdocumentation.org/packages/base/topics/substitute"><code>quote()</code></a> function.
+Expressions can be one of four classes:</p>
+<ul>
+<li>“constants” (e.g. 4, TRUE).</li>
+<li>“names” (e.g. variable names), that have type “symbols”.</li>
+<li>“calls” (e.g. unevaluated function calls), that have type “language”.</li>
+<li>“pairlists” (not really used anymore).</li>
+</ul>
+<p>Constants are not very interesting, so we will concentrate on names and calls. As with
+strings, we can capture the expression, rather than the evaluated result, using the
+<a href="https://www.rdocumentation.org/packages/base/topics/substitute"><code>quote()</code></a> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</code></pre>
+<pre><code>## [1] &quot;name&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</code></pre>
+<pre><code>## [1] &quot;call&quot;</code></pre>
+<p>To evaluate a quoted expression use the
+<a href="https://www.rdocumentation.org/packages/base/topics/eval"><code>eval()</code></a> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>
+
+<span class="kw">quote</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">eval</span>()</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quote</span>(<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">eval</span>()</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+</div>
+<div id="names-and-environments" class="section level4">
+<h4><span class="header-section-number">6.1.2.2</span> Names and Environments</h4>
+<p>An <strong>environment</strong> is a container for variables, binding a set of names to a set of values.
+Every environment also has a parent environment, except the <strong>empty</strong> environment, which is
+the ultimate ancester of all environments. If a name is not found in the current environment
+R looks in its parent and so on through the generations. This is known as <strong>lexical
+scoping</strong>.</p>
+<p>When using <code>eval()</code> as above the expression is evaluated in the current environment.
+However, the environment to evaluate the expression in can be set as a parameter to
+<code>eval()</code>.</p>
+<p>Note: <code>data.frames</code> can be treated as environments containing the column names binded to the
+column vectors.</p>
+</div>
+<div id="calls" class="section level4">
+<h4><span class="header-section-number">6.1.2.3</span> Calls</h4>
+<p>A <strong>call</strong> is a delayed evaluation of a function call. The function and the argument names
+are stored, but not evaluated. So you can change the values associated with the arguments
+before evaluation. In fact they need not be defined at creation time at all:</p>
+<pre class="sourceCode r"><code class="sourceCode r">wait_for_it &lt;-<span class="st"> </span><span class="kw">quote</span>(x <span class="op">+</span><span class="st"> </span>y)
+
+x &lt;-<span class="st"> </span><span class="dv">3</span>
+y &lt;-<span class="st"> </span><span class="dv">8</span>
+
+<span class="kw">eval</span>(wait_for_it)</code></pre>
+<pre><code>## [1] 11</code></pre>
+</div>
+<div id="parsing-and-deparsing" class="section level4">
+<h4><span class="header-section-number">6.1.2.4</span> Parsing and Deparsing</h4>
+<p><strong>Parsing</strong> turns text into expressions and <strong>deparsing</strong> turns expressions into text.
+The <a href="https://www.rdocumentation.org/packages/base/topics/parse"><code>parse()</code></a> function
+converts text, but its default argument is a file connection, so we must use the text
+argument:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">parse</span>(<span class="dt">text =</span> <span class="st">&quot;8 + 10&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">eval</span>()</code></pre>
+<pre><code>## [1] 18</code></pre>
+<p>Deparse might be useful for returning information to the user:</p>
+<pre class="sourceCode r"><code class="sourceCode r">friendly_eval &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
+  <span class="kw">str_c</span>(<span class="st">&quot;The value of &quot;</span>, <span class="kw">deparse</span>(expr), <span class="st">&quot; is &quot;</span>, <span class="kw">eval</span>(expr))
+}
+
+<span class="kw">quote</span>(<span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">friendly_eval</span>()</code></pre>
+<pre><code>## [1] &quot;The value of 8 + 10 is 18&quot;</code></pre>
+</div>
+<div id="functions-and-closures" class="section level4">
+<h4><span class="header-section-number">6.1.2.5</span> Functions and closures</h4>
+<p>When you execute a function it creates a new, temporary, environment. The named arguments
+to the function, plus any variables created within its body are stored in this environment.
+Thus it cannot effect the variables outside its scope.</p>
+<p>The parent for the function’s environment is the environment in which the function was
+created in, not the one in which it was executed in. Thus it has access to all the
+variables in the parent environment. This is known as <strong>closure</strong>, as it <em>encloses</em> the
+parent environment, and can be a powerful tool.</p>
+</div>
+<div id="substitute-and-promise" class="section level4">
+<h4><span class="header-section-number">6.1.2.6</span> Substitute and promise</h4>
+<p>The <code>friendly_eval()</code> function above requires its argument to be quoted. It would be nice
+if we could write the expression directly as an argument. However, <code>quote()</code> makes a
+literal quote of its input, in this case <code>expr</code>. What we need is
+<a href="https://www.rdocumentation.org/packages/base/topics/substitute"><code>substitute()</code></a>. This will
+lookup all the object names provided to it, and if it finds a value for that name, it will
+substitute the name for its value:</p>
+<pre class="sourceCode r"><code class="sourceCode r">friendly_eval &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
+  expr_sub &lt;-<span class="st"> </span><span class="kw">substitute</span>(expr)
+  <span class="kw">str_c</span>(<span class="st">&quot;The value of &quot;</span>, <span class="kw">deparse</span>(expr_sub), <span class="st">&quot; is &quot;</span>, <span class="kw">eval</span>(expr_sub))
+}
+
+<span class="kw">friendly_eval</span>(<span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>)</code></pre>
+<pre><code>## [1] &quot;The value of 8 + 10 is 18&quot;</code></pre>
+<p>The above function only works because in R function arguments are evaluated lazily –
+variables are not evaluated until they are used. R stores arguments as a <strong>promise</strong>,
+which contains the expression of an argument along with the value. <code>substitute()</code>
+capture the expression before it is evaluated.</p>
+</div>
+<div id="formula-and-overscoping" class="section level4">
+<h4><span class="header-section-number">6.1.2.7</span> Formula and overscoping</h4>
+<p>A <strong>formula</strong> is a <em>domain specific language</em> (DSL) to simplify expressing the relationship
+between variables. Just like functions, formulas enclose the environment they are created
+in. When a formula is evaluated later in a different environment, it can still access all
+the objects that lived in its original environment.</p>
+<p>If an object exists in more than one accessible environment the enviroment the formula
+(or function) is evaluated in takes precidence. If the object is not found, R looks
+in the enclosed environment. This is known as <strong>overscoping</strong>, as the formula or
+function has scope beyond its execution environment.</p>
+</div>
+</div>
+<div id="tidy-evaluation" class="section level3">
+<h3><span class="header-section-number">6.1.3</span> Tidy Evaluation</h3>
+<p>To summarise the above, the following points are important to tidy evaluation:</p>
+<ol style="list-style-type: decimal">
+<li><code>quote()</code> delays evaluation of an expression.</li>
+<li><code>eval()</code> evaluates an expression in the current (or a specified) environment.</li>
+</ol>
+<p>Functions and formulas:</p>
+<ol start="3" style="list-style-type: decimal">
+<li>enclose the environment they were created in.</li>
+<li>evaluate objects in their own, and enclosed, environments</li>
+</ol>
+<p>Tidy evaluation has two new additions: <strong>quasiquotation</strong> and <strong>quosures</strong>.</p>
+<div id="quasiquotation" class="section level4">
+<h4><span class="header-section-number">6.1.3.1</span> Quasiquotation</h4>
+<p><strong>Quasiquotation</strong> enables the user to evaluate parts of the expression right away, while
+quoting the rest. Say we have the expression <code>z - x + 4</code> and we know the value of <code>x</code> at
+the time of quoting, we can <strong>unquote</strong> <code>x</code> with the function
+<a href="http://rlang.tidyverse.org/reference/quasiquotation.html"><code>UQ()</code></a> or the operator
+<a href="http://rlang.tidyverse.org/reference/quasiquotation.html"><code>!!</code></a>. However, <code>quote()</code>
+will not work in this quasiquotation, we need to use the tidy evaluation equivalent,
+<a href="http://rlang.tidyverse.org/reference/expr.html"><code>expr()</code></a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>
+
+<span class="kw">expr</span>(z <span class="op">-</span><span class="st"> </span><span class="kw">UQ</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<pre><code>## z - 10 + 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">expr</span>(z <span class="op">-</span><span class="st"> </span><span class="op">!!</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</code></pre>
+<pre><code>## [1] &quot;call&quot;</code></pre>
+<p>The <code>expr()</code> function returns expressions, as does <code>quote()</code>, without any information on
+the environment it was created in. Some other useful functions for quasiquotation are:</p>
+<ul>
+<li><a href="http://rlang.tidyverse.org/reference/quasiquotation.html"><code>UQS()</code></a> and the
+<a href="http://rlang.tidyverse.org/reference/quasiquotation.html"><code>!!!</code></a> operator unquote and
+splice their arguments.</li>
+<li><a href="http://rlang.tidyverse.org/reference/expr.html"><code>enexpr()</code></a> takes an expression, looks
+up any symbols (names) within it and returns it unevaluated. It is equivalent to
+<code>substitute()</code>.</li>
+<li><a href="http://rlang.tidyverse.org/reference/expr.html"><code>exprs()</code></a> captures multiple
+expressions and returns a list.</li>
+</ul>
+</div>
+<div id="quosures" class="section level4">
+<h4><span class="header-section-number">6.1.3.2</span> Quosures</h4>
+<p>As the name suggests, <strong>quosures</strong> are hybrids of quotes and closures. They are
+unevaluated expressions that enclose their creation environment. This is very similar to
+formulas and they are in fact implemented as one-sided formulas. Quosures are created with
+the <a href="http://rlang.tidyverse.org/reference/quosure.html"><code>quo()</code></a> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quo</span>(z <span class="op">-</span><span class="st"> </span><span class="kw">UQ</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<pre><code>## &lt;quosure&gt;
+## expr: ^z - 10 + 4
+## env:  global</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quo</span>(z <span class="op">-</span><span class="st"> </span><span class="op">!!</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</code></pre>
+<pre><code>## [1] &quot;quosure&quot; &quot;formula&quot;</code></pre>
+<p>The quosure equivalent of <code>substitute()</code> is
+<a href="http://rlang.tidyverse.org/reference/quosure.html"><code>enquo()</code></a>. It takes a symbol referring
+to a function argument, quotes the R code that was supplied to this argument, captures the
+environment where the function was called (and thus where the R code was typed), and
+bundles them in a quosure.</p>
+<p>Another useful function is <a href="http://rlang.tidyverse.org/reference/quosure.html"><code>quos()</code></a>, it
+returns a list of quosures. You can supply several expressions directly, e.g.
+<code>quos(foo, bar)</code>, but more importantly you can also supply dots: <code>quos(...)</code>.</p>
+<p>Note that quosures don’t make a lower level distinction between calls and names. Every
+expression becomes a quosure.</p>
+<p>To evaluate quosures we need a special function to implement the environment scoping
+properly. <code>rlang</code> provides such a function:
+<a href="rlang.tidyverse.org/reference/eval_tidy.html"><code>eval_tidy()</code></a></p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>
+
+<span class="kw">quo</span>(x) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">eval_tidy</span>()</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quo</span>(<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">eval_tidy</span>()</code></pre>
+<pre><code>## [1] 5.5</code></pre>
+</div>
+<div id="parsing-and-deparsing-1" class="section level4">
+<h4><span class="header-section-number">6.1.3.3</span> Parsing and Deparsing</h4>
+<p><code>rlang</code> also provides functions for parsing and deparsing expressions. To turn a string
+into an expression use:
+- <a href="http://rlang.tidyverse.org/reference/parse_expr.html"><code>parse_expr()</code></a>, which works in
+the same way as <code>parse(text = ...)</code>.
+- <a href="http://rlang.tidyverse.org/reference/parse_expr.html"><code>parse_quosure()</code></a> to create a
+quosure.</p>
+<p>To turn an expression into a string, <code>rlang</code> provides two functions:
+- <a href="http://rlang.tidyverse.org/reference/expr_label.html"><code>expr_text()</code></a> to turn an
+expression into a string.
+- <a href="http://rlang.tidyverse.org/reference/expr_label.html"><code>expr_label()</code></a> to produce a
+string that is more suited to use as a label.</p>
+<pre class="sourceCode r"><code class="sourceCode r">friendly_eval &lt;-<span class="st"> </span><span class="cf">function</span>(expr) {
+  <span class="kw">str_c</span>(<span class="st">&quot;The value of &quot;</span>, <span class="kw">deparse</span>(expr), <span class="st">&quot; is &quot;</span>, <span class="kw">eval</span>(expr))
+}
+
+<span class="kw">quote</span>(<span class="dv">8</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">friendly_eval</span>()</code></pre>
+<pre><code>## [1] &quot;The value of 8 + 10 is 18&quot;</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="development.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cheatsheets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/chadgoymer/r-best-practice/edit/master/08-advanced.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

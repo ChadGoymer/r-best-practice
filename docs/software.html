@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R Best Practice</title>
+  <title>Chapter 2 Software | R Best Practice</title>
   <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R Best Practice" />
+  <meta property="og:title" content="Chapter 2 Software | R Best Practice" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="chadgoymer/r-best-practice" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R Best Practice" />
+  <meta name="twitter:title" content="Chapter 2 Software | R Best Practice" />
   
   <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2018-08-15">
+<meta name="date" content="2019-03-06">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="writing.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -50,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,18 +164,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
-<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-markdown-1"><i class="fa fa-check"></i><b>3.3.2</b> R Markdown</a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks</a></li>
 <li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks</a></li>
+<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
 <li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#cheatsheets"><i class="fa fa-check"></i><b>4.1.2</b> Cheatsheets</a></li>
-<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.3</b> Importing Data</a></li>
-<li class="chapter" data-level="4.1.4" data-path="packages.html"><a href="packages.html#tidying-data"><i class="fa fa-check"></i><b>4.1.4</b> Tidying Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data</a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics</a></li>
+<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices</a><ul>
+<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics</a><ul>
+<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting</a></li>
+<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation</a></li>
+<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -172,14 +223,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="software" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Software</h1>
-<p>When developing R code which may be shared or executed by another person it is important to ensure everyone is using the same versions of software and packages.</p>
+<p>When developing R code which may be shared or executed by another person it is important to
+ensure everyone is using the same versions of software and packages. Differences in packages
+can produced unexpected results and all versions of packages are not compatible with all versions
+of R.</p>
 <div id="core-r-applications" class="section level2">
 <h2><span class="header-section-number">2.1</span> Core R Applications</h2>
-<p>The minimum software required to write R code is the R application itself. However, it is better to use a separate editor for creating R scripts. The recommended software installtion is:</p>
+<p>The minimum software required to write R code is the R application itself. However, it is
+better to use a separate editor for creating R scripts. The recommended software installation
+is:</p>
 <ul>
-<li><a href="https://mran.microsoft.com/open/">Microsoft R Open</a>, which is 100% compatible with the standard version of R and provides better performance in some cases. Like the standard version of R, Microsoft’s version is free.</li>
-<li><a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a>, to edit R script and build projects. RStudio can also be used for free.</li>
-<li><a href="https://cran.r-project.org/bin/windows/Rtools/">RTools</a>, which is required to build R packages. RTools is free to download.</li>
+<li><a href="https://cloud.r-project.org/">R</a>: Use the latest version whenever possible. If older versions
+are required they can be installed side-by-side. Within RStudio, the version of R to use can be
+selected in the Global Options. R can be used for Free.</li>
+<li><a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a>: To edit R scripts
+and manage projects. As with R use the latest version possible. RStudio can also be used for
+free.</li>
+<li><a href="https://cran.r-project.org/bin/windows/Rtools/">RTools</a>: A set of tools required to build R
+packages. You must make sure you have the version compatible with the most recent version of R
+installed. RTools can also be used for free.</li>
 </ul>
 <p>RStudio provides a cheatsheet detailing commonly used functionality of its editor:</p>
 <div class="figure" style="text-align: center"><span id="fig:rstudio-cheatsheet"></span>
@@ -191,24 +253,43 @@ Figure 2.1: RStudio Cheat Sheet
 </div>
 <div id="supporting-software" class="section level2">
 <h2><span class="header-section-number">2.2</span> Supporting Software</h2>
-<p>In addition to the above, when writing R code of high complexity or criticality it is recommended that version control is used:</p>
+<p>In addition to the above, when writing R code of medium (or high) complexity or criticality it is
+recommended that version control is used:</p>
 <ul>
-<li><a href="http://gitforwindows.org/">Git</a> is the market leader and integrates well with RStudio. Git is free</li>
-<li><a href="https://www.gitkraken.com/">GitKraken</a> provides a very good graphical interface to Git and access to more features than RStudio. GitKraken is not free, but it does not cost very much.</li>
+<li><a href="http://gitforwindows.org/">Git</a> is the market leader version control software and integrates
+well with RStudio. Git is free.</li>
+<li><a href="https://www.gitkraken.com/">GitKraken</a> provides a very good graphical interface to
+Git and access to more features than RStudio. If you are working on complex projects with other
+team members then consider using GitKraken. GitKraken is not free, but it does not cost very
+much.</li>
+<li><a href="https://help.github.com/">GitHub</a> is a hosting platform for Git repositories. It also allows
+you to control access, formalise code reviews and plan projects.</li>
 </ul>
 </div>
 <div id="package-versions" class="section level2">
 <h2><span class="header-section-number">2.3</span> Package Versions</h2>
-<p>A common problem with R is ensuring everyone is using the same version of packages. The are a number of ways to deal with this problem:</p>
+<p>A common problem with R is ensuring everyone is using the same version of packages. The
+are a number of ways to deal with this problem:</p>
 <ol style="list-style-type: decimal">
-<li><p>Another approach is to create a site library, a location on a network drive where everyone has access to. The default library location can then be set to this location so everyone uses the same packages.</p>
-<p>The disadvantage of this approach is that if someone updates a packages it is updated for everyone.</p></li>
-<li><p>The simplest is to use the <a href="https://mran.microsoft.com/documents/rro/reproducibility">checkpoint</a> in Microsoft’s R. When installing Microsoft R Open a date is set and when packages are installed they are taken from a snapshot of the CRAN repository on that date. That way everyone using the same version of Microsoft R Open is guaranteed to be using the same version of packages.</p>
-<p>The disadvantage of this approach is you cannot use the latest features of a package unless the date is brought forward.</p>
-<p>1 and 2 can be combined to avoid installing packages for every user.</p></li>
-<li><p>Packrat</p></li>
-<li><p>Use Microsoft’s <a href="https://mran.microsoft.com/documents/rro/reproducibility"><code>checkpoint</code></a> package to set the date for a piece of work. If a newer version of a package is required it can be set in the script and it will be downloaded for that bit of work only.</p>
-<p>The disadvantage of this approach is the required packages are downloaded separately for each project, so should only be used for exceptional cases.</p></li>
+<li><p>The simplest approach is to create a site library, a location on a network drive where
+everyone has access to. The default library location can then be set to this location so
+everyone uses the same packages.</p>
+<p>The disadvantage of this approach is that if someone updates a packages it is updated
+for everyone.</p></li>
+<li><p>Another option, which can be used with the first option, is to point everyone’s R installation
+to a snapshot of CRAN. This ensures that everyone installs packages released at a specified
+date. This can be achieved using either:</p>
+<ul>
+<li><p>Microsoft’s <a href="https://mran.microsoft.com/timemachine">Time Machine</a> allows you select the
+version of CRAN to used based on a date.</p></li>
+<li><p>RStudio’s <a href="https://www.rstudio.com/products/package-manager/">Package Manager</a> allows you to
+select a version of CRAN based on an ID. RStudio Package Manager is installed on premise and
+also allows the company to control the packages that can be installed.</p></li>
+</ul></li>
+<li><p>The most flexible approach is to use <a href="development.html#packrat">packrat</a> when developing
+projects or packages. Packrat allows you to specify which versions of dependent packages you
+use for the project, and ensures that everyone using it also uses the same versions of
+the packages.</p></li>
 </ol>
 
 </div>
@@ -239,7 +320,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -251,6 +332,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/chadgoymer/r-best-practice/edit/master/01-software.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["r-best-practice.pdf", "r-best-practice.epub"],
 "toc": {
@@ -265,8 +350,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
