@@ -21,32 +21,6 @@ the following points:
  3. Each type of observational unit forms a table.
 
 
-### Cheatsheets
-
-RStudio provide a selection of cheatsheets containing quick reference of R functions 
-useful for common task:
-
-```{r data-import-cheatsheet, echo=FALSE, fig.align='center', fig.cap='Data Import', out.width='80%'}
-knitr::include_graphics("images/data-import-cheatsheet-1.png")
-# https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf
-```
-
-```{r data-transformation-cheatsheet, echo=FALSE, fig.align='center', fig.cap='Data Transformation', out.width='80%'}
-knitr::include_graphics("images/data-transformation-cheatsheet.png")
-# https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
-```
-
-```{r strings-cheatsheet, echo=FALSE, fig.align='center', fig.cap='Strings', out.width='80%'}
-knitr::include_graphics("images/strings.png")
-# https://github.com/rstudio/cheatsheets/raw/master/strings.pdf
-```
-
-```{r lubridate-cheatsheet, echo=FALSE, fig.align='center', fig.cap='Dates and Times', out.width='80%'}
-knitr::include_graphics("images/lubridate.png")
-# https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf
-```
-
-
 ### Importing Data
 
 The first step in wrangling is importing the data into R. The methods to do so depend on the 
@@ -68,11 +42,27 @@ recommended packages for reading these files are:.
  - [`openxlsx`](https://www.rdocumentation.org/packages/openxlsx/) for writing to Excel 
    files
 
+For more detail, read the [Data Import](https://r4ds.had.co.nz/data-import.html) chapter in 
+the _R for Data Science_ book or use the cheatsheet below for reference.
+
+[![Data Import](images/data-import.png)](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+
+
+#### Tibbles
+
+When using the Tidyverse packages you may notice they return a `tibble` rather than a 
+`data.frame` They are basically the same thing except construction and subsetting are more
+consistent. They also display nicely when printed to the console. The package 
+[`tibble`](http://tibble.tidyverse.org/) has some useful functions for constructing tibbles.
+
+For more detail, read the [Tibbles](https://r4ds.had.co.nz/tibbles.html) chapter in the 
+_R for Data Science_ book or use the _Data Import_ cheatsheet above for reference.
+
 
 #### Connecting to Databases
 
-The new [RStudio Connections Pane](https://db.rstudio.com/) makes it possible to easily
-connect to a variety of data sources, and explore the objects and data inside the 
+The [RStudio Connections Pane](https://db.rstudio.com/rstudio/connections/) makes it possible 
+to easily connect to a variety of data sources, and explore the objects and data inside the 
 connection.
 
 The recommended packages for connecting to databases (also used by RStudio) are:
@@ -80,6 +70,8 @@ The recommended packages for connecting to databases (also used by RStudio) are:
  - [`DBI`](https://db.rstudio.com/DBI) provides a standard interface to any database
  - [`odbc`](https://db.rstudio.com/odbc/) for connecting to databases using ODBC
  - [`dplyr`](https://db.rstudio.com/dplyr/) for transforming tables in a database
+
+For more detail, read the [Databases using R](https://db.rstudio.com/) website by RStudio.
 
 
 #### Web APIs and Pages
@@ -98,91 +90,34 @@ these approaches are:
    web pages
 
 
-### Tidying Data
+### Transforming Data
 
 Now you have the data you want, it probably requires some processing in order to get it
 into a structure that is useful for analysis. There are two main packages for this 
-[`tidyr`](http://tidyr.tidyverse.org) and [`dplyr`](http://dplyr.tidyverse.org):
+[`tidyr`](http://tidyr.tidyverse.org) and [`dplyr`](http://dplyr.tidyverse.org)
 
-
-#### [`tidyr`](http://tidyr.tidyverse.org)
+#### Tidying Data
 
 The focus of [`tidyr`](http://tidyr.tidyverse.org) is to get the data into a tidy format. 
-The main functions it provides to do this are:
+It provides functions for reshaping the data, as well as dealing with implicit and explicit
+missing values.
 
- - [`gather()`](http://tidyr.tidyverse.org/reference/gather.html) takes multiple columns, 
-   and gathers them into key-value pairs: it makes "wide" data longer.
- - [`spread()`](http://tidyr.tidyverse.org/reference/spread.html) takes two columns (key 
-   & value) and spreads in to multiple columns, it makes "long" data wider.
- - [`separate()`](http://tidyr.tidyverse.org/reference/separate.html) and 
-   [`extract()`](http://tidyr.tidyverse.org/reference/extract.html) pulls apart a column 
-   that represents multiple variables.
- - [`unite()`](http://tidyr.tidyverse.org/reference/unite.html) combines columns, useful 
-   if one is redundant.
- - [`separate_rows()`](http://tidyr.tidyverse.org/reference/gather.html) for separating 
-   a row that contains multiple observations.
-
-In addition, [`tidyr`](http://tidyr.tidyverse.org) provides a set of functions for dealing
-with implicit and explicit missing values:
-
- - [`drop_na()`](http://tidyr.tidyverse.org/reference/drop_na.html): Drop rows containing
-   missing values
- - [`replace_na()`](http://tidyr.tidyverse.org/reference/replace_na.html): Replace missing
-   values
- - [`fill()`](http://tidyr.tidyverse.org/reference/fill.html): Fill in missing values.
- - [`complete()`](http://tidyr.tidyverse.org/reference/complete.html): Complete a data frame
-   with missing combinations of data.
- - [`expand()`](http://tidyr.tidyverse.org/reference/expand.html), 
-   [`crossing()`](http://tidyr.tidyverse.org/reference/expand.html): Expand data frame to
-   include all combinations of values
+For more detail, read the [Tidy Data](https://r4ds.had.co.nz/tidy-data.html) chapter in 
+the _R for Data Science_ book or use the _Data Import_ cheatsheet above for reference.
 
 
-#### [`dplyr`](http://dplyr.tidyverse.org)
+#### Manipulating Data
 
 [`dplyr`](http://dplyr.tidyverse.org) is a grammar of data manipulation, providing a
-consistent set of verbs that help you solve the most common data manipulation challenges:
+consistent set of verbs that help you solve the most common data manipulation challenges. For 
+example; Calculating a new variable (or column) based on existing ones, selecting columns, 
+filtering tables and summarising them by groups. [`dplyr`](http://dplyr.tidyverse.org) also 
+provides a set of functions for combining tables.
 
- - [`mutate()`](http://dplyr.tidyverse.org/reference/mutate.html) adds new variables that 
-   are functions of existing variables.
- - [`select()`](http://dplyr.tidyverse.org/reference/select.html) picks variables based on
-   their names.
- - [`filter()`](http://dplyr.tidyverse.org/reference/filter.html) picks cases based on 
-   their values.
- - [`summarise()`](http://dplyr.tidyverse.org/reference/summarise.html) reduces multiple 
-   values down to a single summary.
- - [`arrange()`](http://dplyr.tidyverse.org/reference/arrange.html) changes the ordering of 
-   the rows.
+For more detail, read the [Data Transformation](https://r4ds.had.co.nz/transform.html) chapter in 
+the _R for Data Science_ book or use the cheatsheet below for reference.
 
-These all combine naturally with
-[`group_by()`](http://dplyr.tidyverse.org/reference/group_by.html) which allows you to 
-perform any operation "by group".
-
-[`dplyr`](http://dplyr.tidyverse.org) also provides a set of functions for combining 
-tables. Mutating joins combine tables based on matching a subset of common variables; 
-Set operations expect the tables to have the same variables and combine observations like
-sets.
-
-**Mutating joins**
-
- - [`inner_join(x, y)`](http://dplyr.tidyverse.org/reference/join.html) only includes
-   observations that match in both `x` and `y`.
- - [`left_join(x, y)`](http://dplyr.tidyverse.org/reference/join.html) includes all
-   observations in `x`, regardless of whether they match or not.
- - [`right_join(x, y)`](http://dplyr.tidyverse.org/reference/join.html) includes all
-   observations in `y`. It’s equivalent to 
-   [`left_join(y, x)`](http://dplyr.tidyverse.org/reference/join.html), but the columns 
-   will be ordered differently.
- - [`full_join()`](http://dplyr.tidyverse.org/reference/join.html) includes all 
-   observations from `x` and `y`.
-
-**Set operations**
-
- - [`intersect(x, y)`](http://dplyr.tidyverse.org/reference/setops.html): returns only
-   observations in both `x` and `y`.
- - [`union(x, y)`](http://dplyr.tidyverse.org/reference/setops.html): returns unique
-   observations in `x` and `y`.
- - [`setdiff(x, y)`](http://dplyr.tidyverse.org/reference/setops.html): return observations 
-   in `x`, but not in `y`.
+[![Data Transformation](images/data-transformation.png)](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
 
 
 #### Variable Types
@@ -194,19 +129,43 @@ There are also packages which simplify working with specific types of data:
  - [`lubridate`](http://lubridate.tidyverse.org/) for dates and date-times.
  - [`hms`](https://www.rdocumentation.org/packages/hms) for time-of-day values.
 
+For more detail, read the [Strings](https://r4ds.had.co.nz/strings.html), 
+[Factors](https://r4ds.had.co.nz/factors.html), or 
+[Dates and Times](https://r4ds.had.co.nz/dates-and-times.html) chapters in the 
+_R for Data Science_ book or use the cheatsheets below for reference.
 
-#### [`tibble`](http://tibble.tidyverse.org/)
+[![Strings](images/stringr.png)](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)
+[![Dates and Times](images/lubridate.png)](https://github.com/rstudio/cheatsheets/raw/master/lubridate.pdf)
 
-When using these packages you may notice they return a `tibble` rather than a `data.frame`.
-They are basically the same thing with three key differences:
 
- 1. Printing: Tibbles only show the first ten rows and all the columns that fit on one 
-    screen.
- 2. Subsetting: `[` always returns another tibble. `$` never uses partial matching.
- 3. Recycling: Only values of length 1 are recycled. Trying to combine columns of 
-    different length throws an error.
+## Visualising Data
 
-The package [`tibble`](http://tibble.tidyverse.org/) has some useful functions for
-constructing tibbles. In particaular, you can construct a tibble row-wise using the
-[`tribble`](http://tibble.tidyverse.org/reference/tribble.html) function (transposed 
-tibble).
+When it comes to visualising data the most commonly used package is 
+[`ggplot2`](https://ggplot2.tidyverse.org/). [`ggplot2`](https://ggplot2.tidyverse.org/)
+only produces static plots, which is great if you want to insert it into a report, but if you want 
+to create interactive graphs in a web page use the [`plotly`](https://plot.ly/r/) package.
+
+
+### Grammer of Graphics
+
+The [`ggplot2`](https://ggplot2.tidyverse.org/) package is based on the grammer of graphics which 
+allows you to create plots by adding layers of geometric objects, e.g. point, lines, etc, with 
+aesthetics mapped to variables, e.g. coordinates, size, etc. This framework allows for highly 
+customisable plots.
+
+For more detail, read the [Data Visualisation](https://r4ds.had.co.nz/data-visualisation.html)
+chapter in the _R for Data Science_ book or use the cheatsheet below for reference.
+
+[![ggplot2](images/ggplot2.png)](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
+
+### Interactive Graphics
+
+If you want to add a plot to a web page then you'll probably want something more interactive. 
+[`plotly`](https://plot.ly/r/) produces high-quality graphics with the ability to zoom, pan and 
+add tool-tips, etc.
+
+For more detail, read the [Plotly for R](https://plotly-book.cpsievert.me/) book or use the
+cheatsheet below for reference.
+
+[![plotly](images/plotly.png)](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
