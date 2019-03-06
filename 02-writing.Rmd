@@ -15,7 +15,7 @@ The [tidyverse.org](https://www.tidyverse.org/) website details the packages inv
 contains articles on how to use them. Some of it will be summarised below, but the website
 contains the definitive information.
 
-The most in-depth treatment on the Tidyverse can be found in the book "R for Data Science", 
+The most in-depth treatment on the Tidyverse can be found in the book _R for Data Science_, 
 which is available online for free at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
 
 The tidyverse has an extensive [style guide](http://style.tidyverse.org/), which we 
@@ -102,6 +102,7 @@ Use RStudio projects to organise files. This has a number of advantages:
 
 1. Sets the working directory to the project location
 1. Reopens the same files when returning to the projects
+1. Saves the workspace so data and code is loaded when you re-open the project
 
 
 ### Folders
@@ -123,18 +124,18 @@ are results rather than inputs.
 An example of a project structure:
 
  - data
-    - interesting_data.xlsx
-    - reference_data.csv
+    - interesting-data.xlsx
+    - reference-data.csv
  - R
-    - clean_data.R
+    - clean-data.R
     - analyse.R
  - tests
-    - test_cleansed_data.R
-    - test_analysis.R
+    - test-cleansed-data.R
+    - test-analysis.R
  - results
-    - cool_plot.png
-    - table_of_results.csv
- - run_code.R 
+    - cool-plot.png
+    - table-of-results.csv
+ - run-code.R 
  - README.md
 
 
@@ -163,7 +164,7 @@ of collecting together related code in a robust way. It has the following advant
  - Code is broken up into useful functions
 
 Writing a package is very straight forward with the helper packages available today. More
-information can be found in [Package Development](packages-development.html).
+information can be found in [Package Development](development.html#packages).
 
 
 ## R Markdown
@@ -180,11 +181,10 @@ changes.
 
 RStudio provides a cheatsheet detailing R markdown functionality:
 
-```{r rmarkdown-cheatsheet, echo=FALSE, fig.align='center', fig.cap='R Markdown Cheat Sheet', out.width='80%'}
-knitr::include_graphics("images/rmarkdown-cheatsheet-2.0.png")
-# https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf
-```
+[![R Markdown](images/rmarkdown.png)](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
+For a detailed guide the book [R Markdown](https://bookdown.org/yihui/rmarkdown/) is available for
+free online.
 
 ### Markdown
 
@@ -444,20 +444,87 @@ superscript^2^
 ~~strikethrough~~
 
 
-### R Markdown
+### R Code Chunks
 
-#### R Code Chunks
+R code surrounded with three ticks and designated `{R}` (see below) will be evaluated and printed.
 
-R code will be evaluated and printed
+```
+```{r}
+summary(cars$dist)
+summary(cars$speed)
+```
+```
 
 ```{r}
 summary(cars$dist)
 summary(cars$speed)
 ```
 
-Inline R Code
+Inline R Code:
+
+```
+There were `r nrow(cars)` cars studied
+```
 
 There were `r nrow(cars)` cars studied
 
+There are many options available when executing R code chunks. For more information read the 
+[R code chunks](https://bookdown.org/yihui/rmarkdown/r-code.html) chapter in the R Markdown book.
+
 
 ### R Notebooks
+
+An R Notebook is an R Markdown document with chunks that can be executed independently and
+interactively, with output visible immediately beneath the input. They direct interaction with 
+R while producing a reproducible document with publication-quality output.
+
+Any R Markdown document can be used as a notebook, and all R Notebooks can be rendered to other R
+Markdown document types. A notebook can therefore be thought of as a special execution mode for R
+Markdown documents. The immediacy of notebook mode makes it a good choice while authoring the R
+Markdown document and iterating on code. When you are ready to publish the document, you can share
+the notebook directly, or render it to a publication format with the Knit button.
+
+#### Creating a Notebook
+
+You can create a new notebook in RStudio with the menu command `File -> New File -> R Notebook`, 
+or by using the `html_notebook` output type in your document’s YAML metadata.
+
+```
+---
+title: "My Notebook"
+output: html_notebook
+---
+```
+
+#### Inserting chunks
+
+Notebook chunks can be inserted quickly using the keyboard shortcut `Ctrl + Alt + I`, or via the
+`Insert` menu in the editor toolbar.
+
+Because all of a chunk’s output appears beneath the chunk (not alongside the statement which 
+emitted the output, as it does in the rendered R Markdown output), it is often helpful to split
+chunks that produce multiple outputs into two or more chunks which each produce only one output.
+
+### Executing chunks
+
+To execute a chunk of code use the green triangle button on the toolbar of a code chunk that has 
+the tooltip “Run Current Chunk”, or `Ctrl + Shift + Enter` to run the current chunk. The result is
+then displayed underneath the chunk.
+
+### Saving and sharing
+
+When a notebook `*.Rmd` file is saved, a `*.nb.html` file is created alongside it. This file is a
+self-contained HTML file which contains both a rendered copy of the notebook with all current chunk
+outputs (suitable for display on a website) and a copy of the `*.Rmd` file itself.
+
+You can view the `*.nb.html` file in any ordinary web browser. It can also be opened in RStudio; 
+when you open there (e.g., using `File -> Open File`), RStudio will do the following:
+
+1. Extract the bundled `*.Rmd` file, and place it alongside the `*.nb.html` file.
+2. Open the `*.Rmd` file in a new RStudio editor tab.
+3. Extract the chunk outputs from the `*.nb.html` file, and place them appropriately in the editor.
+
+#### More information
+
+For more a more detailed guide on R Notebooks read the 
+[Notebook chapter](https://bookdown.org/yihui/rmarkdown/notebook.html) in the R Markdown book.
