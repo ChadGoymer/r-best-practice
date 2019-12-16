@@ -290,6 +290,120 @@ the <em>R Packages</em> book.</p>
 <div id="git-flow" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Git Flow</h3>
 <p><a href="images/git-cheat-sheet.png"><img src="images/git-cheat-sheet.png" alt="Cheat Sheet" /></a></p>
+<p><strong>Workflow summary</strong></p>
+<p>At a high level the development workflow follows the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Create a new branch</li>
+<li>Merge unapproved PBIs (if required)</li>
+<li>Commit new functionality</li>
+<li>Review with a pull request</li>
+</ol>
+<p><strong>1. Create a new branch</strong></p>
+<ol style="list-style-type: decimal">
+<li>Update the <code>develop</code> branch</li>
+<li>Create a new branch: <code>&lt;issue-id&gt;-&lt;feature-summary&gt;</code></li>
+</ol>
+<p><strong>In GitKraken:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Double-click the <code>develop</code> branch to check it out:</li>
+</ol>
+<p><a href="images/checkout-branch.png"><img src="images/checkout-branch.png" /></a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Click <code>Pull</code>:</li>
+</ol>
+<p><a href="images/click-pull.png"><img src="images/click-pull.png" /></a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Right-click the <code>develop</code> branch and click <code>Create branch here</code>:</li>
+</ol>
+<p><a href="images/create-branch.png"><img src="images/create-branch.png" /></a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Enter a branch name in the format <code>&lt;issue-id&gt;-&lt;feature-summary&gt;</code>, e.g. <code>24-syndicate-widget</code>.</li>
+</ol>
+<p><strong>2. Merge unapproved PBIs</strong></p>
+<p>Note: This step is only required if your PBI depends on another PBI which has not yet been approved. Since the dependency will not yet exist in the develop branch you will need to bring the changes in separately. This does introduce a risk that the dependency could change while you are developing, but this should be mitigated by merging the develop branch in again once the dependent PBI has been approved.</p>
+<ol style="list-style-type: decimal">
+<li>Checkout the new branch</li>
+<li>Merge dependent branches</li>
+</ol>
+<p><strong>In GitKraken:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Double-click the branch name to check out</li>
+<li>Right-click the dependent branch name and select <code>Merge ... into ...</code></li>
+</ol>
+<p><a href="images/merge-into.png"><img src="images/merge-into.png" /></a></p>
+<p>Repeat step 2 for all PBIs the current work depends on.</p>
+<p><strong>3. Commit new functionality</strong></p>
+<p>As the new feature is developed make commits as appropriate. You should make at least separate commits for documentation, tests and code.</p>
+<p>For more information about developing new functionality read the wiki pages on <a href="http://github/CCK/Model/wiki/Node-Documentation">Node Documentation</a>, <a href="http://github/CCK/Model/wiki/Node-Testing">Node Testing</a>, <a href="http://github/CCK/Model/wiki/Tyche-Coding-Standards">Tyche Coding Standards</a> and <a href="http://github/CCK/Model/wiki/Naming-Conventions">Naming Conventions</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Stage changes</li>
+<li>Make a commit</li>
+<li>Push to GitHub</li>
+</ol>
+<p><strong>In GitKraken:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Click on the <code>WIP</code> bar at the top of the central window:</li>
+</ol>
+<p><a href="images/wip.png"><img src="images/wip.png" /></a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Click <code>Stage all changes</code> or stage individual files in the right-hand window:</li>
+</ol>
+<p><a href="images/stage-changes.png"><img src="images/stage-changes.png" /></a></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a commit message and click <code>Commit changes</code>:</li>
+</ol>
+<p><a href="images/staged-files.png"><img src="images/staged-files.png" /></a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Click <code>Push</code> in the top bar:</li>
+</ol>
+<p><a href="images/push.png"><img src="images/push.png" /></a></p>
+<ol start="5" style="list-style-type: decimal">
+<li>If it is the first time pushing to GitHub from the branch you will have to set the remote branch:</li>
+</ol>
+<p><a href="images/set-remote.png"><img src="images/set-remote.png" /></a></p>
+<p><strong>4. Review with a Pull Request</strong></p>
+<p>For more information on peer reviewing visit the wiki page <a href="http://github/CCK/Model/wiki/Review-Process">Review Process</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Create a pull request and request someone’s review</li>
+<li>Comment on the code in the pull request</li>
+<li>Make new commits/request changes as appropriate</li>
+<li>Merge into <code>develop</code> when complete</li>
+</ol>
+<p><strong>In GitKraken:</strong></p>
+<ol style="list-style-type: decimal">
+<li>In the left-hand window, click on the <code>+</code> in <code>PULL REQUESTS</code>:</li>
+</ol>
+<p><a href="images/pull-request.png"><img src="images/pull-request.png" /></a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Set the repository and branch to pull from and the repository and branch to merge into:</li>
+</ol>
+<p><a href="images/create-pull-request.png"><img src="images/create-pull-request.png" /></a></p>
+<p>Specify the PBI the feature addresses by writing <code>resolves #</code> in the description (this will also automatically close the issue once merged). You can also request someone’s review by adding <code>@</code> e.g. <code>@WalkerC</code>.</p>
+<p><strong>In GitHub:</strong></p>
+<ol start="3" style="list-style-type: decimal">
+<li>The reviewer comments on the changes and/or requests a change:</li>
+</ol>
+<p><a href="images/reviewer-comment.png"><img src="images/reviewer-comment.png" /></a></p>
+<ol start="4" style="list-style-type: decimal">
+<li>The developer or reviewer can make new commits as appropriate:</li>
+</ol>
+<p><a href="images/reviewer-commit.png"><img src="images/reviewer-commit.png" /></a></p>
+<p>If the develop branch has moved on and you want to test how the current work interacts with a newly published work you can merge the develop branch into the new branch.</p>
+<p>Right-click the develop branch and select <code>Merge develop into ...</code>:</p>
+<p><a href="images/merge-develop.png"><img src="images/merge-develop.png" /></a></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Once review is complete, click <code>Merge pull request</code> and confirm:</li>
+</ol>
+<p><a href="images/merge-pull-request.png"><img src="images/merge-pull-request.png" /></a></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Click <code>Delete branch</code>:</li>
+</ol>
+<p><a href="images/delete-branch.png"><img src="images/delete-branch.png" /></a></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Close the issue</li>
+</ol>
+<p>If you have not used <code>resolves #</code> in the pull request description, you will need to close the issue manually. Go to the issues page of the repository, enter a comment referencing the pull request and click <code>Close and comment</code>:</p>
+<p><a href="images/close-issue.png"><img src="images/close-issue.png" /></a></p>
 </div>
 <div id="github-flow" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> GitHub Flow</h3>
