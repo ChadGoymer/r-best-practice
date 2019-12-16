@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2019-03-06">
+<meta name="date" content="2019-12-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -188,7 +188,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
-<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.2</b> Git Flow</a></li>
+<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.3</b> GitHub Flow</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
 </ul></li>
@@ -255,7 +256,7 @@ the <em>R Packages</em> book.</p>
 <div id="help-files" class="section level4">
 <h4><span class="header-section-number">5.1.1.2</span> Help Files</h4>
 <p>When writing a function in a package it is good practice to document it, so a user can see how it
-works with <code>help(&quot;function_name&quot;)</code>. Documenting a package is as straight forward as including a
+works with <code>help("function_name")</code>. Documenting a package is as straight forward as including a
 special commented section before the function definition. The package
 <a href="https://www.rdocumentation.org/packages/roxygen2"><code>roxygen2</code></a> is then used to convert those
 comments into help files.</p>
@@ -286,8 +287,12 @@ the <em>R Packages</em> book.</p>
 <div id="git" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Git</h3>
 </div>
+<div id="git-flow" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Git Flow</h3>
+<p><a href="images/git-cheat-sheet.png"><img src="images/git-cheat-sheet.png" alt="Cheat Sheet" /></a></p>
+</div>
 <div id="github-flow" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> GitHub Flow</h3>
+<h3><span class="header-section-number">5.2.3</span> GitHub Flow</h3>
 </div>
 </div>
 <div id="managing-package-dependencies" class="section level2">
@@ -346,19 +351,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

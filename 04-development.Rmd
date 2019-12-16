@@ -80,6 +80,11 @@ the _R Packages_ book.
 
 ### Git
 
+### Git Flow
+
+[![Cheat Sheet](images/git-cheat-sheet.png)](images/git-cheat-sheet.png)
+
 ### GitHub Flow
+
 
 ## Managing Package Dependencies
