@@ -80,6 +80,38 @@ the _R Packages_ book.
 
 ### Git
 
+Below is a list of dos and don'ts to help navigate Git.
+
+**Do:**
+
+- Create a Git repository for every new project
+- Always create a new branch for every new feature and bug
+- Regularly commit and push changes to the remote branch to avoid loss of work
+- Include a gitignore file in your project to avoid unwanted files being committed
+- Always commit changes with a concise and useful commit message
+- Keep your branch up to date with development branches
+- Follow a workflow like Gitflow (expanded on below)
+- Always create a pull request for merging changes from one branch to another
+- Always create one pull request addressing one issue
+- Always review your code once by yourself before creating a pull request
+- Have more than one person review a pull request. It’s not necessary, but is a best practice
+- Enforce standards by using pull request templates and adding continuous integrations
+- Merge changes from the release branch to master after each release
+- Tag the master sources after every release
+- Delete branches if a feature or bug fix is merged to its intended branches and the branch is no longer required
+
+**Don't:**
+
+- Don’t commit directly to the master or development branches
+- Don’t hold up work by not committing local branch changes to remote branches
+- Don’t commit large files in the repository. This will increase the size of the repository. Use Git LFS for large files
+- Don’t create one pull request addressing multiple issues
+- Don’t work on multiple issues in the same branch. If a feature is dropped, it will be difficult to revert changes
+- Don’t reset a branch without committing/stashing your changes. If you do so, your changes will be lost
+- Don’t do a force push until you’re extremely comfortable performing this action
+- Don’t modify or delete public history
+
+
 ### Git Flow
 
 [![Cheat Sheet](images/git-cheat-sheet.png)](images/git-cheat-sheet.png)
@@ -217,7 +249,6 @@ If you have not used `resolves #` in the pull request description, you will need
 [![](images/close-issue.png)](images/close-issue.png)
 
 
-
 ### GitHub Flow
 
 GitHub flow is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly. It is similar to Git flow but without a `develop` branch. 
@@ -276,6 +307,58 @@ Once your pull request has been reviewed and the branch passes your tests, you c
 Now that your changes have been verified in production, it is time to merge your code into the master branch.
 
 Once merged, Pull Requests preserve a record of the historical changes to your code. Because they're searchable, they let anyone go back in time to understand why and how a decision was made.
+
+
+### GitKraken
+
+Commit messages are important, especially since Git tracks your changes and then displays them as commits once they're pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. Commit messages like "minor changes" are **not** helpful and should be avoided. 
+
+**Merge vs. Rebase**
+
+There are two ways to integrate changes from one branch into another branch - `Merge` and `Rebase`.
+
+The first thing to understand about `git rebase` is that it solves the same problem as `git merge`. Both of these commands are designed to integrate changes from one branch into another branch — they just do it in very different ways.
+
+Consider what happens when you start working on a new feature in a dedicated branch, then another team member updates the `master` branch with new commits.
+
+[![](images/forked-history.png)](images/forked-history.png)
+
+Now, let’s say that the new commits in master are relevant to the feature that you’re working on. To incorporate the new commits into your `feature` branch, you have two options: merging or rebasing.
+
+**Merge**
+
+The easiest option is to merge the `master` branch into the `feature` branch.
+
+1. Checkout the `feature` branch
+2. Right-click the `feature` branch
+3. Merge `master` into `...`
+4. Resolve any conflicts
+
+This will create a merge commit on the `feature` branch that ties together the histories of both branches.
+
+[![](images/merge-commit.png)](images/merge-commit.png)
+
+Merging is nice because it’s a *non-destructive* operation. The existing branches are not changed in any way. This avoids all of the potential pitfalls of rebasing (discussed below).
+
+On the other hand, this also means that the feature branch will have an extraneous merge commit every time you need to incorporate upstream changes. If master is very active, this can pollute your feature branch’s history quite a bit. 
+
+
+**Rebase**
+
+As an alternative to merging, you can `rebase` the `feature` branch onto `master`.
+
+1. Checkout the `feature` branch
+2. Right click the `master` branch
+3. Rebase `...` onto `master`
+4. Resolve any conflicts
+
+This moves the entire `feature` branch to begin on the tip of the `master` branch, effectively incorporating all of the new commits in master. But, instead of using a merge commit, rebasing re-writes the project history by creating brand new commits for each commit in the original branch.
+
+[![](images/rebase.png)](images/rebase.png)
+
+The major benefit of rebasing is that you get a much cleaner project history, it eliminates the unnecessary merge commits required by `git merge`. You can follow the tip of feature all the way to the beginning of the project without any forks.
+
+The main disadvantage of `git rebase` is that re-writing project history can be harmful to your collaboration workflow. Rebasing also loses the context provided by a merge commit - you can't see when upstream changes were incorporated into the feature.
 
 
 ## Managing Package Dependencies

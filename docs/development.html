@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2019-12-16">
+<meta name="date" content="2019-12-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,6 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
 <li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.2</b> Git Flow</a></li>
 <li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.3</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
 </ul></li>
@@ -286,6 +287,36 @@ the <em>R Packages</em> book.</p>
 <h2><span class="header-section-number">5.2</span> Version Control</h2>
 <div id="git" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Git</h3>
+<p>Below is a list of dos and don’ts to help navigate Git.</p>
+<p><strong>Do:</strong></p>
+<ul>
+<li>Create a Git repository for every new project</li>
+<li>Always create a new branch for every new feature and bug</li>
+<li>Regularly commit and push changes to the remote branch to avoid loss of work</li>
+<li>Include a gitignore file in your project to avoid unwanted files being committed</li>
+<li>Always commit changes with a concise and useful commit message</li>
+<li>Keep your branch up to date with development branches</li>
+<li>Follow a workflow like Gitflow (expanded on below)</li>
+<li>Always create a pull request for merging changes from one branch to another</li>
+<li>Always create one pull request addressing one issue</li>
+<li>Always review your code once by yourself before creating a pull request</li>
+<li>Have more than one person review a pull request. It’s not necessary, but is a best practice</li>
+<li>Enforce standards by using pull request templates and adding continuous integrations</li>
+<li>Merge changes from the release branch to master after each release</li>
+<li>Tag the master sources after every release</li>
+<li>Delete branches if a feature or bug fix is merged to its intended branches and the branch is no longer required</li>
+</ul>
+<p><strong>Don’t:</strong></p>
+<ul>
+<li>Don’t commit directly to the master or development branches</li>
+<li>Don’t hold up work by not committing local branch changes to remote branches</li>
+<li>Don’t commit large files in the repository. This will increase the size of the repository. Use Git LFS for large files</li>
+<li>Don’t create one pull request addressing multiple issues</li>
+<li>Don’t work on multiple issues in the same branch. If a feature is dropped, it will be difficult to revert changes</li>
+<li>Don’t reset a branch without committing/stashing your changes. If you do so, your changes will be lost</li>
+<li>Don’t do a force push until you’re extremely comfortable performing this action</li>
+<li>Don’t modify or delete public history</li>
+</ul>
 </div>
 <div id="git-flow" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Git Flow</h3>
@@ -440,6 +471,40 @@ the <em>R Packages</em> book.</p>
 <p><a href="images/step-six-merge.png"><img src="images/step-six-merge.png" /></a></p>
 <p>Now that your changes have been verified in production, it is time to merge your code into the master branch.</p>
 <p>Once merged, Pull Requests preserve a record of the historical changes to your code. Because they’re searchable, they let anyone go back in time to understand why and how a decision was made.</p>
+</div>
+<div id="gitkraken" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> GitKraken</h3>
+<p>Commit messages are important, especially since Git tracks your changes and then displays them as commits once they’re pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. Commit messages like “minor changes” are <strong>not</strong> helpful and should be avoided.</p>
+<p><strong>Merge vs. Rebase</strong></p>
+<p>There are two ways to integrate changes from one branch into another branch - <code>Merge</code> and <code>Rebase</code>.</p>
+<p>The first thing to understand about <code>git rebase</code> is that it solves the same problem as <code>git merge</code>. Both of these commands are designed to integrate changes from one branch into another branch — they just do it in very different ways.</p>
+<p>Consider what happens when you start working on a new feature in a dedicated branch, then another team member updates the <code>master</code> branch with new commits.</p>
+<p><a href="images/forked-history.png"><img src="images/forked-history.png" /></a></p>
+<p>Now, let’s say that the new commits in master are relevant to the feature that you’re working on. To incorporate the new commits into your <code>feature</code> branch, you have two options: merging or rebasing.</p>
+<p><strong>Merge</strong></p>
+<p>The easiest option is to merge the <code>master</code> branch into the <code>feature</code> branch.</p>
+<ol style="list-style-type: decimal">
+<li>Checkout the <code>feature</code> branch</li>
+<li>Right-click the <code>feature</code> branch</li>
+<li>Merge <code>master</code> into <code>...</code></li>
+<li>Resolve any conflicts</li>
+</ol>
+<p>This will create a merge commit on the <code>feature</code> branch that ties together the histories of both branches.</p>
+<p><a href="images/merge-commit.png"><img src="images/merge-commit.png" /></a></p>
+<p>Merging is nice because it’s a <em>non-destructive</em> operation. The existing branches are not changed in any way. This avoids all of the potential pitfalls of rebasing (discussed below).</p>
+<p>On the other hand, this also means that the feature branch will have an extraneous merge commit every time you need to incorporate upstream changes. If master is very active, this can pollute your feature branch’s history quite a bit.</p>
+<p><strong>Rebase</strong></p>
+<p>As an alternative to merging, you can <code>rebase</code> the <code>feature</code> branch onto <code>master</code>.</p>
+<ol style="list-style-type: decimal">
+<li>Checkout the <code>feature</code> branch</li>
+<li>Right click the <code>master</code> branch</li>
+<li>Rebase <code>...</code> onto <code>master</code></li>
+<li>Resolve any conflicts</li>
+</ol>
+<p>This moves the entire <code>feature</code> branch to begin on the tip of the <code>master</code> branch, effectively incorporating all of the new commits in master. But, instead of using a merge commit, rebasing re-writes the project history by creating brand new commits for each commit in the original branch.</p>
+<p><a href="images/rebase.png"><img src="images/rebase.png" /></a></p>
+<p>The major benefit of rebasing is that you get a much cleaner project history, it eliminates the unnecessary merge commits required by <code>git merge</code>. You can follow the tip of feature all the way to the beginning of the project without any forks.</p>
+<p>The main disadvantage of <code>git rebase</code> is that re-writing project history can be harmful to your collaboration workflow. Rebasing also loses the context provided by a merge commit - you can’t see when upstream changes were incorporated into the feature.</p>
 </div>
 </div>
 <div id="managing-package-dependencies" class="section level2">
