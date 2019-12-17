@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2019-03-06">
+<meta name="date" content="2019-12-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
 <li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow</a></li>
+<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
 </ul></li>
@@ -415,7 +417,7 @@ the <a href="http://rlang.tidyverse.org/reference/quosure.html"><code>quo()</cod
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quo</span>(z <span class="op">-</span><span class="st"> </span><span class="kw">UQ</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
 <pre><code>## &lt;quosure&gt;
 ## expr: ^z - 10 + 4
-## env:  global</code></pre>
+## env:  000001E0BE02E8E0</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quo</span>(z <span class="op">-</span><span class="st"> </span><span class="op">!!</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">class</span>()</code></pre>
 <pre><code>## [1] &quot;quosure&quot; &quot;formula&quot;</code></pre>
 <p>The quosure equivalent of <code>substitute()</code> is
@@ -424,7 +426,7 @@ to a function argument, quotes the R code that was supplied to this argument, ca
 environment where the function was called (and thus where the R code was typed), and
 bundles them in a quosure.</p>
 <p>Another useful function is <a href="http://rlang.tidyverse.org/reference/quosure.html"><code>quos()</code></a>, it
-returns a list of quosures. You can supply several expressions directly, e.g.
+returns a list of quosures. You can supply several expressions directly, e.g. 
 <code>quos(foo, bar)</code>, but more importantly you can also supply dots: <code>quos(...)</code>.</p>
 <p>Note that quosures don’t make a lower level distinction between calls and names. Every
 expression becomes a quosure.</p>

@@ -25,7 +25,7 @@
 <meta name="author" content="Chad Goymer">
 
 
-<meta name="date" content="2019-03-06">
+<meta name="date" content="2019-12-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,7 +68,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
 <li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow</a></li>
+<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
 </ul></li>
@@ -595,15 +597,18 @@ Violets are blue.</p>
 <div id="r-code-chunks" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> R Code Chunks</h3>
 <p>R code surrounded with three ticks and designated <code>{R}</code> (see below) will be evaluated and printed.</p>
-<p>```</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>dist)</code></pre>
+<pre><code>
+```r
+summary(cars$dist)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
-<p>```</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>dist)</code></pre>
+<pre><code>
+
+```r
+summary(cars$dist)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
