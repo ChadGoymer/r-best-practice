@@ -188,8 +188,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
-<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.2</b> Git Flow</a></li>
-<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.3</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
+<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow</a></li>
 <li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
@@ -318,8 +318,45 @@ the <em>R Packages</em> book.</p>
 <li>Don’t modify or delete public history</li>
 </ul>
 </div>
+<div id="github-flow" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> GitHub Flow</h3>
+<p>GitHub flow is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly. It is similar to Git flow but without a <code>develop</code> branch.</p>
+<ol style="list-style-type: decimal">
+<li>Create a branch</li>
+<li>Add commits</li>
+<li>Open a pull request</li>
+<li>Discuss and review code</li>
+<li>Deploy/Test</li>
+<li>Merge</li>
+</ol>
+<p><strong>1. Create a branch</strong></p>
+<p><a href="images/step-one-branch.png"><img src="images/step-one-branch.png" /></a></p>
+<p>When you’re working on a project, you’re going to have a bunch of different features or ideas in progress at any given time – some of which are ready to go, and others which are not. Branching exists to help you manage this workflow.</p>
+<p>When you create a branch in your project, you’re creating an environment where you can try out new ideas. Changes you make on a branch don’t affect the <code>master</code> branch, so you’re free to experiment and commit changes, safe in the knowledge that your branch won’t be merged until it’s ready to be reviewed by someone you’re collaborating with.</p>
+<p><strong>2. Add commits</strong></p>
+<p><a href="images/step-two-commit.png"><img src="images/step-two-commit.png" /></a></p>
+<p>Once your branch has been created, it’s time to start making changes. Whenever you add, edit, or delete a file, you’re making a commit, and adding them to your branch. This process of adding commits keeps track of your progress as you work on a feature branch.</p>
+<p>Commits also create a transparent history of your work that others can follow to understand what you’ve done and why. Each commit has an associated commit message, which is a description explaining why a particular change was made. Furthermore, each commit is considered a separate unit of change. This lets you roll back changes if a bug is found, or if you decide to head in a different direction.</p>
+<p><strong>3. Open a Pull Request</strong></p>
+<p><a href="images/step-three-pull.png"><img src="images/step-three-pull.png" /></a></p>
+<p>Pull Requests initiate discussion about your commits. Because they’re tightly integrated with the underlying Git repository, anyone can see exactly what changes would be merged if they accept your request.</p>
+<p>You can open a Pull Request at any point during the development process: when you have little or no code but want to share some screenshots or general ideas, when you’re stuck and need help or advice, or when you’re ready for someone to review your work. By using GitHub’s <code>@mention</code> system in your Pull Request message, you can ask for feedback from specific people or teams, whether they’re down the hall or ten time zones away.</p>
+<p><strong>4. Discuss and review code</strong></p>
+<p><a href="images/step-four-review.png"><img src="images/step-four-review.png" /></a></p>
+<p>Once a Pull Request has been opened, the person or team reviewing your changes may have questions or comments. Perhaps the coding style doesn’t match project guidelines, the change is missing unit tests, or maybe everything looks great and props are in order. Pull Requests are designed to encourage and capture this type of conversation.</p>
+<p>You can also continue to push to your branch in light of discussion and feedback about your commits. If someone comments that you forgot to do something or if there is a bug in the code, you can fix it in your branch and push up the change. GitHub will show your new commits and any additional feedback you may receive in the unified Pull Request view.</p>
+<p><strong>5. Deploy/Test</strong></p>
+<p><a href="images/step-five-test.png"><img src="images/step-five-test.png" /></a></p>
+<p>With GitHub, you can deploy from a branch for final testing in production before merging to master.</p>
+<p>Once your pull request has been reviewed and the branch passes your tests, you can deploy your changes to verify them in production. If your branch causes issues, you can roll it back by deploying the existing master into production.</p>
+<p><strong>6. Merge</strong></p>
+<p><a href="images/step-six-merge.png"><img src="images/step-six-merge.png" /></a></p>
+<p>Now that your changes have been verified in production, it is time to merge your code into the master branch.</p>
+<p>Once merged, Pull Requests preserve a record of the historical changes to your code. Because they’re searchable, they let anyone go back in time to understand why and how a decision was made.</p>
+</div>
 <div id="git-flow" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Git Flow</h3>
+<h3><span class="header-section-number">5.2.3</span> Git Flow</h3>
+<p>Git flow is similar to GitHub flow, but with the addition of a <code>develop</code> branch.</p>
 <p><a href="images/git-cheat-sheet.png"><img src="images/git-cheat-sheet.png" alt="Cheat Sheet" /></a></p>
 <p><strong>Workflow summary</strong></p>
 <p>At a high level the development workflow follows the following steps:</p>
@@ -436,45 +473,9 @@ the <em>R Packages</em> book.</p>
 <p>If you have not used <code>resolves #</code> in the pull request description, you will need to close the issue manually. Go to the issues page of the repository, enter a comment referencing the pull request and click <code>Close and comment</code>:</p>
 <p><a href="images/close-issue.png"><img src="images/close-issue.png" /></a></p>
 </div>
-<div id="github-flow" class="section level3">
-<h3><span class="header-section-number">5.2.3</span> GitHub Flow</h3>
-<p>GitHub flow is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly. It is similar to Git flow but without a <code>develop</code> branch.</p>
-<ol style="list-style-type: decimal">
-<li>Create a branch</li>
-<li>Add commits</li>
-<li>Open a pull request</li>
-<li>Discuss and review code</li>
-<li>Deploy/Test</li>
-<li>Merge</li>
-</ol>
-<p><strong>1. Create a branch</strong></p>
-<p><a href="images/step-one-branch.png"><img src="images/step-one-branch.png" /></a></p>
-<p>When you’re working on a project, you’re going to have a bunch of different features or ideas in progress at any given time – some of which are ready to go, and others which are not. Branching exists to help you manage this workflow.</p>
-<p>When you create a branch in your project, you’re creating an environment where you can try out new ideas. Changes you make on a branch don’t affect the <code>master</code> branch, so you’re free to experiment and commit changes, safe in the knowledge that your branch won’t be merged until it’s ready to be reviewed by someone you’re collaborating with.</p>
-<p><strong>2. Add commits</strong></p>
-<p><a href="images/step-two-commit.png"><img src="images/step-two-commit.png" /></a></p>
-<p>Once your branch has been created, it’s time to start making changes. Whenever you add, edit, or delete a file, you’re making a commit, and adding them to your branch. This process of adding commits keeps track of your progress as you work on a feature branch.</p>
-<p>Commits also create a transparent history of your work that others can follow to understand what you’ve done and why. Each commit has an associated commit message, which is a description explaining why a particular change was made. Furthermore, each commit is considered a separate unit of change. This lets you roll back changes if a bug is found, or if you decide to head in a different direction.</p>
-<p><strong>3. Open a Pull Request</strong></p>
-<p><a href="images/step-three-pull.png"><img src="images/step-three-pull.png" /></a></p>
-<p>Pull Requests initiate discussion about your commits. Because they’re tightly integrated with the underlying Git repository, anyone can see exactly what changes would be merged if they accept your request.</p>
-<p>You can open a Pull Request at any point during the development process: when you have little or no code but want to share some screenshots or general ideas, when you’re stuck and need help or advice, or when you’re ready for someone to review your work. By using GitHub’s <code>@mention</code> system in your Pull Request message, you can ask for feedback from specific people or teams, whether they’re down the hall or ten time zones away.</p>
-<p><strong>4. Discuss and review code</strong></p>
-<p><a href="images/step-four-review.png"><img src="images/step-four-review.png" /></a></p>
-<p>Once a Pull Request has been opened, the person or team reviewing your changes may have questions or comments. Perhaps the coding style doesn’t match project guidelines, the change is missing unit tests, or maybe everything looks great and props are in order. Pull Requests are designed to encourage and capture this type of conversation.</p>
-<p>You can also continue to push to your branch in light of discussion and feedback about your commits. If someone comments that you forgot to do something or if there is a bug in the code, you can fix it in your branch and push up the change. GitHub will show your new commits and any additional feedback you may receive in the unified Pull Request view.</p>
-<p><strong>5. Deploy/Test</strong></p>
-<p><a href="images/step-five-test.png"><img src="images/step-five-test.png" /></a></p>
-<p>With GitHub, you can deploy from a branch for final testing in production before merging to master.</p>
-<p>Once your pull request has been reviewed and the branch passes your tests, you can deploy your changes to verify them in production. If your branch causes issues, you can roll it back by deploying the existing master into production.</p>
-<p><strong>6. Merge</strong></p>
-<p><a href="images/step-six-merge.png"><img src="images/step-six-merge.png" /></a></p>
-<p>Now that your changes have been verified in production, it is time to merge your code into the master branch.</p>
-<p>Once merged, Pull Requests preserve a record of the historical changes to your code. Because they’re searchable, they let anyone go back in time to understand why and how a decision was made.</p>
-</div>
 <div id="gitkraken" class="section level3">
 <h3><span class="header-section-number">5.2.4</span> GitKraken</h3>
-<p>Commit messages are important, especially since Git tracks your changes and then displays them as commits once they’re pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. Commit messages like “minor changes” are <strong>not</strong> helpful and should be avoided.</p>
+<p>Commit messages are important, especially since Git tracks your changes and then displays them as commits once they’re pushed to the server. By writing clear commit messages, you can make it easier for other people to follow along and provide feedback. Commit messages like “minor changes” are <strong>not</strong> helpful and should be avoided, especially in the <code>Data</code> repositories where the commits are viewed by Auditors.</p>
 <p><strong>Merge vs. Rebase</strong></p>
 <p>There are two ways to integrate changes from one branch into another branch - <code>Merge</code> and <code>Rebase</code>.</p>
 <p>The first thing to understand about <code>git rebase</code> is that it solves the same problem as <code>git merge</code>. Both of these commands are designed to integrate changes from one branch into another branch — they just do it in very different ways.</p>
