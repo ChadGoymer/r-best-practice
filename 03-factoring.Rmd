@@ -1,0 +1,127 @@
+# Factoring {#factoring}
+
+When trying to solve a large problem it is often beneficial to break it up into a set of smaller steps. In software development this is known as **factoring** or **decomposition**. Separating a process in this way has the following benefits:
+
+-   It is easier to read and document
+
+-   It reduces the number of things to think about simultaneously
+
+-   It is easier to test and verify intermediate results
+
+-   Steps can be worked on in parallel by other people
+
+-   Steps may be reusable in other projects
+
+In R, the best way to factor code is to write **functions**. Functions have clearly defined inputs (known as **arguments**) and outputs, and should be self-contained. Therefore it is easier to understand what a function does in isolation. The larger process then becomes simplified by calling a number of functions in succession. If the function and variable names are descriptive, and pipes are used to compose functions, the code becomes very readable.
+
+Before you start writing any code it is worthwhile defining the high-level steps required. Then for each step, think about the inputs needed and the output you want to produce. Create tasks for each one with enough information that someone else could work on it independently (see the project management section in version control for more details).
+
+If the code already exists it is still worth defining steps and tasks. Trying to change code all at once can get very messy, it is better to replace sections with functions, and test as you go to make sure the same results are produced. Sometimes as you write code you realise the steps you had previously designed may not be the best way to break up the process. Do not be afraid of changing direction if it produces a better result.
+
+As changes are made to code over time it inevitably gets messier, more complicated and less understandable. It is good practice to make continual improvements as you implement new features. Reorganising previously decomposed code is called **refactoring** and it should be encouraged. While there may be a quick-and-dirty way to implement a change, it should not reduce the quality of the code.
+
+# **What makes a good function?**
+
+## **1 Simplicity**
+
+In Software design there is a principle called **KISS** (Keep It Simple, Stupid!). The idea is when writing code, it is tempting to generalise to preempt future use. In practice, this tends to result in lots of unnecessary code or code that is more complex than it needs to be. This in turn makes it harder to support and maintain. It is better to keep things as simple as possible and only generalise when it is required.
+
+## 2 Self Contained
+
+Functions should not use **global variables**, or variables that are not arguments or defined within the function. This principle should guarantee that given a set of arguments, you will always get the same result. Debugging issues becomes very difficult if this is not the case.
+
+## **3 Clear, Concise and Validated Arguments**
+
+It is tempting to provide the user with lots of arguments to the function, which quickly become overwhelming. Only expose the minimum number for the function to be useful. For arguments that do not change very often set a default value, for example:
+
+``` r
+perform_analysis <- function(
+    tpd,
+    gqd,
+    yoa = 2022,
+    uplift = 1.2
+) {
+  # Perform analysis
+}
+```
+
+When someone uses the above code, the `yoa` and `uplift` arguments are optional. If not supplied they are set to `2022` and `1.2` respectively.
+
+Arguments to a function that is exposed to a user should be validated. For example, if argument **x** is expected to be an integer then check the input and throw an error if it is not. Many software bugs are due to unexpected argument values, so it is better to check and return an informative message to the user than carry on and get an unexpected result. This is known as *defensive programming*.
+
+The {msgr} package has a suite of functions for asserting variables meet some criteria. For example, you can check the arguments to the above function using:
+
+``` r
+perform_analysis <- function(
+    tpd,
+    gqd,
+    yoa    = 2022,
+    uplift = 1.2
+) {
+  assert_dataframe(tpd)
+  assert_names(tpd, c("Syndcate", "Year_of_Account", ...))
+
+  assert_dataframe(gqd)
+  assert_names(gqd, c("Syndcate", "Year_of_Account", ...))
+
+  assert_integer(yoa)
+  assert_range(yoa, min = 2000, max = 2050)
+
+  assert_numeric(uplift)
+  assert_range(uplift, min = 1.0, max = 5.0)
+
+  ...
+}
+```
+
+FIX: If `i` is not an integer it will throw an error with a useful message.
+
+## **4 Consistent outputs**
+
+A function should output the same object type and/or structure each time unless there is an error. For example, if the user expects a **data.frame** but for some argument values it produces a **list**, any dependent code might give an unexpected result. In fact, if it produces a **data.frame**, it should also always have the same column names.
+
+Not having consistent outputs can create bugs that are difficult to trace, as the problem tends to occur in some later code, rather than within the function itself.
+
+## **5 Documentation**
+
+A function should be documented with a comment block above the function in an {roxygen2} format. It should include (at a minimum) a title, description, a description of each argument, including whether it is required or optional and any default values, and a description of the returned output. {roxygen2} makes this easy by using keywords identified with an `@` prefix. For example:
+
+``` r
+#' Perform an important analysis
+#'
+#' The function combines TPD and GQD to find out something
+#' very important about syndicates.
+#'
+#' @param tpd (data.frame) The TPD data
+#' @param gqd (data.frame) The GQD data
+#' @param yoa (integer, optional, min: 2000, max: 2050, default: 2022)
+#' The year of account we are interested in.
+#' @param uplift (numeric, optional, min: 1.0, max: 5.0, default: 1.2)
+#' The arbitrary uplift to apply.
+#'
+#' @return A data.frame of syndicate results with columns:
+#' - `syndicate`
+#' - `result`
+#' - "confidence`
+#'
+perform_analysis <- function(
+    tpd,
+    gqd,
+    yoa    = 2022,
+    uplift = 1.2
+) {
+  ...
+}
+```
+
+{roxygen2} recognises comments which start with `#'` as documentation. The first line is the title, the next chunk, separated by empty lines is the description. Any other text without a `@` keyword is added as "further details". Each parameter is described with the `@param` keyword, and the output is identified with the `@return` keyword.
+
+If you use the above structure when creating an R package {roxygen2} can be used to generate the help pages. In addition, {pkgdown} can be used to create a website documenting your package.
+
+## **6 Testing**
+
+When creating any code it is important to test it to make sure it is doing what you want it to. While manual testing commonly happens during development it is a good idea to write test code so it can be easily repeated. It then becomes very easy to understand if the process is broken by changes in the code or a dependent system.
+
+When you have the process split up into functions it becomes much easier to test each one in isolation. Then if the functions are self contained you can be fairly confident the in the whole process. Though an end-to-end integration test is also recommended for critical systems.
+
+The {testthat} package makes it very easy to define and execute tests. A set of {testthat} style tests that compare actual results versus expected results for permutation of argument values.

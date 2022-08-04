@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data Import and Export | R Best Practice</title>
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data Import and Export | R Best Practice" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="github-repo" content="chadgoymer/r-best-practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data Import and Export | R Best Practice" />
+  
+  <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  
+
+<meta name="author" content="Chad Goymer" />
+
+
+<meta name="date" content="2022-08-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="factoring.html"/>
+<link rel="next" href="advanced.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction<span></span></a>
+<ul>
+<li><a href="index.html#end-user-computing" id="toc-end-user-computing"><span class="toc-section-number">1.1</span> End-User Computing<span></span></a></li>
+<li><a href="index.html#risk-analysis" id="toc-risk-analysis"><span class="toc-section-number">1.2</span> Risk Analysis<span></span></a></li>
+<li><a href="index.html#documentation" id="toc-documentation"><span class="toc-section-number">1.3</span> Documentation<span></span></a></li>
+<li><a href="index.html#testing" id="toc-testing"><span class="toc-section-number">1.4</span> Testing<span></span></a></li>
+<li><a href="index.html#reproducibility" id="toc-reproducibility"><span class="toc-section-number">1.5</span> Reproducibility<span></span></a></li>
+<li><a href="index.html#change-control" id="toc-change-control"><span class="toc-section-number">1.6</span> Change control<span></span></a></li>
+<li><a href="index.html#access-control" id="toc-access-control"><span class="toc-section-number">1.7</span> Access control<span></span></a></li>
+<li><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings" id="toc-appendix-solvency-ii-internal-model-approval-process-data-review-findings"><span class="toc-section-number">1.8</span> Appendix: Solvency II: internal model approval process data review findings<span></span></a>
+<ul>
+<li><a href="index.html#sub-risk-5-it-environment-technology-and-tools" id="toc-sub-risk-5-it-environment-technology-and-tools"><span class="toc-section-number">1.8.1</span> Sub-risk 5: IT environment, technology and tools<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="software.html#software" id="toc-software"><span class="toc-section-number">2</span> Software<span></span></a>
+<ul>
+<li><a href="software.html#core-r-applications" id="toc-core-r-applications"><span class="toc-section-number">2.1</span> Core R Applications<span></span></a></li>
+<li><a href="software.html#supporting-software" id="toc-supporting-software"><span class="toc-section-number">2.2</span> Supporting Software<span></span></a></li>
+<li><a href="software.html#package-versions" id="toc-package-versions"><span class="toc-section-number">2.3</span> Package Versions<span></span></a></li>
+</ul></li>
+<li><a href="writing.html#writing" id="toc-writing"><span class="toc-section-number">3</span> Writing R Code<span></span></a>
+<ul>
+<li><a href="writing.html#writing-style" id="toc-writing-style"><span class="toc-section-number">3.1</span> Writing Style<span></span></a>
+<ul>
+<li><a href="writing.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">3.1.1</span> Tidyverse<span></span></a></li>
+<li><a href="writing.html#files" id="toc-files"><span class="toc-section-number">3.1.2</span> Files<span></span></a></li>
+<li><a href="writing.html#syntax" id="toc-syntax"><span class="toc-section-number">3.1.3</span> Syntax<span></span></a></li>
+<li><a href="writing.html#functions" id="toc-functions"><span class="toc-section-number">3.1.4</span> Functions<span></span></a></li>
+<li><a href="writing.html#pipes" id="toc-pipes"><span class="toc-section-number">3.1.5</span> Pipes<span></span></a></li>
+<li><a href="writing.html#data-frames" id="toc-data-frames"><span class="toc-section-number">3.1.6</span> Data Frames<span></span></a></li>
+<li><a href="writing.html#documentation-1" id="toc-documentation-1"><span class="toc-section-number">3.1.7</span> Documentation<span></span></a></li>
+</ul></li>
+<li><a href="writing.html#structure" id="toc-structure"><span class="toc-section-number">3.2</span> Structure<span></span></a>
+<ul>
+<li><a href="writing.html#projects" id="toc-projects"><span class="toc-section-number">3.2.1</span> Projects<span></span></a></li>
+<li><a href="writing.html#folders" id="toc-folders"><span class="toc-section-number">3.2.2</span> Folders<span></span></a></li>
+<li><a href="writing.html#readme" id="toc-readme"><span class="toc-section-number">3.2.3</span> README<span></span></a></li>
+<li><a href="writing.html#r-packages" id="toc-r-packages"><span class="toc-section-number">3.2.4</span> R Packages<span></span></a></li>
+</ul></li>
+<li><a href="writing.html#r-markdown" id="toc-r-markdown"><span class="toc-section-number">3.3</span> R Markdown<span></span></a></li>
+</ul></li>
+<li><a href="factoring.html#factoring" id="toc-factoring"><span class="toc-section-number">4</span> Factoring<span></span></a>
+<ul>
+<li><a href="factoring.html#simplicity" id="toc-simplicity"><span class="toc-section-number">4.1</span> <strong>1 Simplicity</strong><span></span></a></li>
+<li><a href="factoring.html#self-contained" id="toc-self-contained"><span class="toc-section-number">4.2</span> 2 Self Contained<span></span></a></li>
+<li><a href="factoring.html#clear-concise-and-validated-arguments" id="toc-clear-concise-and-validated-arguments"><span class="toc-section-number">4.3</span> <strong>3 Clear, Concise and Validated Arguments</strong><span></span></a></li>
+<li><a href="factoring.html#consistent-outputs" id="toc-consistent-outputs"><span class="toc-section-number">4.4</span> <strong>4 Consistent outputs</strong><span></span></a></li>
+<li><a href="factoring.html#documentation-2" id="toc-documentation-2"><span class="toc-section-number">4.5</span> <strong>5 Documentation</strong><span></span></a></li>
+<li><a href="factoring.html#testing-1" id="toc-testing-1"><span class="toc-section-number">4.6</span> <strong>6 Testing</strong><span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#data-io" id="toc-data-io"><span class="toc-section-number">5</span> Data Import and Export<span></span></a>
+<ul>
+<li><a href="data-io.html#best-practice-summary" id="toc-best-practice-summary"><span class="toc-section-number">5.1</span> Best Practice Summary<span></span></a>
+<ul>
+<li><a href="data-io.html#reading" id="toc-reading"><span class="toc-section-number">5.1.1</span> Reading<span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#csv" id="toc-csv"><span class="toc-section-number">5.2</span> CSV<span></span></a>
+<ul>
+<li><a href="data-io.html#reading-1" id="toc-reading-1"><span class="toc-section-number">5.2.1</span> Reading<span></span></a></li>
+<li><a href="data-io.html#writing-1" id="toc-writing-1"><span class="toc-section-number">5.2.2</span> Writing<span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#excel" id="toc-excel"><span class="toc-section-number">5.3</span> Excel<span></span></a>
+<ul>
+<li><a href="data-io.html#packages" id="toc-packages"><span class="toc-section-number">5.3.1</span> Packages<span></span></a></li>
+<li><a href="data-io.html#writexl" id="toc-writexl"><span class="toc-section-number">5.3.2</span> {writexl}<span></span></a></li>
+<li><a href="data-io.html#openxlsx" id="toc-openxlsx"><span class="toc-section-number">5.3.3</span> {openxlsx}<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="advanced.html#advanced" id="toc-advanced"><span class="toc-section-number">6</span> Advanced Topics<span></span></a>
+<ul>
+<li><a href="advanced.html#non-standard-evaluation" id="toc-non-standard-evaluation"><span class="toc-section-number">6.1</span> Non-Standard Evaluation<span></span></a>
+<ul>
+<li><a href="advanced.html#strings-and-quoting" id="toc-strings-and-quoting"><span class="toc-section-number">6.1.1</span> Strings and quoting<span></span></a></li>
+<li><a href="advanced.html#base-r-evaluation" id="toc-base-r-evaluation"><span class="toc-section-number">6.1.2</span> Base R evaluation<span></span></a></li>
+<li><a href="advanced.html#tidy-evaluation" id="toc-tidy-evaluation"><span class="toc-section-number">6.1.3</span> Tidy Evaluation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="cheatsheets.html#cheatsheets" id="toc-cheatsheets"><span class="toc-section-number">7</span> Cheatsheets<span></span></a></li>
+<li><a href="data-io.html#packages" id="toc-packages"><span class="toc-section-number">8</span> Recommended Packages<span></span></a>
+<ul>
+<li><a href="packages.html#data-wrangling" id="toc-data-wrangling"><span class="toc-section-number">8.1</span> Data Wrangling<span></span></a>
+<ul>
+<li><a href="packages.html#tidy-data" id="toc-tidy-data"><span class="toc-section-number">8.1.1</span> Tidy Data<span></span></a></li>
+<li><a href="packages.html#importing-data" id="toc-importing-data"><span class="toc-section-number">8.1.2</span> Importing Data<span></span></a></li>
+<li><a href="packages.html#transforming-data" id="toc-transforming-data"><span class="toc-section-number">8.1.3</span> Transforming Data<span></span></a></li>
+</ul></li>
+<li><a href="packages.html#visualising-data" id="toc-visualising-data"><span class="toc-section-number">8.2</span> Visualising Data<span></span></a>
+<ul>
+<li><a href="packages.html#grammer-of-graphics" id="toc-grammer-of-graphics"><span class="toc-section-number">8.2.1</span> Grammer of Graphics<span></span></a></li>
+<li><a href="packages.html#interactive-graphics" id="toc-interactive-graphics"><span class="toc-section-number">8.2.2</span> Interactive Graphics<span></span></a></li>
+</ul></li>
+</ul></li>
+<li><a href="development.html#development" id="toc-development"><span class="toc-section-number">9</span> Development Practices<span></span></a>
+<ul>
+<li><a href="development.html#package-development" id="toc-package-development"><span class="toc-section-number">9.1</span> Package Development<span></span></a>
+<ul>
+<li><a href="development.html#documentation-3" id="toc-documentation-3"><span class="toc-section-number">9.1.1</span> Documentation<span></span></a></li>
+<li><a href="development.html#testing-2" id="toc-testing-2"><span class="toc-section-number">9.1.2</span> Testing<span></span></a></li>
+</ul></li>
+<li><a href="development.html#version-control" id="toc-version-control"><span class="toc-section-number">9.2</span> Version Control<span></span></a>
+<ul>
+<li><a href="development.html#git" id="toc-git"><span class="toc-section-number">9.2.1</span> Git<span></span></a></li>
+<li><a href="development.html#github-flow" id="toc-github-flow"><span class="toc-section-number">9.2.2</span> GitHub Flow<span></span></a></li>
+<li><a href="development.html#git-flow" id="toc-git-flow"><span class="toc-section-number">9.2.3</span> Git Flow<span></span></a></li>
+<li><a href="development.html#gitkraken" id="toc-gitkraken"><span class="toc-section-number">9.2.4</span> GitKraken<span></span></a></li>
+</ul></li>
+<li><a href="development.html#managing-package-dependencies" id="toc-managing-package-dependencies"><span class="toc-section-number">9.3</span> Managing Package Dependencies<span></span></a></li>
+</ul></li>
+<li><a href="references.html#references" id="toc-references">References<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Best Practice</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-io" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Data Import and Export<a href="data-io.html#data-io" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="best-practice-summary" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Best Practice Summary<a href="data-io.html#best-practice-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="reading" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Reading<a href="data-io.html#reading" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When reading data the recommended approach is:</p>
+<ol style="list-style-type: decimal">
+<li>Read data as it is without making any changes</li>
+<li>Validate the column names and types</li>
+<li>Possibly also validate values</li>
+<li>Apply transformations to make it tidy</li>
+</ol>
+<p>Validating the data when reading it can save lots of problems later. If the data changes it should result in clear error messages so the user knows where the problem is.</p>
+<p>Tidying the data after reading it makes it much easier to work with.</p>
+<p>For a really robust process, you can either:</p>
+<ul>
+<li><p>Create a function per input containing all of the above steps</p></li>
+<li><p>Specify the structure of the inputs as a configuration file and create a general function that maps over all inputs reading and validating them.</p></li>
+</ul>
+</div>
+</div>
+<div id="csv" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> CSV<a href="data-io.html#csv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Perhaps the most convenient way to transfer tabular data between applications is the CSV (Comma-Separated Values). CSVs are just plain text files with a line per row and each column separated by commas. Reading and writing CSVs is straight forward with {readr}.</p>
+<div id="reading-1" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Reading<a href="data-io.html#reading-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To read a CSV use <code>read_csv()</code>, supplying the path to the file:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="data-io.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="data-io.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="data-io.html#cb1-3" aria-hidden="true" tabindex="-1"></a>chickens_csv <span class="ot">&lt;-</span> <span class="fu">readr_example</span>(<span class="st">&quot;chickens.csv&quot;</span>)</span>
+<span id="cb1-4"><a href="data-io.html#cb1-4" aria-hidden="true" tabindex="-1"></a>chickens <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(chickens_csv)</span></code></pre></div>
+<pre><code>## Rows: 5 Columns: 4
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## chr (3): chicken, sex, motto
+## dbl (1): eggs_laid
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Notice that <code>read_csv()</code> automatically detects the type of data in each column and lets you know how it has interpreted it. It is good practice when building a process to specify the columns and types you are expecting explicitly. This way you are alerted when new data does not conform to your specification. Doing so with <code>read_csv()</code> is straight forward with the <code>col_types</code> argument. You can even use the <code>spec()</code> function to extract the types readr guessed and modify them as required:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-io.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spec</span>(chickens)</span></code></pre></div>
+<pre><code>## cols(
+##   chicken = col_character(),
+##   sex = col_character(),
+##   eggs_laid = col_double(),
+##   motto = col_character()
+## )</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-io.html#cb5-1" aria-hidden="true" tabindex="-1"></a>chickens <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb5-2"><a href="data-io.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> chickens_csv,</span>
+<span id="cb5-3"><a href="data-io.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">na =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb5-4"><a href="data-io.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb5-5"><a href="data-io.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">chicken =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb5-6"><a href="data-io.html#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb5-7"><a href="data-io.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">eggs_laid =</span> <span class="fu">col_integer</span>(),</span>
+<span id="cb5-8"><a href="data-io.html#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">motto =</span> <span class="fu">col_character</span>()</span>
+<span id="cb5-9"><a href="data-io.html#cb5-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-10"><a href="data-io.html#cb5-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you want to override the column names, you can with the <code>col_names</code> argument, but that is not recommended as it can mask unexpected data changes. It is generally better to read it in as it is, validate the columns, then rename them afterwards.</p>
+<p>One thing to be careful of with when reading CSVs is that <code>read_csv()</code> interprets <code>"NA"</code> as a missing value. This particularly bad for Lloyd’s as we have a “NA” Risk Code. To avoid this set the <code>na</code> argument to <code>""</code>, so only empty values are interpreted as missing.</p>
+<p>One other issue you may encounter when reading tables are headers that are difficult to work with. <code>read_csv()</code> preserves the column headers as they are, but if there are spaces of special characters they have to be surrounded by <code>``</code>. Unless the preservation of names is absolutely necessary it is a good idea to replace them with tidy names. You can use the <code>rename()</code> function from {dplyr} to rename them directly, or the {janitor} package has a useful function called <code>clean_names()</code> which converts the column names into snake_case.</p>
+</div>
+<div id="writing-1" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Writing<a href="data-io.html#writing-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Despite the name, the {readr} package also contains a function for writing CSVs. As you may expect, it is called <code>write_csv()</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-io.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(chickens, <span class="st">&quot;chickens.csv&quot;</span>, <span class="at">na =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>As with <code>read_csv()</code> you have to be careful with missing values (<code>NA</code>). The default behaviour in <code>write_csv()</code> is to write <code>NA</code>s as “NA” in a CSV. Since we have a Risk Code called “NA” this could have unforeseen issues. It is better to specify <code>write_csv()</code> outputs <code>NA</code>s as empty strings (<code>""</code>).</p>
+</div>
+</div>
+<div id="excel" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Excel<a href="data-io.html#excel" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Interacting with Excel from R is not always straight forward. Excel is not the best medium for data as it combines it with formatting and presentation. As a result it can be fiddly to pick out the data you are interested in. In addition, due to the interactive nature of Excel it is unlikely data is validated and users can modify the workbook without realising it will break the downstream R processes. It is difficult to build a robust process that depends on Excel.</p>
+<p>The following high-level rules should help working with R and Excel:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Avoid using Excel</strong>. If another data format can be used, e.g. CSV or a database, then use it. It is better to have a more robust medium and import/export into R and Excel from the simpler format. Using the data import functionality in Excel makes this very simple.</li>
+<li><strong>Keep it simple</strong>. Ideally you should only import/export tidy flat tables, preferably with a single table per sheet. If you must have multiple tables per worksheet then lay them out side-by-side. Avoid multiple, nested header rows. While it may look nice for presentation, it is much harder to work with. It is better to use flat tables in “input” worksheets then use pivot tables or similar to present the data in another worksheet or possibly another workbook.</li>
+<li><strong>Validate data</strong>. Because the structure of Excel workbooks is not locked down, the most common issue when using R is changes to the layout, which breaks the process. While validation of inputs is recommended in all processes it is even more important here. In particular, you should specify the column names and types expected, as well as allowed values. Giving a good error message if the validation fails will save lots of time debugging later on.</li>
+</ol>
+<div id="packages" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Packages<a href="data-io.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="readxl" class="section level4 hasAnchor" number="5.3.1.1">
+<h4><span class="header-section-number">5.3.1.1</span> {readxl}<a href="data-io.html#readxl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The best package for reading data from Excel is {readxl}. It is part of the Tidyverse and so works in a very similar way to {readr}. The {readxl} package is intentionally simple and most of the time you will only need to use two functions:</p>
+<ul>
+<li><p><code>excel_sheets()</code>: List all sheets in an excel spreadsheet.</p></li>
+<li><p><code>read_xlsx()</code>: Read tabular data from an xlsx file.</p></li>
+</ul>
+<p><code>read_xlsx()</code> has lots of options for reading the data, similar to <code>read_csv()</code>, we will summarise some of them here, but for the full list check out the documentation.</p>
+<div id="table-location" class="section level5 hasAnchor" number="5.3.1.1.1">
+<h5><span class="header-section-number">5.3.1.1.1</span> Table location<a href="data-io.html#table-location" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In order to locate the required data within the spreadsheet you have a number of options:</p>
+<ul>
+<li><p><code>sheet</code>: The worksheet name. The function will extract a table based on the sheet contents. If there is only one table this will work fine, but if you have multiple tables you will need to specify a <code>range</code>.</p></li>
+<li><p><code>skip</code>: Skip the specified number of rows before reading the table.</p></li>
+<li><p><code>range</code>: Specify a range to read from. This can be in the format <code>"B3:D87"</code> or <code>"R1C3:R27C12"</code>. Alternately, several helper functions can be used for more flexible ranges:</p>
+<ul>
+<li><p><code>anchored()</code>: Specify the top-left cell (anchor) and the dimensions.</p></li>
+<li><p><code>cell_rows()</code>: Specify rows only, columns are determined by non-empty cells.</p></li>
+<li><p><code>cell_cols()</code>: Specify columns only, rows are determined by non-empty cells.</p></li>
+<li><p><code>cell_limits()</code>: Specify the upper-left and lower-right cell. Unspecified limits will be determined by non-empty cells.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="column-names-and-types" class="section level5 hasAnchor" number="5.3.1.1.2">
+<h5><span class="header-section-number">5.3.1.1.2</span> Column Names and Types<a href="data-io.html#column-names-and-types" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><code>read_xlsx()</code> allows you to define the column names and types, with a few arguments:</p>
+<ul>
+<li><code>col_names</code>: If unspecified the first row will used as column names. Otherwise, it can be used to override the column names in the spreadsheet. As with CSVs this is generally not recommended, as it may mask issues with the data, such as columns being moved.</li>
+<li><code>col_types</code>: This can be used in the same way as CSVs to set the expected column types. If the data does not conform to these types a warning is raised.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="writexl" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> {writexl}<a href="data-io.html#writexl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Like {readxl}, {writexl} is intentionally simple. It only writes data to a new Excel workbook and the table is positioned on the top-left of the sheet.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-io.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb7-2"><a href="data-io.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="data-io.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(chickens, <span class="st">&quot;~/chickens.xlsx&quot;</span>)</span></code></pre></div>
+<p>If you want to write multiple table, you can used a named list, where the name is the sheet name. For example:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-io.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(</span>
+<span id="cb8-2"><a href="data-io.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">list</span>(<span class="at">iris =</span> iris, <span class="at">chickens =</span> chickens), </span>
+<span id="cb8-3"><a href="data-io.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;~/chickens.xlsx&quot;</span></span>
+<span id="cb8-4"><a href="data-io.html#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="openxlsx" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> {openxlsx}<a href="data-io.html#openxlsx" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While most use-cases can be covered by the above packages, there are some that are not. For example, if you need to</p>
+<ol style="list-style-type: decimal">
+<li>Create a spreadsheet that has multiple tables per sheet, or multiple headers per table.</li>
+<li>Define the formatting for the output.</li>
+<li>Fill out an existing Excel template</li>
+</ol>
+<p>In the above examples {writexl} will not be suitable. In these examples {openxlsx} is the package to use.</p>
+<p>Before using {openxlsx}, you should first review alternatives. For example, it might be better to export data as a separate Excel workbook using {writexl} then use lookups in the template. Using {openxlsx} is very powerful, but it can get complicated and difficult to maintain if the spreadsheet changes regularly.</p>
+<p>{openxlsx} can read, write and update Excel files, it can also get and set formatting and styles. It can be used to build complicated workbooks from scratch or update templates. Describing how it works is beyond the scope of this document, but if you would like to use it, it has a very good <a href="https://ycphs.github.io/openxlsx/articles/Introduction.html">introduction</a>.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="factoring.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="advanced.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/chadgoymer/r-best-practice/edit/master/04-data-io.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
