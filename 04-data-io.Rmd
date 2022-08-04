@@ -93,7 +93,7 @@ The best package for reading data from Excel is {readxl}. It is part of the Tidy
 
 -   `excel_sheets()`: List all sheets in an excel spreadsheet.
 
--   `read_xlsx()`: Read tabular data from an xlsx file.
+-   [`read_xlsx()`](<https://readxl.tidyverse.org/reference/read_excel.html>): Read tabular data from an xlsx file.
 
 `read_xlsx()` has lots of options for reading the data, similar to `read_csv()`, we will summarise some of them here, but for the full list check out the documentation.
 
@@ -107,8 +107,6 @@ In order to locate the required data within the spreadsheet you have a number of
 
 -   `range`: Specify a range to read from. This can be in the format `"B3:D87"` or `"R1C3:R27C12"`. Alternately, several helper functions can be used for more flexible ranges:
 
-    -   `anchored()`: Specify the top-left cell (anchor) and the dimensions.
-
     -   `cell_rows()`: Specify rows only, columns are determined by non-empty cells.
 
     -   `cell_cols()`: Specify columns only, rows are determined by non-empty cells.
@@ -121,6 +119,10 @@ In order to locate the required data within the spreadsheet you have a number of
 
 -   `col_names`: If unspecified the first row will used as column names. Otherwise, it can be used to override the column names in the spreadsheet. As with CSVs this is generally not recommended, as it may mask issues with the data, such as columns being moved.
 -   `col_types`: This can be used in the same way as CSVs to set the expected column types. If the data does not conform to these types a warning is raised.
+
+##### Examples
+
+See the [examples](https://readxl.tidyverse.org/reference/read_excel.html#ref-examples) page for the `read_xlsx()` function.
 
 ### {writexl}
 

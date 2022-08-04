@@ -350,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The best package for reading data from Excel is {readxl}. It is part of the Tidyverse and so works in a very similar way to {readr}. The {readxl} package is intentionally simple and most of the time you will only need to use two functions:</p>
 <ul>
 <li><p><code>excel_sheets()</code>: List all sheets in an excel spreadsheet.</p></li>
-<li><p><code>read_xlsx()</code>: Read tabular data from an xlsx file.</p></li>
+<li><p><a href="https://readxl.tidyverse.org/reference/read_excel.html"><code>read_xlsx()</code></a>: Read tabular data from an xlsx file.</p></li>
 </ul>
 <p><code>read_xlsx()</code> has lots of options for reading the data, similar to <code>read_csv()</code>, we will summarise some of them here, but for the full list check out the documentation.</p>
 <div id="table-location" class="section level5 hasAnchor" number="5.3.1.1.1">
@@ -361,7 +361,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>skip</code>: Skip the specified number of rows before reading the table.</p></li>
 <li><p><code>range</code>: Specify a range to read from. This can be in the format <code>"B3:D87"</code> or <code>"R1C3:R27C12"</code>. Alternately, several helper functions can be used for more flexible ranges:</p>
 <ul>
-<li><p><code>anchored()</code>: Specify the top-left cell (anchor) and the dimensions.</p></li>
 <li><p><code>cell_rows()</code>: Specify rows only, columns are determined by non-empty cells.</p></li>
 <li><p><code>cell_cols()</code>: Specify columns only, rows are determined by non-empty cells.</p></li>
 <li><p><code>cell_limits()</code>: Specify the upper-left and lower-right cell. Unspecified limits will be determined by non-empty cells.</p></li>
@@ -375,6 +374,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>col_names</code>: If unspecified the first row will used as column names. Otherwise, it can be used to override the column names in the spreadsheet. As with CSVs this is generally not recommended, as it may mask issues with the data, such as columns being moved.</li>
 <li><code>col_types</code>: This can be used in the same way as CSVs to set the expected column types. If the data does not conform to these types a warning is raised.</li>
 </ul>
+</div>
+<div id="examples-3" class="section level5 hasAnchor" number="5.3.1.1.3">
+<h5><span class="header-section-number">5.3.1.1.3</span> Examples<a href="data-io.html#examples-3" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>See the <a href="https://readxl.tidyverse.org/reference/read_excel.html#ref-examples">examples</a> page for the <code>read_xlsx()</code> function.</p>
 </div>
 </div>
 </div>
