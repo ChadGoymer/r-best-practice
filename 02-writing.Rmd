@@ -2,77 +2,117 @@
 
 ## Writing Style
 
-When writing code it is important to follow a common style so it is readable and 
-other people, and your future self, can easily understand and extend it. 
-
+When writing code it is important to follow a common style so it is readable and other people, and your future self, can easily understand and extend it.
 
 ### Tidyverse
 
-It is recommended, when using R, that we use the "[Tidyverse](https://www.tidyverse.org/)"
-approach and packages wherever possible. The Tidyverse is a collection of packages designed 
-for data science, as well as a philosophy and style for formatting data and writing functions.
-The [tidyverse.org](https://www.tidyverse.org/) website details the packages involved and
-contains articles on how to use them. Some of it will be summarised below, but the website
-contains the definitive information.
+It is recommended, when using R, that we use the "[Tidyverse](https://www.tidyverse.org/)" approach and packages wherever possible. The Tidyverse is a collection of packages designed for data science, as well as a philosophy and style for formatting data and writing functions. The [tidyverse.org](https://www.tidyverse.org/) website details the packages involved and contains articles on how to use them. Some of it will be summarised below, but the website contains the definitive information.
 
-The most in-depth treatment on the Tidyverse can be found in the book _R for Data Science_, 
-which is available online for free at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
+The most in-depth treatment on the Tidyverse can be found in the book *R for Data Science*, which is available online for free at [r4ds.had.co.nz](http://r4ds.had.co.nz/).
 
-The tidyverse has an extensive [style guide](http://style.tidyverse.org/), which we 
-summarise here:
-
+The tidyverse has an extensive [style guide](http://style.tidyverse.org/), which we summarise here:
 
 ### Files
 
- - File names should be meaningful and end in `.R`, or `.Rmd` for R markdown files. Only
-   use letters, numbers and `-` or `_`.
- - If your script required packages load them all at once at the very beginning of the 
-   file.
- - Use comments to explain the "why" not the "what" or "how".
- - Break up files into named sections using commented lines (`# ----`, example below). In 
-   RStudio you can collapse and expand sections commented this way.
+-   File names should be meaningful, concise and end in `.R`, or `.Rmd` for R markdown files. Only use letters, numbers and `-` or `_`.
+-   If your script required packages load them all at once at the very beginning of the file, or a separate setup file.
+-   Use comments to explain the purpose of the code and how to use it.
+-   Break up files into named sections using commented lines (`# ----`, example below). In RStudio you can collapse and expand sections commented this way.
 
-```
+#### Examples
+
+**File Names**
+
+    prepare-inputs.R
+    squiggle-analysis.Rmd
+
+OR
+
+    prepare_inputs.R
+    squiggle_analysis.Rmd
+
+**File Contents**
+
+``` r
+library(tidyverse)
+library(reservingdata)
+
 # Load data --------------------------------------------------------------------
+# Load the TPD and GQD data required for the analysis.
+# Set the following parameters before execution:
 ```
 
 ### Syntax
 
- - Variable and function names should use only lowercase letters, numbers, and `_`.
- - Always indent the code inside curly braces `{}` by two spaces.
+-   Variable and function names should be meaningful and concise. Only use only lowercase letters, numbers, and `_`.
+-   When the contents of parenthesis is too large to fit on one line, the opening bracket should be at the end of the line, the contents indented within, and the closing bracket on a new line.
 
+> **TIP 1**: Select code in RStudio Desktop and use CTRL + I to indent it correctly.
+
+> **TIP 2**: The [{lintr}](https://lintr.r-lib.org) package can be used to check the syntax within a file. The [{styler}](https://styler.r-lib.org/) package can be used to update the contents of a file to adhere with the tidyverse guidelines.
+
+#### Examples
+
+``` r
+syndicate <- 33
+year_of_account <- 2022
+
+if (year_of_account < 2022) {
+  print("back year")
+} else {
+  print"current year")
+}
+
+result <- perform_analysis(
+  gqd,
+  tpd,
+  syndicate,
+  year_of_account
+)
+```
 
 ### Functions
 
- - Use verbs for function names where possible.
- - If a function has numerous arguments put each one on a new line.
- - A function should do one thing well. If it is doing too much the break it up.
- - A function should be easily understandable in isolation. It should not refer
-   to any variables outside the function scope.
+-   Use verbs for function names where possible.
+-   If a function has numerous arguments put each one on a new line.
+-   A function should do one thing well. If it is doing too much the break it up.
+-   A function should be easily understandable in isolation. It should not refer to any variables outside the function scope.
 
+#### Examples
+
+``` r
+perform_analysis <- function(
+  gqd,
+  tpd,
+  syndicate,
+  year_of_account
+) {
+  # Do some cool analysis
+}
+```
 
 ### Pipes
 
- - Use `%>%` when you find yourself composing three or more functions together, 
-   instead of a nested call.
- - `%>%` should always have a space before it and a new line after it. After the 
-   first step, each line should be indented by two spaces.
+-   Use `%>%` when you find yourself composing two or more functions together, instead of a nested call.
+-   `%>%` should always have a space before it and a new line after it. After the first step, each line should be indented by two spaces.
 
+### Data Frames
+
+-   When reading tables of data always use [{tibble}](https://tibble.tidyverse.org), instead of the standard `data.frame`.
+-   Column names should follow the same conventions as variable names.
+
+> **TIP 3**: Tidyverse packages for reading data return tibbles. Use [{readr}](https://readr.tidyverse.org/) for CSVs and [{readxl}](https://readxl.tidyverse.org/) for Excel workbooks.
+
+> **TIP 4**: The [{janitor}](https://sfirke.github.io/janitor) package contains functions for cleaning data, including a function to rename column heading according to Tidyverse guidelines.
 
 ### Documentation
 
- - Created functions should be documentated so others, including the future you, 
-   can understand what the function does and how to use it.
- - Documentation should be written before the function definition in an 
-   [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
-   style. roxygen uses special comments, starting with `#'`. The first line is the 
-   title, and anything else, not prefixed with a keyword forms the description.
-   Keywords start with `@` and the most important ones are `@param` to describe 
-   a function parameter and `@return` to describe what the function returns.
+-   Created functions should be documented so others, including the future you, can understand what the function does and how to use it.
+-   Documentation should be written before the function definition in an [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html) style. roxygen uses special comments, starting with `#'`. The first line is the title, and anything else, not prefixed with a keyword forms the description. Keywords start with `@` and the most important ones are `@param` to describe a function parameter and `@return` to describe what the function returns.
 
 Here is a very simple example:
 
-```r
+``` r
 #' The length of a string.
 #'
 #' This function returns the number of characters in the supplied string.
@@ -82,449 +122,87 @@ Here is a very simple example:
 #' @return integer vector giving number of characters in each element of the
 #'   character vector.
 #'
-#' @export
-#'
 str_length <- function(string) {
   nchar(string)
 }
 ```
 
-
 ## Structure
 
-Organising files for a particular piece of work becomes more important as the scale and 
-complexity increases. Standard approaches exists to simplify the workflow.
-
+Organising files for a particular piece of work becomes more important as the scale and complexity increases. Standard approaches exists to simplify the workflow.
 
 ### Projects
 
 Use RStudio projects to organise files. This has a number of advantages:
 
-1. Sets the working directory to the project location
-1. Reopens the same files when returning to the projects
-1. Saves the workspace so data and code is loaded when you re-open the project
-
+1.  Sets the working directory to the project location
+2.  Reopens the same files when returning to the projects
 
 ### Folders
 
-When an analysis becomes complex it should be split up into logical parts and stored in 
-subfolders. Store the original data in a folder, unchanged. It is better to "cleanse" input
-data with an R script as it can repeated when data changes, and/or the approach changed 
-itself.
+When an analysis becomes complex it should be split up into logical parts and stored in subfolders.
 
-R code may also be stored in a separate folder. You may have an R script for cleansing the 
-data and another for performing an analysis. Include an R script at the top level which 
-executes the code in the subfolder in the appropriate order. Use relative paths to the 
-files. If an RStudio project has been created the working directory will be set to the 
-project directory automatically.
+-   Store the original data in a folder, unchanged. It is better to "cleanse" input data with an R script as it can repeated when data changes, or easily updated if the cleansing approach changes.
 
-Output the results, plots, data, etc, in another folder so it is clear whether data files 
-are results rather than inputs.
+-   Cleaned data can be cached in RDS format (see [Read/write RDS files](https://readr.tidyverse.org/reference/read_rds.html) which are faster to read.
+
+-   R code should also be stored in a separate folder. You may have an R script for cleansing the data and another for performing an analysis.
+
+    -   Include an R script at the top level which executes the code in the subfolder in the appropriate order.
+
+    -   Use relative paths to the files. If an RStudio project has been created the working directory will be set to the project directory automatically.
+
+-   Every R script should have a test script, in a tests folder, which checks the code works as expected.
+
+-   Output the results (plots, data, etc) in another folder so it is clear whether data files are results rather than inputs.
 
 An example of a project structure:
 
- - data
-    - interesting-data.xlsx
-    - reference-data.csv
- - R
-    - clean-data.R
-    - analyse.R
- - tests
-    - test-cleansed-data.R
-    - test-analysis.R
- - results
-    - cool-plot.png
-    - table-of-results.csv
- - run-code.R 
- - README.md
-
+-   inputs
+    -   interesting-data.xlsx
+    -   reference-data.csv
+-   cache
+    -   interesting-data.rds
+-   R
+    -   clean-data.R
+    -   analyse.R
+-   tests
+    -   test-cleansed-data.R
+    -   test-analysis.R
+-   results
+    -   cool-plot.png
+    -   table-of-results.csv
+-   run-code.R
+-   README.md
 
 ### README
 
-Adding a README file is a good way to explain to other, and you future self, what the analysis
-does and how to use it. The [documentation](index.html#documentation) section of the best 
-practice has more detail on what should be included.
+Adding a README file is a good way to explain to others, and you future self, what the analysis does and how to use it. The [documentation](index.html#documentation) section of the best practice has more detail on what should be included.
 
-It is recommended that [markdown](http://rmarkdown.rstudio.com/lesson-8.html) is used to 
-write the README. It is a very simple way to specify text formatting in a plain text file
-and can be converted to many other formats (HTML, docx, PDF) if required. In addition, if 
-the package is stored in GitHub a markdown README is automatically rendered on the 
-repository's page.
-
+It is recommended that [markdown](http://rmarkdown.rstudio.com/lesson-8.html) is used to write the README. It is a very simple way to specify text formatting in a plain text file and can be converted to many other formats (HTML, docx, PDF) if required. In addition, if the package is stored in GitHub a markdown README is automatically rendered on the repository's page.
 
 ### R Packages
 
-When R code has high criticality consider turning it into a package. A package is a way 
-of collecting together related code in a robust way. It has the following advantages:
+When R code has high criticality consider turning it into a package. A package is a way of collecting together related code in a robust way. It has the following advantages:
 
- - Easier to share with others (as a zip file)
- - Documentation is compiled into help pages
- - All tests can be executed with a single command
- - Can implement a development and release process
- - Code is broken up into useful functions
+-   Easier to share with others (as a zip file)
+-   Documentation is compiled into help pages
+-   All tests can be executed with a single command
+-   Can implement a development and release process
+-   Code is broken up into useful functions
 
-Writing a package is very straight forward with the helper packages available today. More
-information can be found in [Package Development](development.html#packages).
-
+Writing a package is very straight forward with the helper packages available today. More information can be found in [Package Development](development.html#packages).
 
 ## R Markdown
 
-[R markdown](http://rmarkdown.rstudio.com/) is a way of capturing documentation, code and
-results and in a single file. The document is written in plain text using a style called 
-[markdown](https://rmarkdown.rstudio.com/authoring_basics.html). This has a simple syntax 
-for specifying text formatting. R code is added in "chunks" and when the document is 
-rendered the R code is executed and replaced with the results.
+[R markdown](http://rmarkdown.rstudio.com/) is a way of capturing documentation, code and results and in a single file. The document is written in plain text using a style called [markdown](https://rmarkdown.rstudio.com/authoring_basics.html). This has a simple syntax for specifying text formatting. R code is added in "chunks" and when the document is rendered the R code is executed and replaced with the results.
 
-R markdown can be used to produce web pages, Word  and PDF documents. The provide a
-robust way of capturing an analysis and the results and can be re-run when the data
-changes.
+R markdown can be used to produce web pages, dashboards, Word and PDF documents. It provides a robust way of capturing an analysis and the results and can be re-run when the data changes.
 
 RStudio provides a cheatsheet detailing R markdown functionality:
 
 [![R Markdown](images/rmarkdown.png)](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
-For a detailed guide the book [R Markdown](https://bookdown.org/yihui/rmarkdown/) is available for
-free online.
+For a detailed guide the book [R Markdown](https://bookdown.org/yihui/rmarkdown/) is available for free online.
 
-### Markdown
-
-Markdown is a lightweight markup language with plain text formatting syntax. It is 
-designed so that it can be converted to HTML and many other formats.
-
-
-#### Paragraphs
-
-Leave at least one empty line between text to start a new paragraph.
-
-```
-This is the first paragraph.
-
-This is the second paragraph.
-```
-
-This is the first paragraph.
-
-This is the second paragraph.
-
-
-#### Headers
-
-```
-# Header 1
-
-## Header 2
-
-### Header 3
-```
-
-
-#### Emphasis
-
-```
-*italic*   **bold**
-
-_italic_   __bold__
-```
-
-*italic*   **bold**
-
-_italic_   __bold__
-
-
-#### Lists
-
-Unordered List:
-
-```
-* Item 1
-* Item 2
-    + Item 2a
-    + Item 2b
-```
-
-* Item 1
-* Item 2
-    + Item 2a
-    + Item 2b
-
-Ordered List:
-
-```
-1. Item 1
-2. Item 2
-3. Item 3
-    a. Item 3a
-    b. Item 3b
-```
-
-1. Item 1
-2. Item 2
-3. Item 3
-    a. Item 3a
-    b. Item 3b
-
-
-#### Links
-
-Use a plain http address or add a link to a phrase:
-
-```
-http://example.com
-
-[linked phrase](http://example.com)
-```
-
-http://example.com
-
-[linked phrase](http://example.com)
-
-
-#### Images
-
-Images on the web or local files in the same directory:
-
-```
-![](https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg)
-
-![optional caption text](images/octocat.png)
-```
-
-![](images/R_logo.png)
-
-![optional caption text](images/octocat.png)
-
-
-#### Reference Style Links and Images
-
-Links
-
-```
-A [linked phrase][id].
-
-At the bottom of the document:
-
-[id]: http://example.com/ "Title"
-```
-
-A [linked phrase][id].
-
-At the bottom of the document:
-
-[id]: http://example.com/ "Title"
-
-Images
-
-```
-![alt text][id]
-
-At the bottom of the document:
-
-[id]: images/octocat.png "Octocat"
-```
-
-![alt text][id]
-
-At the bottom of the document:
-
-[id]: images/octocat.png "Octocat"
-
-
-#### Blockquotes
-
-```
-A friend once said:
-
-> It's always better to give
-> than to receive.
-```
-
-A friend once said:
-
-> It's always better to give
-> than to receive.
-
-
-#### Plain Code Blocks
-
-Plain code blocks are displayed in a fixed-width font but not evaulated
-
-    ```
-    This text is displayed verbatim / preformatted
-    ```
-
-```
-This text is displayed verbatim / preformatted
-```
-
-#### Inline Code
-
-```
-We defined the `add` function to compute the sum of two numbers.
-```
-
-We defined the `add` function to compute the sum of two numbers.
-
-
-#### LaTeX Equations
-
-Inline equation:
-
-```
-Einstein's famous equation $E = mc^2$
-```
-
-Einstein's famous equation $E = mc^2$
-
-Display equation:
-
-```
-$$
-E = mc^2
-$$
-```
-
-$$
-E = mc^2
-$$
-
-
-#### Horizontal Rule / Page Break
-
-Three or more asterisks or dashes:
-
-```
-******
-
-------
-```
-
-******
-
-------
-
-
-#### Tables
-
-```
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-```
-
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  | Content Cell
-
-
-#### Manual Line Breaks
-
-End a line with a backslash:
-
-```
-Roses are red,\
-Violets are blue.
-```
-
-Roses are red,\
-Violets are blue.
-
-
-#### Miscellaneous
-
-```
-superscript^2^
-
-~~strikethrough~~
-```
-
-superscript^2^
-
-~~strikethrough~~
-
-
-### R Code Chunks
-
-R code surrounded with three ticks and designated `{R}` (see below) will be evaluated and printed.
-
-```
-```{r}
-summary(cars$dist)
-summary(cars$speed)
-```
-```
-
-```{r}
-summary(cars$dist)
-summary(cars$speed)
-```
-
-Inline R Code:
-
-```
-There were `r nrow(cars)` cars studied
-```
-
-There were `r nrow(cars)` cars studied
-
-There are many options available when executing R code chunks. For more information read the 
-[R code chunks](https://bookdown.org/yihui/rmarkdown/r-code.html) chapter in the R Markdown book.
-
-
-### R Notebooks
-
-An R Notebook is an R Markdown document with chunks that can be executed independently and
-interactively, with output visible immediately beneath the input. They direct interaction with 
-R while producing a reproducible document with publication-quality output.
-
-Any R Markdown document can be used as a notebook, and all R Notebooks can be rendered to other R
-Markdown document types. A notebook can therefore be thought of as a special execution mode for R
-Markdown documents. The immediacy of notebook mode makes it a good choice while authoring the R
-Markdown document and iterating on code. When you are ready to publish the document, you can share
-the notebook directly, or render it to a publication format with the Knit button.
-
-#### Creating a Notebook
-
-You can create a new notebook in RStudio with the menu command `File -> New File -> R Notebook`, 
-or by using the `html_notebook` output type in your document’s YAML metadata.
-
-```
----
-title: "My Notebook"
-output: html_notebook
----
-```
-
-#### Inserting chunks
-
-Notebook chunks can be inserted quickly using the keyboard shortcut `Ctrl + Alt + I`, or via the
-`Insert` menu in the editor toolbar.
-
-Because all of a chunk’s output appears beneath the chunk (not alongside the statement which 
-emitted the output, as it does in the rendered R Markdown output), it is often helpful to split
-chunks that produce multiple outputs into two or more chunks which each produce only one output.
-
-### Executing chunks
-
-To execute a chunk of code use the green triangle button on the toolbar of a code chunk that has 
-the tooltip “Run Current Chunk”, or `Ctrl + Shift + Enter` to run the current chunk. The result is
-then displayed underneath the chunk.
-
-### Saving and sharing
-
-When a notebook `*.Rmd` file is saved, a `*.nb.html` file is created alongside it. This file is a
-self-contained HTML file which contains both a rendered copy of the notebook with all current chunk
-outputs (suitable for display on a website) and a copy of the `*.Rmd` file itself.
-
-You can view the `*.nb.html` file in any ordinary web browser. It can also be opened in RStudio; 
-when you open there (e.g., using `File -> Open File`), RStudio will do the following:
-
-1. Extract the bundled `*.Rmd` file, and place it alongside the `*.nb.html` file.
-2. Open the `*.Rmd` file in a new RStudio editor tab.
-3. Extract the chunk outputs from the `*.nb.html` file, and place them appropriately in the editor.
-
-#### More information
-
-For more a more detailed guide on R Notebooks read the 
-[Notebook chapter](https://bookdown.org/yihui/rmarkdown/notebook.html) in the R Markdown book.
+Rmarkdown follows all the guidance given above. It is a good way to write the top level script in a projects, as it can load and use functions defined in the R folder, and produce a report of the execution.
