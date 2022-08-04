@@ -1,3 +1,7 @@
+---
+---
+---
+
 # Data Import and Export {#data-io}
 
 ## Best Practice Summary
@@ -29,7 +33,7 @@ Perhaps the most convenient way to transfer tabular data between applications is
 
 To read a CSV use `read_csv()`, supplying the path to the file:
 
-```{r}
+```{R}
 library(readr)
 
 chickens_csv <- readr_example("chickens.csv")
@@ -38,13 +42,14 @@ chickens <- read_csv(chickens_csv)
 
 Notice that `read_csv()` automatically detects the type of data in each column and lets you know how it has interpreted it. It is good practice when building a process to specify the columns and types you are expecting explicitly. This way you are alerted when new data does not conform to your specification. Doing so with `read_csv()` is straight forward with the `col_types` argument. You can even use the `spec()` function to extract the types readr guessed and modify them as required:
 
-```{r}
+```{R}
 spec(chickens)
 ```
 
-```{r}
+```{R}
 chickens <- read_csv(
   file = chickens_csv,
+  na = "",
   col_types = cols(
     chicken = col_character(),
     sex = col_character(),
@@ -54,33 +59,21 @@ chickens <- read_csv(
 )
 ```
 
-Note: by default, `read_csv()` will only give a warning if columns cannot be converted to the specified type. To enforce an error use `stop_for_problems()`:
-
-```{r}
-read_chickens <- function(csv) {
-  chickens <- read_csv(
-    file = csv,
-    col_types = cols(
-      chicken = col_character(),
-      sex = col_integer(),
-      eggs_laid = col_integer(),
-      motto = col_character()
-    )
-  )
-  
-  stop_for_problems(chickens)
-
-  chickens
-}
-
-chickens <- read_chickens(chickens_csv)
-```
-
 If you want to override the column names, you can with the `col_names` argument, but that is not recommended as it can mask unexpected data changes. It is generally better to read it in as it is, validate the columns, then rename them afterwards.
 
 One thing to be careful of with when reading CSVs is that `read_csv()` interprets `"NA"` as a missing value. This particularly bad for Lloyd's as we have a "NA" Risk Code. To avoid this set the `na` argument to `""`, so only empty values are interpreted as missing.
 
 One other issue you may encounter when reading tables are headers that are difficult to work with. `read_csv()` preserves the column headers as they are, but if there are spaces of special characters they have to be surrounded by ``` `` ```. Unless the preservation of names is absolutely necessary it is a good idea to replace them with tidy names. You can use the `rename()` function from {dplyr} to rename them directly, or the {janitor} package has a useful function called `clean_names()` which converts the column names into snake_case.
+
+### Writing
+
+Despite the name, the {readr} package also contains a function for writing CSVs. As you may expect, it is called `write_csv()`:
+
+```{R}
+write_csv(chickens, "chickens.csv", na = "")
+```
+
+As with `read_csv()` you have to be careful with missing values (`NA`). The default behaviour in `write_csv()` is to write `NA`s as "NA" in a CSV. Since we have a Risk Code called "NA" this could have unforeseen issues. It is better to specify `write_csv()` outputs `NA`s as empty strings (`""`).
 
 ## Excel
 
@@ -133,7 +126,7 @@ In order to locate the required data within the spreadsheet you have a number of
 
 Like {readxl}, {writexl} is intentionally simple. It only writes data to a new Excel workbook and the table is positioned on the top-left of the sheet.
 
-```{r}
+```{R}
 library(writexl)
 
 write_xlsx(chickens, "~/chickens.xlsx")
@@ -141,7 +134,7 @@ write_xlsx(chickens, "~/chickens.xlsx")
 
 If you want to write multiple table, you can used a named list, where the name is the sheet name. For example:
 
-```{r}
+```{R}
 write_xlsx(
   x = list(iris = iris, chickens = chickens), 
   path = "~/chickens.xlsx"
