@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Writing R Code | R Best Practice</title>
-  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Writing R Code | R Best Practice" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   <meta name="github-repo" content="chadgoymer/r-best-practice" />
@@ -22,25 +20,27 @@
   <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   
 
-<meta name="author" content="Chad Goymer">
+<meta name="author" content="Chad Goymer" />
 
 
-<meta name="date" content="2019-12-17">
+<meta name="date" content="2022-07-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="software.html">
-<link rel="next" href="packages.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="software.html"/>
+<link rel="next" href="packages.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,29 +48,34 @@
 
 
 
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +84,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -114,6 +119,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -130,79 +136,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R Best Practice</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility</a></li>
-<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control</a></li>
-<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control</a></li>
-<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings</a><ul>
-<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control<span></span></a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control<span></span></a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings<span></span></a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software</a><ul>
-<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications</a></li>
-<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software</a></li>
-<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions</a></li>
+<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code</a><ul>
-<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse</a></li>
-<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files</a></li>
-<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax</a></li>
-<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions</a></li>
-<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes</a></li>
-<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation</a></li>
+<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files<span></span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax<span></span></a></li>
+<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions<span></span></a></li>
+<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes<span></span></a></li>
+<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects</a></li>
-<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders</a></li>
-<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README</a></li>
-<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages</a></li>
+<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
-<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks</a></li>
-<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
-<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks</a></li>
-<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
-<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics</a></li>
+<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks<span></span></a></li>
+<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks<span></span></a></li>
+<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices</a><ul>
-<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation</a></li>
-<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing</a></li>
+<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data<span></span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
-<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
-<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow</a></li>
-<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics</a><ul>
-<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting</a></li>
-<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation</a></li>
-<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation</a></li>
+<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow<span></span></a></li>
+<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow<span></span></a></li>
+<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -223,14 +244,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="writing" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Writing R Code</h1>
-<div id="writing-style" class="section level2">
-<h2><span class="header-section-number">3.1</span> Writing Style</h2>
+<div id="writing" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Writing R Code<a href="writing.html#writing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="writing-style" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Writing Style<a href="writing.html#writing-style" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When writing code it is important to follow a common style so it is readable and
 other people, and your future self, can easily understand and extend it.</p>
-<div id="tidyverse" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Tidyverse</h3>
+<div id="tidyverse" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Tidyverse<a href="writing.html#tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It is recommended, when using R, that we use the “<a href="https://www.tidyverse.org/">Tidyverse</a>”
 approach and packages wherever possible. The Tidyverse is a collection of packages designed
 for data science, as well as a philosophy and style for formatting data and writing functions.
@@ -242,8 +263,8 @@ which is available online for free at <a href="http://r4ds.had.co.nz/">r4ds.had.
 <p>The tidyverse has an extensive <a href="http://style.tidyverse.org/">style guide</a>, which we
 summarise here:</p>
 </div>
-<div id="files" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Files</h3>
+<div id="files" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Files<a href="writing.html#files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>File names should be meaningful and end in <code>.R</code>, or <code>.Rmd</code> for R markdown files. Only
 use letters, numbers and <code>-</code> or <code>_</code>.</li>
@@ -255,15 +276,15 @@ RStudio you can collapse and expand sections commented this way.</li>
 </ul>
 <pre><code># Load data --------------------------------------------------------------------</code></pre>
 </div>
-<div id="syntax" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Syntax</h3>
+<div id="syntax" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Syntax<a href="writing.html#syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Variable and function names should use only lowercase letters, numbers, and <code>_</code>.</li>
 <li>Always indent the code inside curly braces <code>{}</code> by two spaces.</li>
 </ul>
 </div>
-<div id="functions" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Functions</h3>
+<div id="functions" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Functions<a href="writing.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Use verbs for function names where possible.</li>
 <li>If a function has numerous arguments put each one on a new line.</li>
@@ -272,8 +293,8 @@ RStudio you can collapse and expand sections commented this way.</li>
 to any variables outside the function scope.</li>
 </ul>
 </div>
-<div id="pipes" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> Pipes</h3>
+<div id="pipes" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Pipes<a href="writing.html#pipes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Use <code>%&gt;%</code> when you find yourself composing three or more functions together,
 instead of a nested call.</li>
@@ -281,8 +302,8 @@ instead of a nested call.</li>
 first step, each line should be indented by two spaces.</li>
 </ul>
 </div>
-<div id="documentation-1" class="section level3">
-<h3><span class="header-section-number">3.1.6</span> Documentation</h3>
+<div id="documentation-1" class="section level3 hasAnchor" number="3.1.6">
+<h3><span class="header-section-number">3.1.6</span> Documentation<a href="writing.html#documentation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Created functions should be documentated so others, including the future you,
 can understand what the function does and how to use it.</li>
@@ -294,28 +315,28 @@ Keywords start with <code>@</code> and the most important ones are <code>@param<
 a function parameter and <code>@return</code> to describe what the function returns.</li>
 </ul>
 <p>Here is a very simple example:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&#39; The length of a string.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; This function returns the number of characters in the supplied string.</span>
-<span class="co">#&#39; </span>
-<span class="co">#&#39; @param string input character vector</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @return integer vector giving number of characters in each element of the</span>
-<span class="co">#&#39;   character vector.</span>
-<span class="co">#&#39;</span>
-<span class="co">#&#39; @export</span>
-<span class="co">#&#39;</span>
-str_length &lt;-<span class="st"> </span><span class="cf">function</span>(string) {
-  <span class="kw">nchar</span>(string)
-}</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="writing.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; The length of a string.</span></span>
+<span id="cb2-2"><a href="writing.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb2-3"><a href="writing.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; This function returns the number of characters in the supplied string.</span></span>
+<span id="cb2-4"><a href="writing.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; </span></span>
+<span id="cb2-5"><a href="writing.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @param string input character vector</span></span>
+<span id="cb2-6"><a href="writing.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb2-7"><a href="writing.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @return integer vector giving number of characters in each element of the</span></span>
+<span id="cb2-8"><a href="writing.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;   character vector.</span></span>
+<span id="cb2-9"><a href="writing.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb2-10"><a href="writing.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb2-11"><a href="writing.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb2-12"><a href="writing.html#cb2-12" aria-hidden="true" tabindex="-1"></a>str_length <span class="ot">&lt;-</span> <span class="cf">function</span>(string) {</span>
+<span id="cb2-13"><a href="writing.html#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nchar</span>(string)</span>
+<span id="cb2-14"><a href="writing.html#cb2-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
-<div id="structure" class="section level2">
-<h2><span class="header-section-number">3.2</span> Structure</h2>
+<div id="structure" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Structure<a href="writing.html#structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Organising files for a particular piece of work becomes more important as the scale and
 complexity increases. Standard approaches exists to simplify the workflow.</p>
-<div id="projects" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Projects</h3>
+<div id="projects" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Projects<a href="writing.html#projects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use RStudio projects to organise files. This has a number of advantages:</p>
 <ol style="list-style-type: decimal">
 <li>Sets the working directory to the project location</li>
@@ -323,8 +344,8 @@ complexity increases. Standard approaches exists to simplify the workflow.</p>
 <li>Saves the workspace so data and code is loaded when you re-open the project</li>
 </ol>
 </div>
-<div id="folders" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Folders</h3>
+<div id="folders" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Folders<a href="writing.html#folders" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When an analysis becomes complex it should be split up into logical parts and stored in
 subfolders. Store the original data in a folder, unchanged. It is better to “cleanse” input
 data with an R script as it can repeated when data changes, and/or the approach changed
@@ -362,8 +383,8 @@ are results rather than inputs.</p>
 <li>README.md</li>
 </ul>
 </div>
-<div id="readme" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> README</h3>
+<div id="readme" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> README<a href="writing.html#readme" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Adding a README file is a good way to explain to other, and you future self, what the analysis
 does and how to use it. The <a href="index.html#documentation">documentation</a> section of the best
 practice has more detail on what should be included.</p>
@@ -373,8 +394,8 @@ and can be converted to many other formats (HTML, docx, PDF) if required. In add
 the package is stored in GitHub a markdown README is automatically rendered on the
 repository’s page.</p>
 </div>
-<div id="r-packages" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> R Packages</h3>
+<div id="r-packages" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> R Packages<a href="writing.html#r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When R code has high criticality consider turning it into a package. A package is a way
 of collecting together related code in a robust way. It has the following advantages:</p>
 <ul>
@@ -388,8 +409,8 @@ of collecting together related code in a robust way. It has the following advant
 information can be found in <a href="development.html#packages">Package Development</a>.</p>
 </div>
 </div>
-<div id="r-markdown" class="section level2">
-<h2><span class="header-section-number">3.3</span> R Markdown</h2>
+<div id="r-markdown" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> R Markdown<a href="writing.html#r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="http://rmarkdown.rstudio.com/">R markdown</a> is a way of capturing documentation, code and
 results and in a single file. The document is written in plain text using a style called
 <a href="https://rmarkdown.rstudio.com/authoring_basics.html">markdown</a>. This has a simple syntax
@@ -402,12 +423,12 @@ changes.</p>
 <p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf"><img src="images/rmarkdown.png" alt="R Markdown" /></a></p>
 <p>For a detailed guide the book <a href="https://bookdown.org/yihui/rmarkdown/">R Markdown</a> is available for
 free online.</p>
-<div id="markdown" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Markdown</h3>
+<div id="markdown" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Markdown<a href="writing.html#markdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Markdown is a lightweight markup language with plain text formatting syntax. It is
 designed so that it can be converted to HTML and many other formats.</p>
-<div id="paragraphs" class="section level4">
-<h4><span class="header-section-number">3.3.1.1</span> Paragraphs</h4>
+<div id="paragraphs" class="section level4 hasAnchor" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Paragraphs<a href="writing.html#paragraphs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Leave at least one empty line between text to start a new paragraph.</p>
 <pre><code>This is the first paragraph.
 
@@ -415,24 +436,24 @@ This is the second paragraph.</code></pre>
 <p>This is the first paragraph.</p>
 <p>This is the second paragraph.</p>
 </div>
-<div id="headers" class="section level4">
-<h4><span class="header-section-number">3.3.1.2</span> Headers</h4>
+<div id="headers" class="section level4 hasAnchor" number="3.3.1.2">
+<h4><span class="header-section-number">3.3.1.2</span> Headers<a href="writing.html#headers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code># Header 1
 
 ## Header 2
 
 ### Header 3</code></pre>
 </div>
-<div id="emphasis" class="section level4">
-<h4><span class="header-section-number">3.3.1.3</span> Emphasis</h4>
+<div id="emphasis" class="section level4 hasAnchor" number="3.3.1.3">
+<h4><span class="header-section-number">3.3.1.3</span> Emphasis<a href="writing.html#emphasis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>*italic*   **bold**
 
 _italic_   __bold__</code></pre>
 <p><em>italic</em> <strong>bold</strong></p>
 <p><em>italic</em> <strong>bold</strong></p>
 </div>
-<div id="lists" class="section level4">
-<h4><span class="header-section-number">3.3.1.4</span> Lists</h4>
+<div id="lists" class="section level4 hasAnchor" number="3.3.1.4">
+<h4><span class="header-section-number">3.3.1.4</span> Lists<a href="writing.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Unordered List:</p>
 <pre><code>* Item 1
 * Item 2
@@ -462,8 +483,8 @@ _italic_   __bold__</code></pre>
 </ol></li>
 </ol>
 </div>
-<div id="links" class="section level4">
-<h4><span class="header-section-number">3.3.1.5</span> Links</h4>
+<div id="links" class="section level4 hasAnchor" number="3.3.1.5">
+<h4><span class="header-section-number">3.3.1.5</span> Links<a href="writing.html#links" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Use a plain http address or add a link to a phrase:</p>
 <pre><code>http://example.com
 
@@ -471,20 +492,20 @@ _italic_   __bold__</code></pre>
 <p><a href="http://example.com" class="uri">http://example.com</a></p>
 <p><a href="http://example.com">linked phrase</a></p>
 </div>
-<div id="images" class="section level4">
-<h4><span class="header-section-number">3.3.1.6</span> Images</h4>
+<div id="images" class="section level4 hasAnchor" number="3.3.1.6">
+<h4><span class="header-section-number">3.3.1.6</span> Images<a href="writing.html#images" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Images on the web or local files in the same directory:</p>
 <pre><code>![](https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg)
 
 ![optional caption text](images/octocat.png)</code></pre>
 <p><img src="images/R_logo.png" /></p>
 <div class="figure">
-<img src="images/octocat.png" alt="optional caption text" />
+<img src="images/octocat.png" alt="" />
 <p class="caption">optional caption text</p>
 </div>
 </div>
-<div id="reference-style-links-and-images" class="section level4">
-<h4><span class="header-section-number">3.3.1.7</span> Reference Style Links and Images</h4>
+<div id="reference-style-links-and-images" class="section level4 hasAnchor" number="3.3.1.7">
+<h4><span class="header-section-number">3.3.1.7</span> Reference Style Links and Images<a href="writing.html#reference-style-links-and-images" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Links</p>
 <pre><code>A [linked phrase][id].
 
@@ -500,13 +521,13 @@ At the bottom of the document:
 
 [id]: images/octocat.png &quot;Octocat&quot;</code></pre>
 <div class="figure">
-<img src="images/octocat.png" title="Octocat" alt="alt text" />
+<img src="images/octocat.png" title="Octocat" alt="" />
 <p class="caption">alt text</p>
 </div>
 <p>At the bottom of the document:</p>
 </div>
-<div id="blockquotes" class="section level4">
-<h4><span class="header-section-number">3.3.1.8</span> Blockquotes</h4>
+<div id="blockquotes" class="section level4 hasAnchor" number="3.3.1.8">
+<h4><span class="header-section-number">3.3.1.8</span> Blockquotes<a href="writing.html#blockquotes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>A friend once said:
 
 &gt; It&#39;s always better to give
@@ -517,21 +538,21 @@ At the bottom of the document:
 than to receive.</p>
 </blockquote>
 </div>
-<div id="plain-code-blocks" class="section level4">
-<h4><span class="header-section-number">3.3.1.9</span> Plain Code Blocks</h4>
+<div id="plain-code-blocks" class="section level4 hasAnchor" number="3.3.1.9">
+<h4><span class="header-section-number">3.3.1.9</span> Plain Code Blocks<a href="writing.html#plain-code-blocks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Plain code blocks are displayed in a fixed-width font but not evaulated</p>
 <pre><code>```
 This text is displayed verbatim / preformatted
 ```</code></pre>
 <pre><code>This text is displayed verbatim / preformatted</code></pre>
 </div>
-<div id="inline-code" class="section level4">
-<h4><span class="header-section-number">3.3.1.10</span> Inline Code</h4>
+<div id="inline-code" class="section level4 hasAnchor" number="3.3.1.10">
+<h4><span class="header-section-number">3.3.1.10</span> Inline Code<a href="writing.html#inline-code" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>We defined the `add` function to compute the sum of two numbers.</code></pre>
 <p>We defined the <code>add</code> function to compute the sum of two numbers.</p>
 </div>
-<div id="latex-equations" class="section level4">
-<h4><span class="header-section-number">3.3.1.11</span> LaTeX Equations</h4>
+<div id="latex-equations" class="section level4 hasAnchor" number="3.3.1.11">
+<h4><span class="header-section-number">3.3.1.11</span> LaTeX Equations<a href="writing.html#latex-equations" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Inline equation:</p>
 <pre><code>Einstein&#39;s famous equation $E = mc^2$</code></pre>
 <p>Einstein’s famous equation <span class="math inline">\(E = mc^2\)</span></p>
@@ -543,8 +564,8 @@ $$</code></pre>
 E = mc^2
 \]</span></p>
 </div>
-<div id="horizontal-rule-page-break" class="section level4">
-<h4><span class="header-section-number">3.3.1.12</span> Horizontal Rule / Page Break</h4>
+<div id="horizontal-rule-page-break" class="section level4 hasAnchor" number="3.3.1.12">
+<h4><span class="header-section-number">3.3.1.12</span> Horizontal Rule / Page Break<a href="writing.html#horizontal-rule-page-break" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Three or more asterisks or dashes:</p>
 <pre><code>******
 
@@ -552,8 +573,8 @@ E = mc^2
 <hr />
 <hr />
 </div>
-<div id="tables" class="section level4">
-<h4><span class="header-section-number">3.3.1.13</span> Tables</h4>
+<div id="tables" class="section level4 hasAnchor" number="3.3.1.13">
+<h4><span class="header-section-number">3.3.1.13</span> Tables<a href="writing.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
@@ -577,16 +598,16 @@ Content Cell  | Content Cell</code></pre>
 </tbody>
 </table>
 </div>
-<div id="manual-line-breaks" class="section level4">
-<h4><span class="header-section-number">3.3.1.14</span> Manual Line Breaks</h4>
+<div id="manual-line-breaks" class="section level4 hasAnchor" number="3.3.1.14">
+<h4><span class="header-section-number">3.3.1.14</span> Manual Line Breaks<a href="writing.html#manual-line-breaks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>End a line with a backslash:</p>
 <pre><code>Roses are red,\
 Violets are blue.</code></pre>
 <p>Roses are red,<br />
 Violets are blue.</p>
 </div>
-<div id="miscellaneous" class="section level4">
-<h4><span class="header-section-number">3.3.1.15</span> Miscellaneous</h4>
+<div id="miscellaneous" class="section level4 hasAnchor" number="3.3.1.15">
+<h4><span class="header-section-number">3.3.1.15</span> Miscellaneous<a href="writing.html#miscellaneous" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>superscript^2^
 
 ~~strikethrough~~</code></pre>
@@ -594,15 +615,15 @@ Violets are blue.</p>
 <p><del>strikethrough</del></p>
 </div>
 </div>
-<div id="r-code-chunks" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> R Code Chunks</h3>
+<div id="r-code-chunks" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> R Code Chunks<a href="writing.html#r-code-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>R code surrounded with three ticks and designated <code>{R}</code> (see below) will be evaluated and printed.</p>
 <pre><code>
 ```r
 summary(cars$dist)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="writing.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars<span class="sc">$</span>speed)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
 <pre><code>
@@ -611,7 +632,7 @@ summary(cars$dist)</code></pre>
 summary(cars$dist)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    2.00   26.00   36.00   42.98   56.00  120.00</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(cars<span class="op">$</span>speed)</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="writing.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cars<span class="sc">$</span>speed)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     4.0    12.0    15.0    15.4    19.0    25.0</code></pre>
 <p>Inline R Code:</p>
@@ -620,8 +641,8 @@ summary(cars$dist)</code></pre>
 <p>There are many options available when executing R code chunks. For more information read the
 <a href="https://bookdown.org/yihui/rmarkdown/r-code.html">R code chunks</a> chapter in the R Markdown book.</p>
 </div>
-<div id="r-notebooks" class="section level3">
-<h3><span class="header-section-number">3.3.3</span> R Notebooks</h3>
+<div id="r-notebooks" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> R Notebooks<a href="writing.html#r-notebooks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An R Notebook is an R Markdown document with chunks that can be executed independently and
 interactively, with output visible immediately beneath the input. They direct interaction with
 R while producing a reproducible document with publication-quality output.</p>
@@ -630,8 +651,8 @@ Markdown document types. A notebook can therefore be thought of as a special exe
 Markdown documents. The immediacy of notebook mode makes it a good choice while authoring the R
 Markdown document and iterating on code. When you are ready to publish the document, you can share
 the notebook directly, or render it to a publication format with the Knit button.</p>
-<div id="creating-a-notebook" class="section level4">
-<h4><span class="header-section-number">3.3.3.1</span> Creating a Notebook</h4>
+<div id="creating-a-notebook" class="section level4 hasAnchor" number="3.3.3.1">
+<h4><span class="header-section-number">3.3.3.1</span> Creating a Notebook<a href="writing.html#creating-a-notebook" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>You can create a new notebook in RStudio with the menu command <code>File -&gt; New File -&gt; R Notebook</code>,
 or by using the <code>html_notebook</code> output type in your document’s YAML metadata.</p>
 <pre><code>---
@@ -639,8 +660,8 @@ title: &quot;My Notebook&quot;
 output: html_notebook
 ---</code></pre>
 </div>
-<div id="inserting-chunks" class="section level4">
-<h4><span class="header-section-number">3.3.3.2</span> Inserting chunks</h4>
+<div id="inserting-chunks" class="section level4 hasAnchor" number="3.3.3.2">
+<h4><span class="header-section-number">3.3.3.2</span> Inserting chunks<a href="writing.html#inserting-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Notebook chunks can be inserted quickly using the keyboard shortcut <code>Ctrl + Alt + I</code>, or via the
 <code>Insert</code> menu in the editor toolbar.</p>
 <p>Because all of a chunk’s output appears beneath the chunk (not alongside the statement which
@@ -648,14 +669,14 @@ emitted the output, as it does in the rendered R Markdown output), it is often h
 chunks that produce multiple outputs into two or more chunks which each produce only one output.</p>
 </div>
 </div>
-<div id="executing-chunks" class="section level3">
-<h3><span class="header-section-number">3.3.4</span> Executing chunks</h3>
+<div id="executing-chunks" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Executing chunks<a href="writing.html#executing-chunks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To execute a chunk of code use the green triangle button on the toolbar of a code chunk that has
 the tooltip “Run Current Chunk”, or <code>Ctrl + Shift + Enter</code> to run the current chunk. The result is
 then displayed underneath the chunk.</p>
 </div>
-<div id="saving-and-sharing" class="section level3">
-<h3><span class="header-section-number">3.3.5</span> Saving and sharing</h3>
+<div id="saving-and-sharing" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Saving and sharing<a href="writing.html#saving-and-sharing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When a notebook <code>*.Rmd</code> file is saved, a <code>*.nb.html</code> file is created alongside it. This file is a
 self-contained HTML file which contains both a rendered copy of the notebook with all current chunk
 outputs (suitable for display on a website) and a copy of the <code>*.Rmd</code> file itself.</p>
@@ -666,8 +687,8 @@ when you open there (e.g., using <code>File -&gt; Open File</code>), RStudio wil
 <li>Open the <code>*.Rmd</code> file in a new RStudio editor tab.</li>
 <li>Extract the chunk outputs from the <code>*.nb.html</code> file, and place them appropriately in the editor.</li>
 </ol>
-<div id="more-information" class="section level4">
-<h4><span class="header-section-number">3.3.5.1</span> More information</h4>
+<div id="more-information" class="section level4 hasAnchor" number="3.3.5.1">
+<h4><span class="header-section-number">3.3.5.1</span> More information<a href="writing.html#more-information" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For more a more detailed guide on R Notebooks read the
 <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">Notebook chapter</a> in the R Markdown book.</p>
 
@@ -685,12 +706,13 @@ when you open there (e.g., using <code>File -&gt; Open File</code>), RStudio wil
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -698,12 +720,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -718,7 +740,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -733,8 +763,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

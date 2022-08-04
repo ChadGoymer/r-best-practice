@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>R Best Practice</title>
-  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="R Best Practice" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   <meta name="github-repo" content="chadgoymer/r-best-practice" />
@@ -22,25 +20,27 @@
   <meta name="twitter:description" content="Best practice guidelines for using R to produce reproducible and robust analyses and applications." />
   
 
-<meta name="author" content="Chad Goymer">
+<meta name="author" content="Chad Goymer" />
 
 
-<meta name="date" content="2019-12-17">
+<meta name="date" content="2022-08-04" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 
-<link rel="next" href="software.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="next" href="software.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -49,70 +49,12 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
+
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -130,79 +72,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">R Best Practice</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#end-user-computing"><i class="fa fa-check"></i><b>1.1</b> End-User Computing</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#risk-analysis"><i class="fa fa-check"></i><b>1.2</b> Risk Analysis</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#documentation"><i class="fa fa-check"></i><b>1.3</b> Documentation</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#testing"><i class="fa fa-check"></i><b>1.4</b> Testing</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i><b>1.5</b> Reproducibility</a></li>
-<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#change-control"><i class="fa fa-check"></i><b>1.6</b> Change control</a></li>
-<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#access-control"><i class="fa fa-check"></i><b>1.7</b> Access control</a></li>
-<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings"><i class="fa fa-check"></i><b>1.8</b> Appendix: Solvency II: internal model approval process data review findings</a><ul>
-<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#sub-risk-5-it-environment-technology-and-tools"><i class="fa fa-check"></i><b>1.8.1</b> Sub-risk 5: IT environment, technology and tools</a></li>
+<li><a href="index.html#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction<span></span></a>
+<ul>
+<li><a href="index.html#end-user-computing" id="toc-end-user-computing"><span class="toc-section-number">1.1</span> End-User Computing<span></span></a></li>
+<li><a href="index.html#risk-analysis" id="toc-risk-analysis"><span class="toc-section-number">1.2</span> Risk Analysis<span></span></a></li>
+<li><a href="index.html#documentation" id="toc-documentation"><span class="toc-section-number">1.3</span> Documentation<span></span></a></li>
+<li><a href="index.html#testing" id="toc-testing"><span class="toc-section-number">1.4</span> Testing<span></span></a></li>
+<li><a href="index.html#reproducibility" id="toc-reproducibility"><span class="toc-section-number">1.5</span> Reproducibility<span></span></a></li>
+<li><a href="index.html#change-control" id="toc-change-control"><span class="toc-section-number">1.6</span> Change control<span></span></a></li>
+<li><a href="index.html#access-control" id="toc-access-control"><span class="toc-section-number">1.7</span> Access control<span></span></a></li>
+<li><a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings" id="toc-appendix-solvency-ii-internal-model-approval-process-data-review-findings"><span class="toc-section-number">1.8</span> Appendix: Solvency II: internal model approval process data review findings<span></span></a>
+<ul>
+<li><a href="index.html#sub-risk-5-it-environment-technology-and-tools" id="toc-sub-risk-5-it-environment-technology-and-tools"><span class="toc-section-number">1.8.1</span> Sub-risk 5: IT environment, technology and tools<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="software.html"><a href="software.html"><i class="fa fa-check"></i><b>2</b> Software</a><ul>
-<li class="chapter" data-level="2.1" data-path="software.html"><a href="software.html#core-r-applications"><i class="fa fa-check"></i><b>2.1</b> Core R Applications</a></li>
-<li class="chapter" data-level="2.2" data-path="software.html"><a href="software.html#supporting-software"><i class="fa fa-check"></i><b>2.2</b> Supporting Software</a></li>
-<li class="chapter" data-level="2.3" data-path="software.html"><a href="software.html#package-versions"><i class="fa fa-check"></i><b>2.3</b> Package Versions</a></li>
+<li><a href="software.html#software" id="toc-software"><span class="toc-section-number">2</span> Software<span></span></a>
+<ul>
+<li><a href="software.html#core-r-applications" id="toc-core-r-applications"><span class="toc-section-number">2.1</span> Core R Applications<span></span></a></li>
+<li><a href="software.html#supporting-software" id="toc-supporting-software"><span class="toc-section-number">2.2</span> Supporting Software<span></span></a></li>
+<li><a href="software.html#package-versions" id="toc-package-versions"><span class="toc-section-number">2.3</span> Package Versions<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="writing.html"><a href="writing.html"><i class="fa fa-check"></i><b>3</b> Writing R Code</a><ul>
-<li class="chapter" data-level="3.1" data-path="writing.html"><a href="writing.html#writing-style"><i class="fa fa-check"></i><b>3.1</b> Writing Style</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="writing.html"><a href="writing.html#tidyverse"><i class="fa fa-check"></i><b>3.1.1</b> Tidyverse</a></li>
-<li class="chapter" data-level="3.1.2" data-path="writing.html"><a href="writing.html#files"><i class="fa fa-check"></i><b>3.1.2</b> Files</a></li>
-<li class="chapter" data-level="3.1.3" data-path="writing.html"><a href="writing.html#syntax"><i class="fa fa-check"></i><b>3.1.3</b> Syntax</a></li>
-<li class="chapter" data-level="3.1.4" data-path="writing.html"><a href="writing.html#functions"><i class="fa fa-check"></i><b>3.1.4</b> Functions</a></li>
-<li class="chapter" data-level="3.1.5" data-path="writing.html"><a href="writing.html#pipes"><i class="fa fa-check"></i><b>3.1.5</b> Pipes</a></li>
-<li class="chapter" data-level="3.1.6" data-path="writing.html"><a href="writing.html#documentation-1"><i class="fa fa-check"></i><b>3.1.6</b> Documentation</a></li>
+<li><a href="writing.html#writing" id="toc-writing"><span class="toc-section-number">3</span> Writing R Code<span></span></a>
+<ul>
+<li><a href="writing.html#writing-style" id="toc-writing-style"><span class="toc-section-number">3.1</span> Writing Style<span></span></a>
+<ul>
+<li><a href="writing.html#tidyverse" id="toc-tidyverse"><span class="toc-section-number">3.1.1</span> Tidyverse<span></span></a></li>
+<li><a href="writing.html#files" id="toc-files"><span class="toc-section-number">3.1.2</span> Files<span></span></a></li>
+<li><a href="writing.html#syntax" id="toc-syntax"><span class="toc-section-number">3.1.3</span> Syntax<span></span></a></li>
+<li><a href="writing.html#functions" id="toc-functions"><span class="toc-section-number">3.1.4</span> Functions<span></span></a></li>
+<li><a href="writing.html#pipes" id="toc-pipes"><span class="toc-section-number">3.1.5</span> Pipes<span></span></a></li>
+<li><a href="writing.html#data-frames" id="toc-data-frames"><span class="toc-section-number">3.1.6</span> Data Frames<span></span></a></li>
+<li><a href="writing.html#documentation-1" id="toc-documentation-1"><span class="toc-section-number">3.1.7</span> Documentation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="writing.html"><a href="writing.html#structure"><i class="fa fa-check"></i><b>3.2</b> Structure</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="writing.html"><a href="writing.html#projects"><i class="fa fa-check"></i><b>3.2.1</b> Projects</a></li>
-<li class="chapter" data-level="3.2.2" data-path="writing.html"><a href="writing.html#folders"><i class="fa fa-check"></i><b>3.2.2</b> Folders</a></li>
-<li class="chapter" data-level="3.2.3" data-path="writing.html"><a href="writing.html#readme"><i class="fa fa-check"></i><b>3.2.3</b> README</a></li>
-<li class="chapter" data-level="3.2.4" data-path="writing.html"><a href="writing.html#r-packages"><i class="fa fa-check"></i><b>3.2.4</b> R Packages</a></li>
+<li><a href="writing.html#structure" id="toc-structure"><span class="toc-section-number">3.2</span> Structure<span></span></a>
+<ul>
+<li><a href="writing.html#projects" id="toc-projects"><span class="toc-section-number">3.2.1</span> Projects<span></span></a></li>
+<li><a href="writing.html#folders" id="toc-folders"><span class="toc-section-number">3.2.2</span> Folders<span></span></a></li>
+<li><a href="writing.html#readme" id="toc-readme"><span class="toc-section-number">3.2.3</span> README<span></span></a></li>
+<li><a href="writing.html#r-packages" id="toc-r-packages"><span class="toc-section-number">3.2.4</span> R Packages<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="writing.html"><a href="writing.html#r-markdown"><i class="fa fa-check"></i><b>3.3</b> R Markdown</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="writing.html"><a href="writing.html#markdown"><i class="fa fa-check"></i><b>3.3.1</b> Markdown</a></li>
-<li class="chapter" data-level="3.3.2" data-path="writing.html"><a href="writing.html#r-code-chunks"><i class="fa fa-check"></i><b>3.3.2</b> R Code Chunks</a></li>
-<li class="chapter" data-level="3.3.3" data-path="writing.html"><a href="writing.html#r-notebooks"><i class="fa fa-check"></i><b>3.3.3</b> R Notebooks</a></li>
-<li class="chapter" data-level="3.3.4" data-path="writing.html"><a href="writing.html#executing-chunks"><i class="fa fa-check"></i><b>3.3.4</b> Executing chunks</a></li>
-<li class="chapter" data-level="3.3.5" data-path="writing.html"><a href="writing.html#saving-and-sharing"><i class="fa fa-check"></i><b>3.3.5</b> Saving and sharing</a></li>
+<li><a href="writing.html#r-markdown" id="toc-r-markdown"><span class="toc-section-number">3.3</span> R Markdown<span></span></a></li>
+</ul></li>
+<li><a href="factoring.html#factoring" id="toc-factoring"><span class="toc-section-number">4</span> Factoring<span></span></a>
+<ul>
+<li><a href="factoring.html#simplicity" id="toc-simplicity"><span class="toc-section-number">4.1</span> <strong>1 Simplicity</strong><span></span></a></li>
+<li><a href="factoring.html#self-contained" id="toc-self-contained"><span class="toc-section-number">4.2</span> 2 Self Contained<span></span></a></li>
+<li><a href="factoring.html#clear-concise-and-validated-arguments" id="toc-clear-concise-and-validated-arguments"><span class="toc-section-number">4.3</span> <strong>3 Clear, Concise and Validated Arguments</strong><span></span></a></li>
+<li><a href="factoring.html#consistent-outputs" id="toc-consistent-outputs"><span class="toc-section-number">4.4</span> <strong>4 Consistent outputs</strong><span></span></a></li>
+<li><a href="factoring.html#documentation-2" id="toc-documentation-2"><span class="toc-section-number">4.5</span> <strong>5 Documentation</strong><span></span></a></li>
+<li><a href="factoring.html#testing-1" id="toc-testing-1"><span class="toc-section-number">4.6</span> <strong>6 Testing</strong><span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#data-io" id="toc-data-io"><span class="toc-section-number">5</span> Data Import and Export<span></span></a>
+<ul>
+<li><a href="data-io.html#best-practice-summary" id="toc-best-practice-summary"><span class="toc-section-number">5.1</span> Best Practice Summary<span></span></a>
+<ul>
+<li><a href="data-io.html#reading" id="toc-reading"><span class="toc-section-number">5.1.1</span> Reading<span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#csv" id="toc-csv"><span class="toc-section-number">5.2</span> CSV<span></span></a>
+<ul>
+<li><a href="data-io.html#reading-1" id="toc-reading-1"><span class="toc-section-number">5.2.1</span> Reading<span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#excel" id="toc-excel"><span class="toc-section-number">5.3</span> Excel<span></span></a>
+<ul>
+<li><a href="data-io.html#packages" id="toc-packages"><span class="toc-section-number">5.3.1</span> Packages<span></span></a></li>
+<li><a href="data-io.html#writexl" id="toc-writexl"><span class="toc-section-number">5.3.2</span> {writexl}<span></span></a></li>
+<li><a href="data-io.html#openxlsx" id="toc-openxlsx"><span class="toc-section-number">5.3.3</span> {openxlsx}<span></span></a></li>
+</ul></li>
+<li><a href="data-io.html#databases" id="toc-databases"><span class="toc-section-number">5.4</span> Databases<span></span></a></li>
+</ul></li>
+<li><a href="advanced.html#advanced" id="toc-advanced"><span class="toc-section-number">6</span> Advanced Topics<span></span></a>
+<ul>
+<li><a href="advanced.html#non-standard-evaluation" id="toc-non-standard-evaluation"><span class="toc-section-number">6.1</span> Non-Standard Evaluation<span></span></a>
+<ul>
+<li><a href="advanced.html#strings-and-quoting" id="toc-strings-and-quoting"><span class="toc-section-number">6.1.1</span> Strings and quoting<span></span></a></li>
+<li><a href="advanced.html#base-r-evaluation" id="toc-base-r-evaluation"><span class="toc-section-number">6.1.2</span> Base R evaluation<span></span></a></li>
+<li><a href="advanced.html#tidy-evaluation" id="toc-tidy-evaluation"><span class="toc-section-number">6.1.3</span> Tidy Evaluation<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="packages.html"><a href="packages.html"><i class="fa fa-check"></i><b>4</b> Recommended Packages</a><ul>
-<li class="chapter" data-level="4.1" data-path="packages.html"><a href="packages.html#data-wrangling"><i class="fa fa-check"></i><b>4.1</b> Data Wrangling</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="packages.html"><a href="packages.html#tidy-data"><i class="fa fa-check"></i><b>4.1.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="packages.html"><a href="packages.html#importing-data"><i class="fa fa-check"></i><b>4.1.2</b> Importing Data</a></li>
-<li class="chapter" data-level="4.1.3" data-path="packages.html"><a href="packages.html#transforming-data"><i class="fa fa-check"></i><b>4.1.3</b> Transforming Data</a></li>
+<li><a href="cheatsheets.html#cheatsheets" id="toc-cheatsheets"><span class="toc-section-number">7</span> Cheatsheets<span></span></a></li>
+<li><a href="data-io.html#packages" id="toc-packages"><span class="toc-section-number">8</span> Recommended Packages<span></span></a>
+<ul>
+<li><a href="packages.html#data-wrangling" id="toc-data-wrangling"><span class="toc-section-number">8.1</span> Data Wrangling<span></span></a>
+<ul>
+<li><a href="packages.html#tidy-data" id="toc-tidy-data"><span class="toc-section-number">8.1.1</span> Tidy Data<span></span></a></li>
+<li><a href="packages.html#importing-data" id="toc-importing-data"><span class="toc-section-number">8.1.2</span> Importing Data<span></span></a></li>
+<li><a href="packages.html#transforming-data" id="toc-transforming-data"><span class="toc-section-number">8.1.3</span> Transforming Data<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="packages.html"><a href="packages.html#visualising-data"><i class="fa fa-check"></i><b>4.2</b> Visualising Data</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="packages.html"><a href="packages.html#grammer-of-graphics"><i class="fa fa-check"></i><b>4.2.1</b> Grammer of Graphics</a></li>
-<li class="chapter" data-level="4.2.2" data-path="packages.html"><a href="packages.html#interactive-graphics"><i class="fa fa-check"></i><b>4.2.2</b> Interactive Graphics</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="development.html"><a href="development.html"><i class="fa fa-check"></i><b>5</b> Development Practices</a><ul>
-<li class="chapter" data-level="5.1" data-path="development.html"><a href="development.html#package-development"><i class="fa fa-check"></i><b>5.1</b> Package Development</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="development.html"><a href="development.html#documentation-2"><i class="fa fa-check"></i><b>5.1.1</b> Documentation</a></li>
-<li class="chapter" data-level="5.1.2" data-path="development.html"><a href="development.html#testing-1"><i class="fa fa-check"></i><b>5.1.2</b> Testing</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="development.html"><a href="development.html#version-control"><i class="fa fa-check"></i><b>5.2</b> Version Control</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="development.html"><a href="development.html#git"><i class="fa fa-check"></i><b>5.2.1</b> Git</a></li>
-<li class="chapter" data-level="5.2.2" data-path="development.html"><a href="development.html#github-flow"><i class="fa fa-check"></i><b>5.2.2</b> GitHub Flow</a></li>
-<li class="chapter" data-level="5.2.3" data-path="development.html"><a href="development.html#git-flow"><i class="fa fa-check"></i><b>5.2.3</b> Git Flow</a></li>
-<li class="chapter" data-level="5.2.4" data-path="development.html"><a href="development.html#gitkraken"><i class="fa fa-check"></i><b>5.2.4</b> GitKraken</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="development.html"><a href="development.html#managing-package-dependencies"><i class="fa fa-check"></i><b>5.3</b> Managing Package Dependencies</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="advanced.html"><a href="advanced.html"><i class="fa fa-check"></i><b>6</b> Advanced Topics</a><ul>
-<li class="chapter" data-level="6.1" data-path="advanced.html"><a href="advanced.html#non-standard-evaluation"><i class="fa fa-check"></i><b>6.1</b> Non-Standard Evaluation</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="advanced.html"><a href="advanced.html#strings-and-quoting"><i class="fa fa-check"></i><b>6.1.1</b> Strings and quoting</a></li>
-<li class="chapter" data-level="6.1.2" data-path="advanced.html"><a href="advanced.html#base-r-evaluation"><i class="fa fa-check"></i><b>6.1.2</b> Base R evaluation</a></li>
-<li class="chapter" data-level="6.1.3" data-path="advanced.html"><a href="advanced.html#tidy-evaluation"><i class="fa fa-check"></i><b>6.1.3</b> Tidy Evaluation</a></li>
+<li><a href="packages.html#visualising-data" id="toc-visualising-data"><span class="toc-section-number">8.2</span> Visualising Data<span></span></a>
+<ul>
+<li><a href="packages.html#grammer-of-graphics" id="toc-grammer-of-graphics"><span class="toc-section-number">8.2.1</span> Grammer of Graphics<span></span></a></li>
+<li><a href="packages.html#interactive-graphics" id="toc-interactive-graphics"><span class="toc-section-number">8.2.2</span> Interactive Graphics<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cheatsheets.html"><a href="cheatsheets.html"><i class="fa fa-check"></i><b>7</b> Cheatsheets</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li><a href="development.html#development" id="toc-development"><span class="toc-section-number">9</span> Development Practices<span></span></a>
+<ul>
+<li><a href="development.html#package-development" id="toc-package-development"><span class="toc-section-number">9.1</span> Package Development<span></span></a>
+<ul>
+<li><a href="development.html#documentation-3" id="toc-documentation-3"><span class="toc-section-number">9.1.1</span> Documentation<span></span></a></li>
+<li><a href="development.html#testing-2" id="toc-testing-2"><span class="toc-section-number">9.1.2</span> Testing<span></span></a></li>
+</ul></li>
+<li><a href="development.html#version-control" id="toc-version-control"><span class="toc-section-number">9.2</span> Version Control<span></span></a>
+<ul>
+<li><a href="development.html#git" id="toc-git"><span class="toc-section-number">9.2.1</span> Git<span></span></a></li>
+<li><a href="development.html#github-flow" id="toc-github-flow"><span class="toc-section-number">9.2.2</span> GitHub Flow<span></span></a></li>
+<li><a href="development.html#git-flow" id="toc-git-flow"><span class="toc-section-number">9.2.3</span> Git Flow<span></span></a></li>
+<li><a href="development.html#gitkraken" id="toc-gitkraken"><span class="toc-section-number">9.2.4</span> GitKraken<span></span></a></li>
+</ul></li>
+<li><a href="development.html#managing-package-dependencies" id="toc-managing-package-dependencies"><span class="toc-section-number">9.3</span> Managing Package Dependencies<span></span></a></li>
+</ul></li>
+<li><a href="references.html#references" id="toc-references">References<span></span></a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -226,37 +204,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">R Best Practice</h1>
 <p class="author"><em>Chad Goymer</em></p>
-<p class="date"><em>2019-12-17</em></p>
+<p class="date"><em>2022-08-04</em></p>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>This document sets out the recommendations for best practice when using R. The aim is to provide
-a consistent and comprehensive approach to using R for analysis and applications. It forms
-part of the wider guidance on end-user computing. The document is split into the following
-areas:</p>
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This document sets out the recommendations for best practice when using R. The aim is to provide a consistent and comprehensive approach to using R for analysis and applications. It forms part of the wider guidance on end-user computing. The document is split into the following areas:</p>
 <ol style="list-style-type: decimal">
-<li><strong><a href="software.html">Recommended Software</a></strong>: Details the recommended software to install, both
-the core R applications and supporting software.</li>
-<li><strong><a href="writing.html">Writing R Code</a></strong>: Gives guidance on on how to write R scripts and
-applications.</li>
-<li><strong><a href="packages.html">Recommended Packages</a></strong>: Lists the recommended packages to use for achieving
-common tasks.</li>
-<li><strong><a href="development.html">Development Practices</a></strong>: Describes the recommended approaches to
-developing in R.</li>
+<li><a href="software.html"><strong>Recommended Software</strong></a>: Details the recommended software to install, both the core R applications and supporting software.</li>
+<li><a href="writing.html"><strong>Writing R Code</strong></a>: Gives guidance on on how to write R scripts and applications.</li>
+<li><a href="packages.html"><strong>Recommended Packages</strong></a>: Lists the recommended packages to use for achieving common tasks.</li>
+<li><a href="development.html"><strong>Development Practices</strong></a>: Describes the recommended approaches to developing in R.</li>
 </ol>
-<p>This document is not supposed to be a comprehensive guide to using R. It gives guidance
-and sign-posts users to resources with more details.</p>
-<div id="end-user-computing" class="section level2">
-<h2><span class="header-section-number">1.1</span> End-User Computing</h2>
-<p>The Bank of England’s 2016 report
-<a href="https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/publication/solvency-ii-internal-model-approved-process-data-review-findings-09-02-2016.pdf?la=en&amp;hash=873ED57439F79A32D0F00D7255BC0E436E9F85E5"><em>Solvency II: internal model approval process data review findings</em></a>
-identifies end-user computing as a Solvency II risk. In particular, it states:</p>
+<p>This document is not supposed to be a comprehensive guide to using R. It gives guidance and sign-posts users to resources with more details.</p>
+<div id="end-user-computing" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> End-User Computing<a href="index.html#end-user-computing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Bank of England’s 2016 report <a href="https://www.bankofengland.co.uk/-/media/boe/files/prudential-regulation/publication/solvency-ii-internal-model-approved-process-data-review-findings-09-02-2016.pdf?la=en&amp;hash=873ED57439F79A32D0F00D7255BC0E436E9F85E5"><em>Solvency II: internal model approval process data review findings</em></a> identifies end-user computing as a Solvency II risk. In particular, it states:</p>
 <blockquote>
-<p>Spreadsheets and other user-developed applications are a form of information technology,
-and all information technology needs to be appropriately controlled.</p>
+<p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
 </blockquote>
-<p>End-user computing requires a user to think about the following areas when developing
-in R:</p>
+<p>End-user computing requires a user to think about the following areas when developing in R:</p>
 <ul>
 <li>Documentation</li>
 <li>Testing</li>
@@ -264,43 +230,25 @@ in R:</p>
 <li>Change control</li>
 <li>Access control</li>
 </ul>
-<p>The degree to which the above points need to be addressed depend on the result of a simple risk
-analysis. For example, if a piece of work is a one-off analysis and the results are not distributed
-further, then some simple documentation is all that is required. If the work is a complex set of
-functions, which important systems depend on, then each function must be clearly documented and
-user guides specified.</p>
+<p>The degree to which the above points need to be addressed depend on the result of a simple risk analysis. For example, if a piece of work is a one-off analysis and the results are not distributed further, then some simple documentation is all that is required. If the work is a complex set of functions, which important systems depend on, then each function must be clearly documented and user guides specified.</p>
 <p>More detail is given on each of the areas below.</p>
 </div>
-<div id="risk-analysis" class="section level2">
-<h2><span class="header-section-number">1.2</span> Risk Analysis</h2>
+<div id="risk-analysis" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Risk Analysis<a href="index.html#risk-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The level of documentation, testing and change control depends on two factors:</p>
 <ol style="list-style-type: decimal">
 <li>Complexity</li>
 <li>Criticality</li>
 </ol>
-<p><strong>Complexity:</strong> If a piece of work is very simple it may only require a short
-description, a manual test and saving to a secure location. However, if it is highly
-complex it is important for others, and your future self, to document it thoroughly,
-provide repeatable tests and save the scripts in version control.</p>
-<p><strong>Criticality:</strong> If a piece of work is a simple analysis for curiosity it may not
-need any controls applied to it. However, if it provides functionality which other
-systems rely on or informs major business decisions then it is important to ensure
-it is thoroughly tested and reviewed and changes are not made without careful
-consideration of how it affects dependents.</p>
-<p>In order to assess the level of controls our end-user computing standards require we perform a
-simple risk analysis by estimating the level of <em>complexity</em> and <em>criticality</em> of the work,
-using a scale of <strong>high</strong>, <strong>medium</strong> or <strong>low</strong>. If both are low then no further consideration
-is required. However, if any of the above factors are <em>medium</em> or <em>high</em> then the work is
-considered material and the following recommendations should be considered.</p>
+<p><strong>Complexity:</strong> If a piece of work is very simple it may only require a short description, a manual test and saving to a secure location. However, if it is highly complex it is important for others, and your future self, to document it thoroughly, provide repeatable tests and save the scripts in version control.</p>
+<p><strong>Criticality:</strong> If a piece of work is a simple analysis for curiosity it may not need any controls applied to it. However, if it provides functionality which other systems rely on or informs major business decisions then it is important to ensure it is thoroughly tested and reviewed and changes are not made without careful consideration of how it affects dependents.</p>
+<p>In order to assess the level of controls our end-user computing standards require we perform a simple risk analysis by estimating the level of <em>complexity</em> and <em>criticality</em> of the work, using a scale of <strong>high</strong>, <strong>medium</strong> or <strong>low</strong>. If both are low then no further consideration is required. However, if any of the above factors are <em>medium</em> or <em>high</em> then the work is considered material and the following recommendations should be considered.</p>
 </div>
-<div id="documentation" class="section level2">
-<h2><span class="header-section-number">1.3</span> Documentation</h2>
-<p>Documentation ensures everyone using the code understands what it does and how to use it
-effectively. For simple scripts, a commented header in the file is sufficient. For multi-file
-applications it is recommended that a separate
-<a href="http://r-pkgs.had.co.nz/release.html#readme">README</a> text file is added.</p>
-<div id="low-complexity-and-criticality" class="section level4">
-<h4><span class="header-section-number">1.3.0.1</span> Low Complexity and Criticality</h4>
+<div id="documentation" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Documentation<a href="index.html#documentation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Documentation ensures everyone using the code understands what it does and how to use it effectively. For simple scripts, a commented header in the file is sufficient. For multi-file applications it is recommended that a separate <a href="http://r-pkgs.had.co.nz/release.html#readme">README</a> text file is added.</p>
+<div id="low-complexity-and-criticality" class="section level4 hasAnchor" number="1.3.0.1">
+<h4><span class="header-section-number">1.3.0.1</span> Low Complexity and Criticality<a href="index.html#low-complexity-and-criticality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As a minimum, it is recommended that the following are documented with the code:</p>
 <ul>
 <li>Record the <strong>name</strong> of the project, analysis or application.</li>
@@ -309,140 +257,120 @@ applications it is recommended that a separate
 <li>Write <strong>instructions</strong> for how to use the code.</li>
 </ul>
 </div>
-<div id="medium-complexity" class="section level4">
-<h4><span class="header-section-number">1.3.0.2</span> Medium Complexity</h4>
-<p>As the complexity increases it becomes important to ensure users know how to use the code
-correctly. In addition to the list above, the following is also recommended:</p>
+<div id="medium-complexity" class="section level4 hasAnchor" number="1.3.0.2">
+<h4><span class="header-section-number">1.3.0.2</span> Medium Complexity<a href="index.html#medium-complexity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As the complexity increases it becomes important to ensure users know how to use the code correctly. In addition to the list above, the following is also recommended:</p>
 <ul>
 <li>Provide <strong>examples</strong> of usage.</li>
 </ul>
 </div>
-<div id="high-complexity" class="section level4">
-<h4><span class="header-section-number">1.3.0.3</span> High Complexity</h4>
-<p>For high complexity work it is important that the code is broken up into sections or functions.
-Therefore the following are recommended:</p>
+<div id="high-complexity" class="section level4 hasAnchor" number="1.3.0.3">
+<h4><span class="header-section-number">1.3.0.3</span> High Complexity<a href="index.html#high-complexity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For high complexity work it is important that the code is broken up into sections or functions. Therefore the following are recommended:</p>
 <ul>
 <li>Write <strong>separate descriptions</strong> for each section or function.</li>
 <li>Provide <strong>separate examples</strong> for each section or function.</li>
 <li>Write a <strong>user guide</strong></li>
 </ul>
 </div>
-<div id="medium-criticality" class="section level4">
-<h4><span class="header-section-number">1.3.0.4</span> Medium Criticality</h4>
-<p>As criticality increases it becomes important to ensure reproducibility is possible. Therefore,
-in addition to the minimum requirements above, following is recommended:</p>
+<div id="medium-criticality" class="section level4 hasAnchor" number="1.3.0.4">
+<h4><span class="header-section-number">1.3.0.4</span> Medium Criticality<a href="index.html#medium-criticality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As criticality increases it becomes important to ensure reproducibility is possible. Therefore, in addition to the minimum requirements above, following is recommended:</p>
 <ul>
 <li>Clearly define <strong>dependencies</strong> (packages used, input data used,…etc).</li>
 </ul>
 </div>
-<div id="high-criticality" class="section level4">
-<h4><span class="header-section-number">1.3.0.5</span> High Criticality</h4>
+<div id="high-criticality" class="section level4 hasAnchor" number="1.3.0.5">
+<h4><span class="header-section-number">1.3.0.5</span> High Criticality<a href="index.html#high-criticality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For high criticality work consider creating an <a href="http://r-pkgs.had.co.nz/">R package</a> then:</p>
 <ul>
 <li><strong>Document the package</strong> by creating a <a href="http://r-pkgs.had.co.nz/description.html">DESCRIPTION</a>.</li>
 <li><strong>Document each function</strong> using <a href="http://r-pkgs.had.co.nz/man.html"><code>Roxygen2</code></a>.</li>
-<li>Write a <strong>user guide</strong> as a <a href="http://r-pkgs.had.co.nz/vignettes.html">vignette</a> explaining
-its use.</li>
+<li>Write a <strong>user guide</strong> as a <a href="http://r-pkgs.had.co.nz/vignettes.html">vignette</a> explaining its use.</li>
 </ul>
 </div>
 </div>
-<div id="testing" class="section level2">
-<h2><span class="header-section-number">1.4</span> Testing</h2>
-<p>Testing is required to ensure the code actually does what is intended. It is also necesary to
-record the tests, so they can be repeated, and the results, as evidence of correctness.</p>
-<div id="low-complexity-and-criticality-1" class="section level4">
-<h4><span class="header-section-number">1.4.0.1</span> Low Complexity and Criticality</h4>
-<p>As a minimum, manual tests should be performed to ensure the user is comfortable the code is
-working as intended. In order to reproduce the tests it is recommended the following are
-recorded:</p>
+<div id="testing" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Testing<a href="index.html#testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Testing is required to ensure the code actually does what is intended. It is also necesary to record the tests, so they can be repeated, and the results, as evidence of correctness.</p>
+<div id="low-complexity-and-criticality-1" class="section level4 hasAnchor" number="1.4.0.1">
+<h4><span class="header-section-number">1.4.0.1</span> Low Complexity and Criticality<a href="index.html#low-complexity-and-criticality-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As a minimum, manual tests should be performed to ensure the user is comfortable the code is working as intended. In order to reproduce the tests it is recommended the following are recorded:</p>
 <ul>
 <li>Describe the <strong>test process</strong>.</li>
 <li>Record the <strong>test results</strong>.</li>
 </ul>
 </div>
-<div id="medium-complexity-1" class="section level4">
-<h4><span class="header-section-number">1.4.0.2</span> Medium Complexity</h4>
+<div id="medium-complexity-1" class="section level4 hasAnchor" number="1.4.0.2">
+<h4><span class="header-section-number">1.4.0.2</span> Medium Complexity<a href="index.html#medium-complexity-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As the complexity increases it becomes more important to ensure the code is tested, consider:</p>
 <ul>
 <li><strong>Comparisons</strong> with known results.</li>
 <li><strong>Regression tests</strong> to compare new results to previous ones.</li>
 </ul>
 </div>
-<div id="high-complexity-1" class="section level4">
-<h4><span class="header-section-number">1.4.0.3</span> High Complexity</h4>
-<p>For high complexity work it is important that the code is broken up into sections or
-functions. Therefore, following are recommended:</p>
+<div id="high-complexity-1" class="section level4 hasAnchor" number="1.4.0.3">
+<h4><span class="header-section-number">1.4.0.3</span> High Complexity<a href="index.html#high-complexity-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For high complexity work it is important that the code is broken up into sections or functions. Therefore, following are recommended:</p>
 <ul>
 <li><strong>Separate tests</strong> for each section or function.</li>
 <li><strong>Unit tests</strong> to compare with expected results when given simple inputs.</li>
 </ul>
 </div>
-<div id="medium-criticality-1" class="section level4">
-<h4><span class="header-section-number">1.4.0.4</span> Medium Criticality</h4>
-<p>As the criticality increases checks should be added within the code. This ensures the code and
-the results are tested each time it is run. The following are also recommended:</p>
+<div id="medium-criticality-1" class="section level4 hasAnchor" number="1.4.0.4">
+<h4><span class="header-section-number">1.4.0.4</span> Medium Criticality<a href="index.html#medium-criticality-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As the criticality increases checks should be added within the code. This ensures the code and the results are tested each time it is run. The following are also recommended:</p>
 <ul>
-<li><strong>Assertions on the inputs</strong> to ensure they are valid for the code (e.g. a particular value is
-positive).</li>
+<li><strong>Assertions on the inputs</strong> to ensure they are valid for the code (e.g. a particular value is positive).</li>
 <li>Check <strong>appropriate errors or warnings</strong> are returned when inputs are invalid.</li>
 </ul>
 </div>
-<div id="high-criticality-1" class="section level4">
-<h4><span class="header-section-number">1.4.0.5</span> High Criticality</h4>
+<div id="high-criticality-1" class="section level4 hasAnchor" number="1.4.0.5">
+<h4><span class="header-section-number">1.4.0.5</span> High Criticality<a href="index.html#high-criticality-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For high criticality work consider creating an <a href="pkg_book">R package</a> then:</p>
 <ul>
-<li><strong>Test the package</strong> using <a href="http://r-pkgs.had.co.nz/tests.html"><code>testthat</code></a> to write
-executable tests.</li>
+<li><strong>Test the package</strong> using <a href="http://r-pkgs.had.co.nz/tests.html"><code>testthat</code></a> to write executable tests.</li>
 <li>Execute <strong>regression tests</strong> whenever changes are made.</li>
 <li>Perform <strong>integration tests</strong> with dependent systems.</li>
 </ul>
 </div>
 </div>
-<div id="reproducibility" class="section level2">
-<h2><span class="header-section-number">1.5</span> Reproducibility</h2>
-<p>Important work should reproducible by others, and your future self. This means keeping
-track of inputs, parameters and code used to produce results.</p>
-<div id="low-complexity-and-criticality-2" class="section level4">
-<h4><span class="header-section-number">1.5.0.1</span> Low Complexity and Criticality</h4>
+<div id="reproducibility" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Reproducibility<a href="index.html#reproducibility" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Important work should reproducible by others, and your future self. This means keeping track of inputs, parameters and code used to produce results.</p>
+<div id="low-complexity-and-criticality-2" class="section level4 hasAnchor" number="1.5.0.1">
+<h4><span class="header-section-number">1.5.0.1</span> Low Complexity and Criticality<a href="index.html#low-complexity-and-criticality-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As a minimum, it should be clear where the inputs came from. The following are recommended:</p>
 <ul>
 <li>Clearly define how to <strong>import input data</strong> so it can be re-executed.</li>
 <li>Consider keeping a <strong>copy of input data and parameters</strong> alongside the code.</li>
 </ul>
 </div>
-<div id="medium-complexity-2" class="section level4">
-<h4><span class="header-section-number">1.5.0.2</span> Medium Complexity</h4>
+<div id="medium-complexity-2" class="section level4 hasAnchor" number="1.5.0.2">
+<h4><span class="header-section-number">1.5.0.2</span> Medium Complexity<a href="index.html#medium-complexity-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As the complexity increases consider using a structured project, for example.</p>
 <ul>
-<li>Use
-<strong><a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">RStudio projects</a></strong>,
-which allows you to reference files
-using relative paths and save open files and workspaces.</li>
-<li>Consider using <strong><a href="https://rmarkdown.rstudio.com/lesson-1.html">R markdown</a></strong> which captures
-description, code and results in a single document.</li>
+<li>Use <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects"><strong>RStudio projects</strong></a>, which allows you to reference files using relative paths and save open files and workspaces.</li>
+<li>Consider using <a href="https://rmarkdown.rstudio.com/lesson-1.html"><strong>R markdown</strong></a> which captures description, code and results in a single document.</li>
 </ul>
 </div>
-<div id="high-complexity-2" class="section level4">
-<h4><span class="header-section-number">1.5.0.3</span> High Complexity</h4>
+<div id="high-complexity-2" class="section level4 hasAnchor" number="1.5.0.3">
+<h4><span class="header-section-number">1.5.0.3</span> High Complexity<a href="index.html#high-complexity-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For high complexity work it the following are recommended:</p>
 <ul>
-<li>It is <strong>peer reviewed</strong>. The best way to ensure others can reproduce your work is to get a peer
-review.</li>
-<li><strong>Avoid referencing external files</strong>, unless you can be positive they will always be available
-in the specified location. Even then, it is worth <strong>caching external files</strong> in a subfolder, if
-they are not too large.</li>
+<li>It is <strong>peer reviewed</strong>. The best way to ensure others can reproduce your work is to get a peer review.</li>
+<li><strong>Avoid referencing external files</strong>, unless you can be positive they will always be available in the specified location. Even then, it is worth <strong>caching external files</strong> in a subfolder, if they are not too large.</li>
 </ul>
 </div>
-<div id="medium-criticality-2" class="section level4">
-<h4><span class="header-section-number">1.5.0.4</span> Medium Criticality</h4>
+<div id="medium-criticality-2" class="section level4 hasAnchor" number="1.5.0.4">
+<h4><span class="header-section-number">1.5.0.4</span> Medium Criticality<a href="index.html#medium-criticality-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As the criticality increases following is recommended:</p>
 <ul>
-<li>Output an <strong>audit log</strong> with a time stamp, username of the person executing the code and a
-summary of computing environment (e.g. package versions used).</li>
+<li>Output an <strong>audit log</strong> with a time stamp, username of the person executing the code and a summary of computing environment (e.g. package versions used).</li>
 </ul>
 </div>
-<div id="high-criticality-2" class="section level4">
-<h4><span class="header-section-number">1.5.0.5</span> High Criticality</h4>
+<div id="high-criticality-2" class="section level4 hasAnchor" number="1.5.0.5">
+<h4><span class="header-section-number">1.5.0.5</span> High Criticality<a href="index.html#high-criticality-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For high criticality work also consider:</p>
 <ul>
 <li>Holding <strong>inputs in version control</strong> or other system that allows you to retrieve old versions.</li>
@@ -450,13 +378,11 @@ summary of computing environment (e.g. package versions used).</li>
 </ul>
 </div>
 </div>
-<div id="change-control" class="section level2">
-<h2><span class="header-section-number">1.6</span> Change control</h2>
-<p>Change control is about managing updates and bug fixes to the code in a way that is
-tracked, reviewed, and approved. It ensures change, and its implications, is understood
-and can also be reversed, if necessary.</p>
-<div id="low-complexity-and-criticality-3" class="section level4">
-<h4><span class="header-section-number">1.6.0.1</span> Low Complexity and Criticality</h4>
+<div id="change-control" class="section level2 hasAnchor" number="1.6">
+<h2><span class="header-section-number">1.6</span> Change control<a href="index.html#change-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Change control is about managing updates and bug fixes to the code in a way that is tracked, reviewed, and approved. It ensures change, and its implications, is understood and can also be reversed, if necessary.</p>
+<div id="low-complexity-and-criticality-3" class="section level4 hasAnchor" number="1.6.0.1">
+<h4><span class="header-section-number">1.6.0.1</span> Low Complexity and Criticality<a href="index.html#low-complexity-and-criticality-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The simplest approach is to:</p>
 <ul>
 <li>Produce <strong>new files for each version</strong>.</li>
@@ -464,128 +390,93 @@ and can also be reversed, if necessary.</p>
 <li><strong>Document changes</strong>, concentrating on why rather than what.</li>
 </ul>
 </div>
-<div id="medium-complexity-3" class="section level4">
-<h4><span class="header-section-number">1.6.0.2</span> Medium Complexity</h4>
-<p>As complexity increases it becomes more important to track changes in a more robust manner.
-Instead of the approach above:</p>
+<div id="medium-complexity-3" class="section level4 hasAnchor" number="1.6.0.2">
+<h4><span class="header-section-number">1.6.0.2</span> Medium Complexity<a href="index.html#medium-complexity-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As complexity increases it becomes more important to track changes in a more robust manner. Instead of the approach above:</p>
 <ul>
 <li>Use <strong>version control software</strong>, such as <a href="https://git-scm.com/about">Git</a>, to track changes.</li>
 </ul>
 </div>
-<div id="high-complexity-3" class="section level4">
-<h4><span class="header-section-number">1.6.0.3</span> High Complexity</h4>
+<div id="high-complexity-3" class="section level4 hasAnchor" number="1.6.0.3">
+<h4><span class="header-section-number">1.6.0.3</span> High Complexity<a href="index.html#high-complexity-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><strong>Break changes down into tasks</strong> and implement each one separately.</li>
 <li>Create a <strong>branch for each task</strong> and merge back into the main branch once complete.</li>
 </ul>
 </div>
-<div id="medium-criticality-3" class="section level4">
-<h4><span class="header-section-number">1.6.0.4</span> Medium Criticality</h4>
-<p>As criticality increases it becomes more important to confirm changes are correct and
-appropriate.</p>
+<div id="medium-criticality-3" class="section level4 hasAnchor" number="1.6.0.4">
+<h4><span class="header-section-number">1.6.0.4</span> Medium Criticality<a href="index.html#medium-criticality-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As criticality increases it becomes more important to confirm changes are correct and appropriate.</p>
 <ul>
 <li>Use <strong>version control software</strong>, such as <a href="https://git-scm.com/about">Git</a>, to track changes.</li>
 <li>Ensure <strong>changes are peer reviewed</strong> and documented.</li>
 </ul>
 </div>
-<div id="high-criticality-3" class="section level4">
-<h4><span class="header-section-number">1.6.0.5</span> High Criticality</h4>
+<div id="high-criticality-3" class="section level4 hasAnchor" number="1.6.0.5">
+<h4><span class="header-section-number">1.6.0.5</span> High Criticality<a href="index.html#high-criticality-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>Use <strong>version control hosting application</strong>, such as <a href="https://help.github.com/">GitHub</a> or
-Microsoft’s <a href="https://azure.microsoft.com/en-us/product-categories/devops/">Azure DevOps</a>, to
-share changes.</li>
-<li><strong>Formalise reviews</strong> using
-<a href="https://help.github.com/articles/about-pull-requests/">pull requests</a>.</li>
+<li>Use <strong>version control hosting application</strong>, such as <a href="https://help.github.com/">GitHub</a> or Microsoft’s <a href="https://azure.microsoft.com/en-us/product-categories/devops/">Azure DevOps</a>, to share changes.</li>
+<li><strong>Formalise reviews</strong> using <a href="https://help.github.com/articles/about-pull-requests/">pull requests</a>.</li>
 <li><strong>Require approval</strong> from an appropriate person or group before deploying to production.</li>
 </ul>
 </div>
 </div>
-<div id="access-control" class="section level2">
-<h2><span class="header-section-number">1.7</span> Access control</h2>
-<p>There should be appropriate controls on who has access to the source code and/or results.
-The developers should be aware of who has access the work they are producing.</p>
-<div id="low-complexity-and-criticality-4" class="section level4">
-<h4><span class="header-section-number">1.7.0.1</span> Low Complexity and Criticality</h4>
+<div id="access-control" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Access control<a href="index.html#access-control" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There should be appropriate controls on who has access to the source code and/or results. The developers should be aware of who has access the work they are producing.</p>
+<div id="low-complexity-and-criticality-4" class="section level4 hasAnchor" number="1.7.0.1">
+<h4><span class="header-section-number">1.7.0.1</span> Low Complexity and Criticality<a href="index.html#low-complexity-and-criticality-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The simplest approach is:</p>
 <ul>
 <li>Save files to a network drive, with <strong>access controlled</strong> by the IT dept.</li>
 </ul>
 </div>
-<div id="medium-complexity-4" class="section level4">
-<h4><span class="header-section-number">1.7.0.2</span> Medium Complexity</h4>
-<p>As complexity increases it is important to ensure that no unintentional changes are propagated
-into production.</p>
+<div id="medium-complexity-4" class="section level4 hasAnchor" number="1.7.0.2">
+<h4><span class="header-section-number">1.7.0.2</span> Medium Complexity<a href="index.html#medium-complexity-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As complexity increases it is important to ensure that no unintentional changes are propagated into production.</p>
 <ul>
 <li><strong>Separate source code</strong> from results.</li>
-<li><strong>Maintain a protected version</strong>, which can only be updated by appropriate people
-(Note: GitHub provides this functionality out-of-the-box).</li>
+<li><strong>Maintain a protected version</strong>, which can only be updated by appropriate people (Note: GitHub provides this functionality out-of-the-box).</li>
 </ul>
 </div>
-<div id="high-complexity-4" class="section level4">
-<h4><span class="header-section-number">1.7.0.3</span> High Complexity</h4>
-<p>For high complexity work it is important only those with the appropriate level of
-knowledge can change the code.</p>
+<div id="high-complexity-4" class="section level4 hasAnchor" number="1.7.0.3">
+<h4><span class="header-section-number">1.7.0.3</span> High Complexity<a href="index.html#high-complexity-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For high complexity work it is important only those with the appropriate level of knowledge can change the code.</p>
 <ul>
-<li>Use <strong>version control hosting application</strong>, such as <a href="https://help.github.com/">GitHub</a> or
-Microsoft’s <a href="https://azure.microsoft.com/en-us/product-categories/devops/">Azure DevOps</a>, to
-share changes.</li>
+<li>Use <strong>version control hosting application</strong>, such as <a href="https://help.github.com/">GitHub</a> or Microsoft’s <a href="https://azure.microsoft.com/en-us/product-categories/devops/">Azure DevOps</a>, to share changes.</li>
 <li>Deploy to a <strong>production location</strong> for users.</li>
 </ul>
 </div>
-<div id="medium-criticality-4" class="section level4">
-<h4><span class="header-section-number">1.7.0.4</span> Medium Criticality</h4>
+<div id="medium-criticality-4" class="section level4 hasAnchor" number="1.7.0.4">
+<h4><span class="header-section-number">1.7.0.4</span> Medium Criticality<a href="index.html#medium-criticality-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>As criticality increases is important to ensure work is protected and backed up.</p>
 <ul>
 <li>Ensure an appropriate <strong>back-up and recovery strategy</strong> is in place.</li>
 <li>Ensure that the code has gone through an <strong>appropriate review</strong> before deploying to production.</li>
 </ul>
 </div>
-<div id="high-criticality-4" class="section level4">
-<h4><span class="header-section-number">1.7.0.5</span> High Criticality</h4>
-<p>For high criticality work production code should not be changable directly. A release
-process should be set up so appropriate approval must be given before code is promoted.</p>
+<div id="high-criticality-4" class="section level4 hasAnchor" number="1.7.0.5">
+<h4><span class="header-section-number">1.7.0.5</span> High Criticality<a href="index.html#high-criticality-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For high criticality work production code should not be changable directly. A release process should be set up so appropriate approval must be given before code is promoted.</p>
 <ul>
 <li>Maintain and <strong>regularly review the list of developers</strong> and users.</li>
-<li>Ensure that the code has gone through an <strong>appropriate release process</strong> before deploying to
-production.</li>
+<li>Ensure that the code has gone through an <strong>appropriate release process</strong> before deploying to production.</li>
 </ul>
 </div>
 </div>
-<div id="appendix-solvency-ii-internal-model-approval-process-data-review-findings" class="section level2">
-<h2><span class="header-section-number">1.8</span> Appendix: Solvency II: internal model approval process data review findings</h2>
-<div id="sub-risk-5-it-environment-technology-and-tools" class="section level3">
-<h3><span class="header-section-number">1.8.1</span> Sub-risk 5: IT environment, technology and tools</h3>
+<div id="appendix-solvency-ii-internal-model-approval-process-data-review-findings" class="section level2 hasAnchor" number="1.8">
+<h2><span class="header-section-number">1.8</span> Appendix: Solvency II: internal model approval process data review findings<a href="index.html#appendix-solvency-ii-internal-model-approval-process-data-review-findings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sub-risk-5-it-environment-technology-and-tools" class="section level3 hasAnchor" number="1.8.1">
+<h3><span class="header-section-number">1.8.1</span> Sub-risk 5: IT environment, technology and tools<a href="index.html#sub-risk-5-it-environment-technology-and-tools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <blockquote>
-<p>Spreadsheets and other user-developed applications are a form of information technology,
-and all information technology needs to be appropriately controlled.</p>
+<p>Spreadsheets and other user-developed applications are a form of information technology, and all information technology needs to be appropriately controlled.</p>
 </blockquote>
 <p><strong>Finding 9: end-user computing (EUC)</strong></p>
-<p>4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital
-and balance sheet modelling. The PRA does not have a view on whether end-user computing
-(EUC) is appropriate, as it is a form of IT, and all IT needs to be appropriately
-controlled. Where EUC is material to the internal model data flow, the PRA will be looking
-for appropriate controls for data quality such as reasonableness checks, input validations,
-peer reviews, systems environment configuration, logical access management, ongoing change
-controls (development, build , systems and user acceptance testing) and release management
-(including implementation and operational testing), disaster recovery, and documentation.</p>
-<p>4.37 Automation of spreadsheets reduces the risk of manual error (2012.4.42), but can
-introduce different problems such as reduced oversight, inadequate transparency about the
-extent of linking and the proliferation of nested spreadsheets and the attendant issue of
-‘broken links’.</p>
-<p>4.38 The 2012 report did not engage comprehensively with cyber risk. This is likely to be
-an area of increasing focus, following alerts and increasing concerns about security as
-firms move away from localised application and onto networked platforms. As noted in the
-Bank of England Financial Stability Report,1 cyber attacks can threaten financial stability
-by disrupting the provision of critical functions from the financial system to the real
-economy. The Financial Policy Committee has recommended that resilience testing be a
-regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber
-or business interruption are also indirectly exposed to cyber risk.</p>
+<p>4.36 Spreadsheets and other end-user applications (2012.4.39) remained common in capital and balance sheet modelling. The PRA does not have a view on whether end-user computing (EUC) is appropriate, as it is a form of IT, and all IT needs to be appropriately controlled. Where EUC is material to the internal model data flow, the PRA will be looking for appropriate controls for data quality such as reasonableness checks, input validations, peer reviews, systems environment configuration, logical access management, ongoing change controls (development, build , systems and user acceptance testing) and release management (including implementation and operational testing), disaster recovery, and documentation.</p>
+<p>4.37 Automation of spreadsheets reduces the risk of manual error (2012.4.42), but can introduce different problems such as reduced oversight, inadequate transparency about the extent of linking and the proliferation of nested spreadsheets and the attendant issue of ‘broken links’.</p>
+<p>4.38 The 2012 report did not engage comprehensively with cyber risk. This is likely to be an area of increasing focus, following alerts and increasing concerns about security as firms move away from localised application and onto networked platforms. As noted in the Bank of England Financial Stability Report,1 cyber attacks can threaten financial stability by disrupting the provision of critical functions from the financial system to the real economy. The Financial Policy Committee has recommended that resilience testing be a regular part of core firms’ cyber resilience assessment. Insurers providing cover for cyber or business interruption are also indirectly exposed to cyber risk.</p>
 <p><strong>Finding 10: IT infrastructure</strong></p>
-<p>4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear
-definition of user requirements, design, testing and appropriate controls for effective
-operation in business as usual. This continued to be an area of risk. One firm took seven
-years to implement a tactical system, and still has no strategic system for its upstream
-administration processes.</p>
+<p>4.39 Complex IT implementations (2012.4.44) can be challenging to manage without a clear definition of user requirements, design, testing and appropriate controls for effective operation in business as usual. This continued to be an area of risk. One firm took seven years to implement a tactical system, and still has no strategic system for its upstream administration processes.</p>
 
 </div>
 </div>
@@ -600,12 +491,13 @@ administration processes.</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -613,12 +505,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -633,7 +525,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": ["r-best-practice.pdf", "r-best-practice.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -641,19 +541,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
