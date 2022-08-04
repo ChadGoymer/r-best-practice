@@ -150,10 +150,14 @@ write_xlsx(
 
 ### {openxlsx}
 
-While most use-cases can be covered by the above packages, there are some that are not. For example, if you need to fill out an Excel template, {writexl} will not be suitable. In that case {openxlsx} can be used.
+While most use-cases can be covered by the above packages, there are some that are not. For example, if you need to
 
-Before using {openxlsx}, you should first review alternatives. For example, it might be better to export data as a separate Excel workbook using {writexl} then use lookups in the template. Using {openxlsx} is very powerful, but it may get difficult to maintain of the spreadsheet it is working with changes.
+1.  Create a spreadsheet that has multiple tables per sheet, or multiple headers per table.
+2.  Define the formatting for the output.
+3.  Fill out an existing Excel template
+
+In the above examples {writexl} will not be suitable. In these examples {openxlsx} is the package to use.
+
+Before using {openxlsx}, you should first review alternatives. For example, it might be better to export data as a separate Excel workbook using {writexl} then use lookups in the template. Using {openxlsx} is very powerful, but it can get complicated and difficult to maintain if the spreadsheet changes regularly.
 
 {openxlsx} can read, write and update Excel files, it can also get and set formatting and styles. It can be used to build complicated workbooks from scratch or update templates. Describing how it works is beyond the scope of this document, but if you would like to use it, it has a very good [introduction](https://ycphs.github.io/openxlsx/articles/Introduction.html).
-
-## Databases
